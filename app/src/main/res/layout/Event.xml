@@ -22,8 +22,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="Add Calendar Item"
+            android:textColor="@color/cardview_light_background"
             android:textSize="36sp"
             app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -107,12 +109,37 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:entries="@array/repeat_array" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/reminderText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Reminder:"
+                android:textSize="24sp" />
+
+            <Spinner
+                android:id="@+id/spinner3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/reminder_array" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/chooseGroupText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Select Group to Add Item "
             android:textSize="24sp" />
 
@@ -145,8 +172,11 @@
                 android:id="@+id/submitButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
+                android:background="@color/cardview_dark_background"
                 android:text="Submit"
+                android:textColor="@color/cardview_light_background"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="327dp" />
 
@@ -154,8 +184,11 @@
                 android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="Cancel" />
+                android:background="@color/cardview_dark_background"
+                android:text="Cancel"
+                android:textColor="@color/cardview_light_background" />
         </LinearLayout>
 
     </LinearLayout>

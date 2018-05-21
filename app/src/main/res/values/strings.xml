@@ -10,6 +10,14 @@
         <item>CSE 9001</item>
     </string-array>
 
+    <string-array name="reminder_array">
+        <item>5 minutes before</item>
+        <item>10 minutes before</item>
+        <item>30 minute before</item>
+        <item>1 hour before</item>
+        <item>1 day before</item>
+    </string-array>
+
     <string-array name="repeat_array">
         <item>Daily</item>
         <item>Weekly</item>
