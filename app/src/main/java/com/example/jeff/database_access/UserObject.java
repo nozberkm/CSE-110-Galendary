@@ -193,7 +193,15 @@ public class UserObject {
     }
 
 
+    public UserObject fetchFromDatabase(){
+        UserObject fetched =DatabaseRequest.get_user(getName(), getPasshash());
 
+        if(fetched == null) return null;
+
+        assignUserObject(fetched);
+
+        return this;
+    }
 
 
 //    private boolean updateDatabase(){
