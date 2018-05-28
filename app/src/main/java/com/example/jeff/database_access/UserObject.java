@@ -194,7 +194,7 @@ public class UserObject {
 
 
     public UserObject fetchFromDatabase(){
-        UserObject fetched =DatabaseRequest.get_user(getName(), getPasshash());
+        UserObject fetched =DatabaseRequest.get_user(getUsername(), getPasshash());
 
         if(fetched == null) return null;
 
