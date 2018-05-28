@@ -83,6 +83,13 @@ public class DatabaseRequest {
         return get_user(username, passhash);
     }
 
+    public static UserObject create_user(UserObject new_user){
+        UserObject created_user = create_user(new_user.getUsername(), new_user.getPasshash());
+        return created_user;
+    }
+
+
+
 
 
 

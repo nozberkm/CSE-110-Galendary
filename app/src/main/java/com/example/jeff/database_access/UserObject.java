@@ -23,6 +23,17 @@ public class UserObject {
     private ArrayList<EntryObject> entries;
     private ArrayList<EntryObject> new_entries;
 
+    private void assignUserObject(UserObject other){
+        id = other.id;
+        username = other.username;
+        passhash = other.passhash;
+        email_confirmed = other.email_confirmed;
+        name = other.name;
+        up_to_date = other.up_to_date;
+        groups = other.groups;
+        entries = other.entries;
+    }
+
 
     public UserObject(String username, String passhash){
         this.username = username;
@@ -171,7 +182,15 @@ public class UserObject {
     }
 
 
+    public UserObject createInDatabase(){
+        UserObject created = DatabaseRequest.create_user(this);
 
+        if(created == null) return null;
+
+        assignUserObject(created);
+
+        return this;
+    }
 
 
 
