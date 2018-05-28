@@ -8,34 +8,55 @@
     tools:context=".RegisterActivity2">
 
     <EditText
+        android:id="@+id/etRegister2Email"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="179dp"
+        android:background="#1d000000"
+        android:drawableLeft="@drawable/ic_action_login_email"
+        android:ems="10"
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
+        android:hint="Enter Email"
+        android:inputType="textEmailAddress"
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"/>
+
+    <EditText
         android:id="@+id/etRegister2Password"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="182dp"
+        android:layout_marginTop="243dp"
         android:background="#1d000000"
         android:drawableLeft="@drawable/ic_action_login_password"
         android:ems="10"
         android:fontFamily="sans-serif"
         android:hint="Enter Password"
         android:inputType="textPassword"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        />
 
     <EditText
         android:id="@+id/etRegister2Password2"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="242dp"
+        android:layout_marginBottom="210dp"
         android:background="#1d000000"
         android:drawableLeft="@drawable/ic_action_login_password"
         android:ems="10"
         android:fontFamily="sans-serif"
         android:hint="Re-enter Password"
         android:inputType="textPassword"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        />
 
     <ImageView
         android:id="@+id/imRegister2Logo"
@@ -72,5 +93,21 @@
                 android:textStyle="bold" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+    <EditText
+        android:id="@+id/etRegister2Error"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="151dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold|italic"
+        android:background="@android:color/transparent"
+        />
 
 </RelativeLayout>

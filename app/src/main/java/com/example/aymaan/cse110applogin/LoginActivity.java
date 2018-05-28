@@ -21,10 +21,11 @@ public class LoginActivity extends AppCompatActivity {
         final CardView cLoginLogin = (CardView) findViewById(R.id.cLoginLogin);
         final CardView cLoginRegister = (CardView) findViewById(R.id.cLoginRegister);
 
+
         cLoginRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent cLoginRegisterIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                Intent cLoginRegisterIntent = new Intent(LoginActivity.this, RegisterActivity2.class);
                 LoginActivity.this.startActivity(cLoginRegisterIntent);
             }
         });

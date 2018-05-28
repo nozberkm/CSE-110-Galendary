@@ -21,7 +21,9 @@
         android:gravity="center_vertical"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        />
 
     <EditText
         android:id="@+id/etLoginPassword"
@@ -36,7 +38,9 @@
         android:fontFamily="sans-serif"
         android:hint="Password"
         android:inputType="textPassword"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"
+        />
 
     <TextView
         android:id="@+id/tLoginRecovery"
