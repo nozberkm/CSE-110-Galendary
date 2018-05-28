@@ -19,7 +19,6 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".RecoveryActivity" />
         <activity android:name=".RegisterActivity2" />
-        <activity android:name=".RegisterActivity3" />
         <activity android:name=".SuccessActivity"></activity>
     </application>
 
