@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
         cRegisterRegister.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent cRegisterRegisterIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                Intent cRegisterRegisterIntent = new Intent(RegisterActivity.this, RegisterActivity3.class);
                 RegisterActivity.this.startActivity(cRegisterRegisterIntent);
             }
         });

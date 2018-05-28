@@ -36,5 +36,15 @@ public class LoginActivity extends AppCompatActivity {
                 LoginActivity.this.startActivity(tLoginRecoveryIntent);
             }
         });
+
+        cLoginLogin.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent cLoginLoginIntent = new Intent(LoginActivity.this, SuccessActivity.class);
+                LoginActivity.this.startActivity(cLoginLoginIntent);
+            }
+        });
+
+
     }
 }
