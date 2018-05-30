@@ -104,6 +104,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text=""
+        android:enabled="false"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textStyle="bold|italic"

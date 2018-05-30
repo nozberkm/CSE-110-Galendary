@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
                     etLoginError.setText("Login Failure");
                 } else {
                     //login success
-                    Intent cLoginLoginIntent = new Intent(LoginActivity.this, SuccessActivity.class);
+                    Intent cLoginLoginIntent = new Intent(LoginActivity.this, Home.class);
                     LoginActivity.this.startActivity(cLoginLoginIntent);
                 }
 
