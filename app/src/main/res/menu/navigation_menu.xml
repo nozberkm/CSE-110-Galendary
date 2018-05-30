@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="all"/>
+
+    <item android:id = "@+id/nav_home"
+        android:icon="@mipmap/baseline_home_black_24"
+        android:onClick="onNavigationMenuItemClick"
+        android:title="Home"
+        />
+
+    <item android:id = "@+id/nav_mygroups"
+        android:icon="@mipmap/baseline_group_black_24"
+        android:onClick="onNavigationMenuItemClick"
+        android:title="My Groups"
+        />
+
+    <item android:id = "@+id/nav_settings"
+        android:icon="@mipmap/baseline_settings_black_24"
+        android:onClick="onNavigationMenuItemClick"
+        android:title="Account Settings"
+        />
+
+    <item android:id = "@+id/nav_logout"
+        android:icon="@mipmap/baseline_exit_to_app_black_24"
+        android:onClick="onNavigationMenuItemClick"
+        android:title="Log Out"
+        />
+
+</menu>

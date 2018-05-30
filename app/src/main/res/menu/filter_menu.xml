@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="all"/>
+
+    <item
+        android:id="@+id/filter_personal"
+        android:icon="@drawable/baseline_radio_button_unchecked_24"
+        android:onClick="onFilterMenuItemClick"
+        android:checkable="true"
+        android:title="Personal" />
+
+    <item android:id = "@+id/filter_group"
+        android:icon="@drawable/baseline_radio_button_checked_24"
+        android:onClick="onFilterMenuItemClick"
+        android:checkable="true"
+        android:title="Groups"
+        />
+
+    <item android:title="Groups">
+        <menu>
+            <item android:id = "@+id/filter_group1"
+                android:icon="@drawable/baseline_radio_button_checked_24"
+                android:onClick="onFilterMenuItemClick"
+                android:checkable="true"
+                android:title="Group 1"
+                />
+
+            <item android:id = "@+id/filter_group2"
+                android:icon="@drawable/baseline_radio_button_unchecked_24"
+                android:onClick="onFilterMenuItemClick"
+                android:checkable="true"
+                android:title="Group 2"
+                />
+        </menu>
+
+    </item>
+
+
+
+</menu>
