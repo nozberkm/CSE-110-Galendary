@@ -26,4 +26,9 @@
         <item>Bi-Monthly</item>
         <item>Yearly</item>
     </string-array>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="radio_button_unchecked">\@drawable/baseline_radio_button_unchecked_24</string>
+    <string name="radio_button_checked">\@drawable/baseline_radio_button_checked_24</string>
 </resources>
