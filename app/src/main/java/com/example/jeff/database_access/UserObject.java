@@ -4,6 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserObject {
     private long id;
@@ -201,6 +203,34 @@ public class UserObject {
         assignUserObject(fetched);
 
         return this;
+    }
+
+    public ArrayList<GroupObject> getGroups(){
+        return groups;
+    }
+
+
+    public Map<String, ArrayList<EntryObject>> getEntryMap(ArrayList<GroupObject> groups){
+        if(groups == null) return null;
+        Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
+        for(GroupObject go : groups){
+            for(EntryObject eo : go.getEntries()){
+                String entry_day_str = eo.getDayString();
+                ArrayList<EntryObject> day_entries = entry_map.get(entry_day_str);
+                if(day_entries == null){
+                    day_entries = new ArrayList<>();
+                    day_entries.add(eo);
+                    entry_map.put(entry_day_str, day_entries);
+                } else {
+                    day_entries.add(eo);
+                }
+            }
+        }
+        return entry_map;
+    };
+
+    public Map<String, ArrayList<EntryObject>> getEntryMap(){
+        return getEntryMap(groups);
     }
 
 

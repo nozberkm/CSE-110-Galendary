@@ -222,4 +222,9 @@ public class GroupObject {
     }
 
 
+    public ArrayList<EntryObject> getEntries(){
+        return entry_list;
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.example.jeff.database_access;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -173,6 +174,12 @@ public class EntryObject {
         setUser(group.getUser());
     }
 
+
+    public String getDayString(){
+        DateFormat df = new SimpleDateFormat("yyyy/dd/MM");
+
+        return df.format(getStart());
+    }
 
     // TODO:
     public void deleteEntry(){
