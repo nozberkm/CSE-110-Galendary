@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#04189d"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
         <Space
@@ -20,7 +20,7 @@
             android:id="@+id/imageButton"
             android:layout_width="50dp"
             android:layout_height="match_parent"
-            android:background="#04189d"
+            android:background="@color/colorPrimary"
             android:tint="@android:color/background_light"
             app:srcCompat="@drawable/ic_stat_name" />
 
@@ -47,9 +47,9 @@
             android:layout_gravity="center"
             android:ems="10"
             android:gravity="center"
+            android:hint="Enter Group Code"
             android:inputType="textPersonName"
             android:singleLine="true"
-            android:text="Enter Group Code"
             android:textColor="@android:color/background_dark"
             android:visibility="visible" />
 
@@ -92,8 +92,8 @@
             android:layout_height="50dp"
             android:ems="10"
             android:gravity="center"
+            android:hint="Enter Group Name"
             android:inputType="textPersonName"
-            android:text="Group name "
             android:textColor="@android:color/background_dark" />
 
         <Button
@@ -104,14 +104,5 @@
             android:text="SEARCH"
             android:textColor="@android:color/background_light" />
     </LinearLayout>
-
-    <ListView
-        android:id="@+id/listv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        >
-
-    </ListView>
 
 </LinearLayout>
