@@ -216,6 +216,13 @@ public class GroupObject {
     }
 
 
+    public String generateEnrollmentCode(){
+        if(!isAdmin() || DatabaseRequest.generate_enrollment_code(this) == null)
+            return null;
+        return getEnrollmentCode();
+    }
+
+
     public static ArrayList<GroupObject> searchGroupsByName(String group_name){
 
         ArrayList<GroupObject> group_list = DatabaseRequest.search_group_name(group_name);
