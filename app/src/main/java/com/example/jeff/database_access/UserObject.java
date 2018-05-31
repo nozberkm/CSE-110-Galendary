@@ -210,6 +210,7 @@ public class UserObject {
     }
 
 
+    // Get a hashmap of entries so you can get an array list of entries for each day
     public Map<String, ArrayList<EntryObject>> getEntryMap(ArrayList<GroupObject> groups){
         if(groups == null) return null;
         Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
