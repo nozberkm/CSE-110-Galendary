@@ -213,7 +213,13 @@ public class GroupObject {
 
 
 
+    public static ArrayList<GroupObject> searchGroupsByName(String group_name){
 
+        ArrayList<GroupObject> group_list = DatabaseRequest.search_group_name(group_name);
+
+
+        return group_list;
+    }
 
 
 }
