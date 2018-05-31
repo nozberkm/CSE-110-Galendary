@@ -172,4 +172,10 @@ public class EntryObject {
         group.addEntryCheckGID(this);
         setUser(group.getUser());
     }
+
+
+    // TODO:
+    public void deleteEntry(){
+        //TODO:
+    }
 }
