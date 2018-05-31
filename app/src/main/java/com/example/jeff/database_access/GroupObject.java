@@ -211,7 +211,9 @@ public class GroupObject {
         return false;
     }
 
-
+    public void setEnrollmentCode(String enrollment_code){
+        this.enrollment_code = enrollment_code;
+    }
 
 
     public static ArrayList<GroupObject> searchGroupsByName(String group_name){

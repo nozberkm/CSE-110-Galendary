@@ -582,7 +582,7 @@ public class DatabaseRequest {
 
 
 
-    public static boolean generate_enrollment_code(String username, String passhash, long group_id) {
+    public static String generate_enrollment_code(String username, String passhash, long group_id) {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
                 {"command", "generate_enrollment_code"},
                 {"username", username},
@@ -595,25 +595,27 @@ public class DatabaseRequest {
             jo = GalendaryDB.server_request(pb);
         } catch (IOException e) {
             e.printStackTrace();
-            return false;
+            return null;
         }
 
-        if (jo.has("changed_rows")) {
+        if (jo.has("enrollment_code")) {
             try {
-                if (jo.getLong("changed_rows") == 1)
-                    return true;
+                if (!jo.isNull("enrollment_code"))
+                    return jo.getString("enrollment_code");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        return false;
+        return null;
     }
 
     public static GroupObject generate_enrollment_code(UserObject user, GroupObject group) {
         if(user == null || group == null) return null;
         if(!group.isAdmin()) return null;
 
-        if (generate_enrollment_code(user.getUsername(), user.getPasshash(), group.getId())) {
+        String enrollment_code = generate_enrollment_code(user.getUsername(), user.getPasshash(), group.getId());
+        if (enrollment_code != null) {
+            group.setEnrollmentCode(enrollment_code);
             return group;
         }
         return null;
