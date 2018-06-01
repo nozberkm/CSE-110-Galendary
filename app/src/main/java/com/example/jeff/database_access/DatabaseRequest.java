@@ -39,9 +39,10 @@ public class DatabaseRequest {
             e.printStackTrace();
         }
 
-        if (!jo.has("data")) {
+        if (jo == null || !jo.has("data")) {
             return null;
         }
+
         JSONArray data = null;
         try {
             data = jo.getJSONArray("data");
@@ -76,7 +77,7 @@ public class DatabaseRequest {
             e.printStackTrace();
         }
 
-        if (jo.has("err")) {
+        if (jo == null || jo.has("err")) {
             return null;
         }
 

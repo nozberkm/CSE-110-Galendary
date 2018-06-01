@@ -18,11 +18,10 @@
         android:drawableLeft="@drawable/ic_action_login_email"
         android:ems="10"
         android:fontFamily="sans-serif"
-        android:gravity="center_vertical"
         android:hint="Enter Email"
         android:inputType="textEmailAddress"
-        android:textColorHint="#FFFFFF"
-        android:textColor="#FFFFFF"/>
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF" />
 
     <EditText
         android:id="@+id/etRegister2Password"
@@ -32,14 +31,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="243dp"
         android:background="#1d000000"
-        android:drawableLeft="@drawable/ic_action_login_password"
+        android:drawableStart="@drawable/ic_action_login_password"
         android:ems="10"
         android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
         android:hint="Enter Password"
         android:inputType="textPassword"
-        android:textColorHint="#FFFFFF"
         android:textColor="#FFFFFF"
-        />
+        android:textColorHint="#FFFFFF" />
 
     <EditText
         android:id="@+id/etRegister2Password2"
@@ -52,11 +51,11 @@
         android:drawableLeft="@drawable/ic_action_login_password"
         android:ems="10"
         android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
         android:hint="Re-enter Password"
         android:inputType="textPassword"
-        android:textColorHint="#FFFFFF"
         android:textColor="#FFFFFF"
-        />
+        android:textColorHint="#FFFFFF" />
 
     <ImageView
         android:id="@+id/imRegister2Logo"
@@ -73,7 +72,7 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="71dp"
+        android:layout_marginBottom="50dp"
         app:cardBackgroundColor="@color/colorAccent"
         app:cardCornerRadius="25dp">
 
@@ -97,18 +96,17 @@
     <EditText
         android:id="@+id/etRegister2Error"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="80dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="151dp"
+        android:layout_marginBottom="113dp"
+        android:background="@android:color/transparent"
         android:ems="10"
+        android:enabled="false"
         android:inputType="textPersonName"
         android:text=""
-        android:enabled="false"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textStyle="bold|italic"
-        android:background="@android:color/transparent"
-        />
+        android:textStyle="bold|italic" />
 
 </RelativeLayout>
