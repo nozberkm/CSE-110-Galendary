@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.Toolbar
+            android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#ffe95451">
@@ -69,22 +70,22 @@
         app:headerLayout="@layout/navigation_header">
     </android.support.design.widget.NavigationView>
 
-    <android.support.design.widget.NavigationView
+    <!--<android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         app:headerLayout="@layout/filter_header"
         app:menu="@menu/filter_menu">
 
-    </android.support.design.widget.NavigationView>
+    </android.support.design.widget.NavigationView>-->
 
-    <!--<android.support.design.widget.NavigationView
+    <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="end"
         app:headerLayout="@layout/group_navigation_header"
         app:menu="@menu/group_navigation_menu">
 
-    </android.support.design.widget.NavigationView>-->
+    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
