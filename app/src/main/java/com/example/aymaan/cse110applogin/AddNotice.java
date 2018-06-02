@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 
@@ -22,12 +23,16 @@ public class AddNotice extends AppCompatActivity {
     ArrayAdapter adapter;
     Context context;
     private Button add;
+    private EditText etAddNotice;
+    private EditText etError;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addnotice);
         context=this;
         add = (Button) findViewById(R.id.addButton);
+        etAddNotice = (EditText) findViewById(R.id.editTextAddNotice);
+        etError = (EditText) findViewById(R.id.editTextAddNoticeError);
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
@@ -38,11 +43,16 @@ public class AddNotice extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-        add.setOnClickListener(new View.OnClickListener(){
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(v, "Add a new notice!!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                if (etAddNotice.getText().toString().equals("")) {
+                    etError.setText("Notice cannot be empty");
+                } else {
+                    etError.setText("");
+                    Snackbar.make(v, "Add Notice!!!!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
