@@ -11,17 +11,17 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/top_buttons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:orientation="horizontal">
+            android:layout_weight="1">
 
             <ImageButton
                 android:id="@+id/exit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0dp"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
 
@@ -29,10 +29,36 @@
                 android:id="@+id/edit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0dp"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:textAlignment="center"
                 app:srcCompat="@android:drawable/ic_menu_edit" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:layout_weight="0"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="0dp"
+                android:gravity="right|center_horizontal"
+                android:orientation="horizontal">
+
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
@@ -54,14 +80,14 @@
                 android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0dp"
+                android:layout_weight="0"
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
             <EditText
                 android:id="@+id/event_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0"
                 android:ems="10"
                 android:gravity="center"
                 android:inputType="date"
@@ -79,7 +105,7 @@
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0dp"
+                android:layout_weight="0"
                 app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
             <EditText
@@ -96,7 +122,7 @@
                 android:id="@+id/to"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0dp"
+                android:layout_weight="0"
                 android:text=" to " />
 
             <EditText
@@ -106,7 +132,8 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:inputType="time"
-                android:text="Event End Time" />
+                android:text="Event End Time"
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
