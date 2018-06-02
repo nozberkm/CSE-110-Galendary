@@ -85,7 +85,10 @@ public class MyGroups extends AppCompatActivity {
             case R.id.nav_settings:
                 Intent s= new Intent(MyGroups.this,AccountSettings.class);
                 startActivity(s);
+                break;
             case R.id.nav_logout:
+                Intent l= new Intent(MyGroups.this,LoginActivity.class);
+                startActivity(l);
                 break;
         }
 

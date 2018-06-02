@@ -26,6 +26,7 @@
         <activity android:name=".AccountSettings" />
         <activity android:name=".MyGroups" />
         <activity android:name=".JoinGroup" />
+        <activity android:name=".NoticeBoard" />
     </application>
 
 </manifest>
