@@ -625,4 +625,35 @@ public class DatabaseRequest {
         if(group.getUser() == null) return null;
         return generate_enrollment_code(group.getUser(), group);
     }
+    public static ArrayList<GroupObject> get_related_groups(String username, String passhash, long group_id) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder(new String[][]{
+                {"command", "get_related_groups"},
+                {"username", username},
+                {"passhash", passhash}
+        });
+        pb.push("group_id", group_id);
+
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+
+
+        if(jo.has("data")) return null;
+        JSONArray data = jo.getJSONArray("data");
+
+        ArrayList<GroupObject> related = new ArrayList<>();
+        for(int i=0; i<data.length(); ++i){
+            JSONObject gjo = data.getJSONObject(i);
+            related.add(new GroupObject(gjo));
+        }
+
+        return related;
+    }
+
+    public static ArrayList<GroupObject> get_related_groups(UserObject user, GroupObject group) throws IOException, JSONException {
+        return get_related_groups(user.getUsername(), user.getPasshash(), group.getId());
+    }
+
+    public static ArrayList<GroupObject> get_related_groups(GroupObject group) throws IOException, JSONException {
+        return get_related_groups(group.getUser(), group);
+    }
 }
