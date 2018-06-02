@@ -185,6 +185,11 @@ public class EntryObject {
         return getDayString(getStart());
     }
 
+
+
+
+
+
     // TODO:
     public void deleteEntry(){
         //TODO:

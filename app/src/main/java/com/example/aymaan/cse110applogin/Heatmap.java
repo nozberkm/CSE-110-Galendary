@@ -5,12 +5,29 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.jeff.database_access.EntryObject;
+import com.example.jeff.database_access.GroupObject;
+import com.example.jeff.database_access.UserObject;
+
+import java.security.acl.Group;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.EventObject;
+import java.util.Map;
+
+import static com.example.aymaan.cse110applogin.Home.clickDate;
+
 public class Heatmap extends AppCompatActivity {
     private TextView[][] idArray;
+    private ArrayList<UserObject> users;
+    private int iX, jX;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heatmap);
+
+        Bundle extras = getIntent().getExtras();
+        GroupObject group = (GroupObject) extras.get("groupObj");
 
         idArray = new TextView[19][7];
         idArray[0][0] = findViewById(R.id.m6);
@@ -155,16 +172,33 @@ public class Heatmap extends AppCompatActivity {
     }
 
     public void myMethod(View view) {
-        int iX = -1;
-        int jX = -1;
+        this.iX = -1;
+        this.jX = -1;
         for (int i = 0; i < idArray.length; i++) {
             for (int j = 0; j < idArray[0].length; j++) {
                 if (view.getId() == idArray[i][j].getId()) {
-                    iX = i;
-                    jX = j;
+                    this.iX = i;
+                    this.jX = j;
                 }
             }
 
         }
     }
+
+    /*private colorGrid() {
+        Date mapDate;
+        if(clickDate != null)
+            mapDate = clickDate;
+        else
+            mapDate = new Date();
+
+        ArrayList<EventObject> current;
+        for (int i = 0; i < users.size(); i++){
+            current = users.get(i);
+
+        }
+    }*/
+
+
+
 }
