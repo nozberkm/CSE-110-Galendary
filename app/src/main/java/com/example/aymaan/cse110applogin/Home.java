@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,17 +59,6 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
-            @Override
-            public void onDayClick(Date dateClicked) {
-                
-            }
-
-            @Override
-            public void onMonthScroll(Date firstDayOfNewMonth) {
-                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
-            }
-        });
 
     }
 
