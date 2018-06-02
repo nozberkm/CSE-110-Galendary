@@ -1,5 +1,7 @@
 package com.example.jeff.database_access;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,6 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class UserObject {
+    private static final String LOG_TAG = "UserO";
+    private static void LOG_DEBUG(String msg){
+        Log.d(LOG_TAG, msg);
+    }
+
     private long id;
     private String username; //Username is email in most cases
     private String passhash;
@@ -202,6 +209,8 @@ public class UserObject {
     public void synchronize(){
         synchronizeGroups();
         synchronizeEntries();
+
+        LOG_DEBUG("Synchronized user");
 
 
     }
