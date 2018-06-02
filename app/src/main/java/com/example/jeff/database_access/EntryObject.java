@@ -185,10 +185,6 @@ public class EntryObject {
         return getDayString(getStart());
     }
 
-    public String getDayOfWeek() {
-        String day = new SimpleDateFormat("EEE").format(getStart());
-        return day;
-    }
 
 
 
