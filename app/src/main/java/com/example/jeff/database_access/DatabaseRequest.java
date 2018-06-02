@@ -637,7 +637,7 @@ public class DatabaseRequest {
         JSONObject jo = GalendaryDB.server_request(pb);
 
 
-        if(jo.has("data")) return null;
+        if(!jo.has("data")) return null;
         JSONArray data = jo.getJSONArray("data");
 
         ArrayList<GroupObject> related = new ArrayList<>();
