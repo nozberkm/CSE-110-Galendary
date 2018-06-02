@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 public class MyGroups extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mToggle;
+    private android.support.v7.widget.Toolbar mToolbar;
 
     ListView lv;
     ArrayAdapter adapter;
@@ -60,12 +62,25 @@ public class MyGroups extends AppCompatActivity {
             }
         });
 
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.myGroupsLayout);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
+
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (mToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
