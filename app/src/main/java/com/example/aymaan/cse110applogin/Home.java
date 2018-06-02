@@ -63,7 +63,7 @@ public class Home extends AppCompatActivity {
         if(EntryMap!= null) {
             toolbar.setTitle("Man");
             for(String s: EntryMap.keySet()) {
-
+                
             }
         }
         else {
