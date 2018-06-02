@@ -39,25 +39,39 @@ public class GroupObject {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        try {
-            enrollment_code = jo.isNull("enrollment_code") ? null : jo.getString("enrollment_code");
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("enrollment_code")) {
+            try {
+                enrollment_code = jo.isNull("enrollment_code") ? null : jo.getString("enrollment_code");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            is_public = jo.getInt("is_public") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("is_public")) {
+            try {
+                is_public = jo.getInt("is_public") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            is_public = false;
         }
-        try {
-            looking_for_subgroups = jo.getInt("looking_for_subgroups") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("looking_for_subgroups")) {
+            try {
+                looking_for_subgroups = jo.getInt("looking_for_subgroups") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            looking_for_subgroups = false;
         }
-        try {
-            individual = jo.getInt("individual") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("individual")) {
+            try {
+                individual = jo.getInt("individual") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            individual = false;
         }
 
         if(jo.has("admin")) {
