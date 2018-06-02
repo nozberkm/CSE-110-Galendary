@@ -16,15 +16,18 @@ import android.widget.ListView;
 
 public class JoinGroup extends AppCompatActivity {
 
-
+    ListView lstview;
+    ArrayAdapter adapter;
     Context context;
     private Button search;
     private Button join;
+    String[] items={"Random Group 1","Random Group 2","Random Group 3","Random Group 4","Random Group 5"};
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.join_group);
         context=this;
+        lstview=(ListView)findViewById(R.id.listv);
         join = (Button) findViewById(R.id.button);
         search = (Button) findViewById(R.id.button2);
 
@@ -37,7 +40,32 @@ public class JoinGroup extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, items);
+                lstview.setAdapter(adapter);
+            }
+        });
 
+        lstview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String text = lstview.getItemAtPosition(position).toString();
+                System.out.println(text);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Do you want to send " + text + " a join request?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //send join request
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do nothing
+                    }
+                });
+                builder.create().show();
             }
         });
     }
