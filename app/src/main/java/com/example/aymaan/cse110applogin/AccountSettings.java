@@ -43,7 +43,10 @@ public class AccountSettings extends AppCompatActivity {
             case R.id.nav_settings:
                 Intent s= new Intent(AccountSettings.this,AccountSettings.class);
                 startActivity(s);
+                break;
             case R.id.nav_logout:
+                Intent l= new Intent(AccountSettings.this,LoginActivity.class);
+                startActivity(l);
                 break;
         }
 

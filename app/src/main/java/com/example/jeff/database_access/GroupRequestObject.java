@@ -32,7 +32,7 @@ public class GroupRequestObject {
 
     public String toString(){
         //TODO:
-        return "{todo}";
-//        return "Group:" + getGroupId() + ", User:" + getUserId() + ", " + (entries==null ? 0 : entries.size()) + ')';
+        return"{todo}";
+//        retur n "Group:" + getGroupId() + ", User:" + getUserId() + ", " + (entries==null ? 0 : entries.size()) + ')';
     }
 }

@@ -58,6 +58,15 @@ public class RegisterActivity2 extends AppCompatActivity {
                     etRegister2Error.setText("Passwords do not match");
 
                 }
+                else if (username.equals("") && (etRegister2Password.getText().toString().equals("") || etRegister2Password2.getText().toString().equals(""))) {
+                    etRegister2Error.setText("Username and Password required");
+                }
+                else if (etRegister2Password.getText().toString().equals("") || etRegister2Password2.getText().toString().equals("")) {
+                    etRegister2Error.setText("Password can not be empty");
+                }
+                else if (username.equals("")) {
+                    etRegister2Error.setText("Username can not be empty");
+                }
                 else{
                     UserObject user = new UserObject(username,password1);
                     UserObject db_user = user.createInDatabase();

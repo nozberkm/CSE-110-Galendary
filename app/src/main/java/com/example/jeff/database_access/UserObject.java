@@ -4,6 +4,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserObject {
     private long id;
@@ -16,6 +18,10 @@ public class UserObject {
 
 //    private boolean exists;
     private boolean up_to_date;
+
+
+    //Whether or not this user is an active, signed in user or a passive user
+    private boolean active;
 
     private ArrayList<GroupObject> groups;
     private ArrayList<GroupObject> new_groups;
@@ -32,6 +38,7 @@ public class UserObject {
         up_to_date = other.up_to_date;
         groups = other.groups;
         entries = other.entries;
+        active = other.active;
     }
 
 
@@ -39,42 +46,81 @@ public class UserObject {
         this.username = username;
         this.passhash = passhash;
         up_to_date = false;
+        active = false;
+    }
+
+
+
+    public UserObject(JSONObject jo, boolean active_user){
+        if(active_user){
+            assignUserObject(new UserObject(jo));
+        } else {
+            if(jo.has("username")){
+                try {
+                    username = jo.isNull("username") ? null : jo.getString("username");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(jo.has("id")){
+                try {
+                    id = jo.getLong("id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(jo.has("name")){
+                try {
+                    name = jo.isNull("name") ? null : jo.getString("name");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public UserObject(JSONObject jo){
-        try {
-            id = jo.getLong("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            username = jo.getString("username");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            passhash = jo.getString("passhash");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        if(!jo.has("passhash")){
+            assignUserObject(new UserObject(jo, false));
+        } else {
+
+            try {
+                id = jo.getLong("id");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                username = jo.getString("username");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                passhash = jo.getString("passhash");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 //        email = jo.getString("email");
-        try {
-            email_confirmed = jo.getInt("email_confirmed") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            notifications = jo.getInt("notifications") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            name = jo.isNull("name") ? null : jo.getString("name");
-        } catch (JSONException e) {
-            e.printStackTrace();
+            try {
+                email_confirmed = jo.getInt("email_confirmed") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                notifications = jo.getInt("notifications") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                name = jo.isNull("name") ? null : jo.getString("name");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            up_to_date = (id >= 0);
+
+            active = (username != null && passhash != null);
         }
 
-        up_to_date = (id >= 0);
     }
 
     public long getId() { return id; }
@@ -203,7 +249,38 @@ public class UserObject {
         return this;
     }
 
+    public ArrayList<GroupObject> getGroups(){
+        return groups;
+    }
 
+
+    // Get a hashmap of entries so you can get an array list of entries for each day
+    public Map<String, ArrayList<EntryObject>> getEntryMap(ArrayList<GroupObject> groups){
+        if(groups == null) return null;
+        Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
+        for(GroupObject go : groups){
+            for(EntryObject eo : go.getEntries()){
+                String entry_day_str = eo.getDayString();
+                ArrayList<EntryObject> day_entries = entry_map.get(entry_day_str);
+                if(day_entries == null){
+                    day_entries = new ArrayList<>();
+                    day_entries.add(eo);
+                    entry_map.put(entry_day_str, day_entries);
+                } else {
+                    day_entries.add(eo);
+                }
+            }
+        }
+        return entry_map;
+    };
+
+    public Map<String, ArrayList<EntryObject>> getEntryMap(){
+        return getEntryMap(groups);
+    }
+
+    public boolean isActive(){
+        return active;
+    }
 //    private boolean updateDatabase(){
 //
 //

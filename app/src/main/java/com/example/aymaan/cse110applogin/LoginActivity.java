@@ -69,11 +69,19 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 UserObject user = new UserObject(username, password);
+                //etLoginError.setText(username);
+                if (etLoginPassword.getText().toString().equals("")) {
+                    etLoginError.setText("Password can not be empty");
+                }
+                else if (username.equals("")) {
+                    etLoginError.setText("Username can not be empty");
+                }
 
-                if(user.fetchFromDatabase() == null){
+                else if(user.fetchFromDatabase() == null){
                     //login failed
                     etLoginError.setText("Login Failure");
-                } else {
+                }
+                else {
                     //login success
                     Intent cLoginLoginIntent = new Intent(LoginActivity.this, Home.class);
                     LoginActivity.this.startActivity(cLoginLoginIntent);

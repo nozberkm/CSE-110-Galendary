@@ -22,9 +22,38 @@
         <activity android:name=".RecoveryActivity" />
         <activity android:name=".RegisterActivity2" />
         <activity android:name=".SuccessActivity" />
-        <activity android:name=".Home" />
-        <activity android:name=".AccountSettings" />
-        <activity android:name=".MyGroups" />
+        <activity
+            android:name=".Home"
+            android:label="Home"
+            />
+        <activity
+            android:name=".AccountSettings"
+            android:label="Account Settings"
+            />
+        <activity
+            android:name=".MyGroups"
+            android:label="My Groups"
+            />
+        <activity
+            android:name=".JoinGroup"
+            android:label="Join Group"
+            />
+        <activity
+            android:name=".NoticeBoard"
+            android:label="Notice Board"
+            />
+        <activity
+            android:name=".AddNotice"
+            android:label="Add Notice"
+            />
+        <activity
+            android:name=".RelatedGroups"
+            android:label="Related Groups"
+            />
+        <activity
+            android:name=".Heatmap"
+            android:label="Heatmap"
+            />
     </application>
 
 </manifest>

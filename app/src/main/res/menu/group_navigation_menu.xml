@@ -5,32 +5,38 @@
 
     <item android:id = "@+id/group_nav_noticeBoard"
         android:icon="@mipmap/baseline_dvr_black_24"
+        android:onClick="onGroupNavigationMenuItemClick"
         android:title="Notice Board"
         />
 
     <item android:id = "@+id/group_nav_members"
         android:icon="@mipmap/baseline_group_black_24"
+        android:onClick="onGroupNavigationMenuItemClick"
         android:title="Group Members"
         />
 
     <item android:id = "@+id/group_nav_heatmap"
         android:icon="@mipmap/baseline_assessment_black_24"
+        android:onClick="onGroupNavigationMenuItemClick"
         android:title="Heatmap"
         />
 
 
     <item android:id = "@+id/group_nav_contactAdmin"
         android:icon="@mipmap/baseline_contact_phone_black_24"
+        android:onClick="onGroupNavigationMenuItemClick"
         android:title="Contact Admin"
         />
 
     <item android:id = "@+id/group_nav_relatedGroups"
         android:icon="@mipmap/baseline_language_black_24"
+        android:onClick="onGroupNavigationMenuItemClick"
         android:title="Related Groups"
         />
 
     <item android:id = "@+id/group_nav_leaveGroup"
         android:icon="@mipmap/baseline_exit_to_app_black_24"
+        android:onClick="onGroupNavigationMenuItemClick"
         android:title="Leave Group"
         />
 

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GroupObject {
@@ -39,25 +40,39 @@ public class GroupObject {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        try {
-            enrollment_code = jo.isNull("enrollment_code") ? null : jo.getString("enrollment_code");
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("enrollment_code")) {
+            try {
+                enrollment_code = jo.isNull("enrollment_code") ? null : jo.getString("enrollment_code");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-        try {
-            is_public = jo.getInt("is_public") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("is_public")) {
+            try {
+                is_public = jo.getInt("is_public") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            is_public = false;
         }
-        try {
-            looking_for_subgroups = jo.getInt("looking_for_subgroups") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("looking_for_subgroups")) {
+            try {
+                looking_for_subgroups = jo.getInt("looking_for_subgroups") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            looking_for_subgroups = false;
         }
-        try {
-            individual = jo.getInt("individual") == 1;
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(jo.has("individual")) {
+            try {
+                individual = jo.getInt("individual") == 1;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } else {
+            individual = false;
         }
 
         if(jo.has("admin")) {
@@ -211,9 +226,61 @@ public class GroupObject {
         return false;
     }
 
+    public void setEnrollmentCode(String enrollment_code){
+        this.enrollment_code = enrollment_code;
+    }
 
 
+    public String generateEnrollmentCode(){
+        if(!isAdmin() || DatabaseRequest.generate_enrollment_code(this) == null)
+            return null;
+        return getEnrollmentCode();
+    }
 
 
+    public static ArrayList<GroupObject> searchGroupsByName(String group_name){
+
+        ArrayList<GroupObject> group_list = DatabaseRequest.search_group_name(group_name);
+
+
+        return group_list;
+    }
+
+
+    public ArrayList<EntryObject> getEntries(){
+        return entry_list;
+    }
+
+
+    public ArrayList<GroupObject> getRelatedGroups(){
+        ArrayList<GroupObject> toret = null;
+        try {
+            toret = DatabaseRequest.get_related_groups(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+//            Log.e("GROUP", "Failed to get related groups, server issue possible");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return toret;
+    }
+
+
+    // groupA is the group you are an admin of, where you wish GroupB to have access to
+    // the enrollment codes and name of groupA
+    public boolean addGroupToRelated(GroupObject groupA){
+        if(!groupA.isAdmin()) return false;
+
+        boolean status = false;
+        try {
+            status = DatabaseRequest.add_group_to_related(groupA, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return status;
+    }
 
 }

@@ -33,12 +33,17 @@ public class ParameterBuilder {
         push("username", user.getUsername());
         push("passhash", user.getPasshash());
     }
+    public ParameterBuilder(String command){
+        this();
+        push("command", command);
+    }
 
 
 
     public int size() {
         return param_map.size();
     }
+
 
     public ParameterBuilder push(String key, String value){
         param_map.put(key, value);
@@ -63,6 +68,13 @@ public class ParameterBuilder {
                 : new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(date));
     }
 
+    public ParameterBuilder push_username(String username){
+        return push("username", username);
+    }
+    public ParameterBuilder push_passhash(String passhash){
+        return push("passhash", passhash);
+    }
+
 
 
     public ParameterBuilder push(Map<String, String> map){
@@ -79,6 +91,10 @@ public class ParameterBuilder {
         for(int i=0; i<params.length; ++i)
             push(params[i]);
         return this;
+    }
+
+    public ParameterBuilder push(UserObject user){
+        return push("username", user.getName()).push("passhash", user.getPasshash());
     }
 
 
