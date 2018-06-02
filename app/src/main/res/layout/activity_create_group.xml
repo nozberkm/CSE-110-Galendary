@@ -7,85 +7,88 @@
     android:layout_height="match_parent"
     tools:context=".CreateGroup">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <include
+        layout="@layout/navigation_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:paddingLeft="10dp">
 
         <TextView
-            android:id="@+id/myEditText"
-            android:layout_width="340dp"
+            android:id="@+id/textView2"
+            android:layout_width="144dp"
+            android:layout_height="35dp"
+            android:text="Group Name"
+            android:textColor="?android:attr/colorForeground"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="81dp" />
+
+        <EditText
+            android:id="@+id/editTextGroupName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create Group"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="30sp" />
-    </android.support.v7.widget.Toolbar>
+            android:ems="10"
+            android:inputType="textPersonName"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="220dp" />
 
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="144dp"
-        android:layout_height="35dp"
-        android:text="Group Name"
-        android:textColor="?android:attr/colorForeground"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="81dp" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="144dp"
+            android:layout_height="35dp"
+            android:text="Description"
+            android:textColor="?android:attr/colorForeground"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="185dp" />
+
+        <EditText
+            android:id="@+id/editTextGroupDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="116dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+        <Switch
+            android:id="@+id/switch1"
+            android:layout_width="336dp"
+            android:layout_height="41dp"
+            android:text="Public"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="298dp" />
+
+    </LinearLayout>
 
     <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/editTextCreateError"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@android:color/transparent"
         android:ems="10"
-        android:inputType="textPersonName"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="220dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="40dp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="144dp"
-        android:layout_height="35dp"
-        android:text="Description"
-        android:textColor="?android:attr/colorForeground"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="185dp" />
-
-    <EditText
-        android:id="@+id/editText3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="116dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="40dp" />
-
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="336dp"
-        android:layout_height="41dp"
-        android:text="Public"
-        android:textSize="24sp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="298dp" />
-
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="60dp" />
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#ff0033"
+        android:textStyle="bold|italic" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -93,7 +96,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/cancelCreateButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -103,7 +106,7 @@
             tools:layout_editor_absoluteY="445dp" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/createGroupButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
