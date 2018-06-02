@@ -21,16 +21,30 @@ import java.util.List;
 public class Home extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
+    private Toolbar toolbar;
+    private ActionBar actionBar;
+    private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
+    private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
+    private CompactCalendarView compactCalendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        toolbar = (Toolbar)findViewById(R.id.tool_bar);
+        compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+
+        actionBar = (ActionBar)getSupportActionBar();
+
+        actionBar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.homePageLayout);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        final CompactCalendarView compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         final ListView listView = (ListView) findViewById(R.id.home_list);
 
         fab.setOnClickListener(new View.OnClickListener() {
