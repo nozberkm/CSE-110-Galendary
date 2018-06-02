@@ -1,4 +1,4 @@
-package com.example.nabicanozberkman.appscreen;
+package com.example.aymaan.cse110applogin;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
