@@ -188,5 +188,7 @@ public class EntryObject {
     // TODO:
     public void deleteEntry(){
         //TODO:
+
+
     }
 }
