@@ -185,7 +185,7 @@ public class Heatmap extends AppCompatActivity {
         }
     }
 
-    private colorGrid() {
+    /*private colorGrid() {
         Date mapDate;
         if(clickDate != null)
             mapDate = clickDate;
@@ -197,7 +197,7 @@ public class Heatmap extends AppCompatActivity {
             current = users.get(i);
 
         }
-    }
+    }*/
 
 
 
