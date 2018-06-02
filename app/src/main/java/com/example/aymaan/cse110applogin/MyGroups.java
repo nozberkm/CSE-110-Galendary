@@ -29,22 +29,18 @@ public class MyGroups extends AppCompatActivity {
     private Button join;
     private Button create;
     Context context;
-
+    String[] strings = {"My group 1", "My group 2", "My group 3", "My group 4",
+            "My group 5", "My group 6", "My group 7", "My group 8"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_groups);
-
         context = this;
-
-        final String[] strings = {"My group 1", "My group 2", "My group 3", "My group 4",
-                "My group 5", "My group 6", "My group 7", "My group 8"};
-
         lv = (ListView) findViewById(R.id.listView);
 
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, strings);
-
+        adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, strings);
         lv.setAdapter(adapter);
+
         join = (Button) findViewById(R.id.button2);
         create = (Button) findViewById(R.id.button);
 
@@ -58,7 +54,7 @@ public class MyGroups extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context, strings[position], Toast.LENGTH_LONG).show();
+                String whichGroup = lv.getItemAtPosition(position).toString();
             }
         });
 

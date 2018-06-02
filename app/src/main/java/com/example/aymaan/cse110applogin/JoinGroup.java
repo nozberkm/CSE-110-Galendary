@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 
@@ -26,6 +27,8 @@ public class JoinGroup extends AppCompatActivity {
     Context context;
     private Button search;
     private Button join;
+    private EditText joinCode;
+    private EditText searchIn;
     String[] items={"Random Group 1","Random Group 2","Random Group 3","Random Group 4","Random Group 5"};
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,8 @@ public class JoinGroup extends AppCompatActivity {
         lstview=(ListView)findViewById(R.id.listv);
         join = (Button) findViewById(R.id.button);
         search = (Button) findViewById(R.id.button2);
+        joinCode = (EditText) findViewById(R.id.editText);
+        searchIn = (EditText) findViewById(R.id.editText2);
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
@@ -48,12 +53,13 @@ public class JoinGroup extends AppCompatActivity {
         join.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                String code = joinCode.getText().toString();
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String sendSearch = searchIn.getText().toString();
                 adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, items);
                 lstview.setAdapter(adapter);
             }
