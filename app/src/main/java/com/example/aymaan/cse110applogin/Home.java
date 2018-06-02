@@ -58,6 +58,18 @@ public class Home extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+            }
+        });
 
 
     }
