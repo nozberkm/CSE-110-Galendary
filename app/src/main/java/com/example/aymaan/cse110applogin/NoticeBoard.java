@@ -111,11 +111,11 @@ public class NoticeBoard extends AppCompatActivity {
                 startActivity(nb);
                 break;
             case R.id.group_nav_members:
-                Intent gm = new Intent(NoticeBoard.this, NoticeBoard.class);
+                Intent gm = new Intent(NoticeBoard.this, MemberList.class);
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(NoticeBoard.this, NoticeBoard.class);
+                Intent h = new Intent(NoticeBoard.this, Heatmap.class);
                 startActivity(h);
                 break;
             case R.id.group_nav_contactAdmin:
