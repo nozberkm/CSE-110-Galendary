@@ -637,7 +637,7 @@ public class DatabaseRequest {
         JSONObject jo = GalendaryDB.server_request(pb);
 
 
-        if(jo.has("data")) return null;
+        if(!jo.has("data")) return null;
         JSONArray data = jo.getJSONArray("data");
 
         ArrayList<GroupObject> related = new ArrayList<>();
@@ -656,6 +656,39 @@ public class DatabaseRequest {
     public static ArrayList<GroupObject> get_related_groups(GroupObject group) throws IOException, JSONException {
         return get_related_groups(group.getUser(), group);
     }
+
+    public static ArrayList<String> get_admin_email(long group_id) throws JSONException, IOException {
+        ParameterBuilder pb = new ParameterBuilder(new String[][]{
+            {"command","get_admin_email"},
+        });
+        pb.push("group_id", group_id);
+        
+        JSONObject jo = GalendaryDB.server_request(pb);
+
+        if (!jo.has("data")) return null;
+        JSONArray data = jo.getJSONArray("data");
+
+        ArrayList<String> emails = new ArrayList<>();
+        for (int i = 0; i < data.length(); ++i) {
+            String curr_email = data.getJSONObject(i).getString("admin_email");
+            emails.add(curr_email);
+        }
+
+        return emails;
+    }
+
+
+    /*public static boolean dissolve_group(long group_id, String username, String passhash) {
+        ParameterBuilder pb = new ParameterBuilder(new String[][] {
+            {"command", "dissolve_group"},
+            {"username", username},
+            {"passhash", passhash}
+        });
+        pb.push("group_id", group_id);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+
+    }*/
 
 
     public static boolean add_group_to_related(String username, String passhash, long id_group_a, long id_group_b) throws IOException, JSONException {
