@@ -7,18 +7,15 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 /**
  * Created by Pablo on 5/14/2018.
  */
 
-public class NoticeBoard extends AppCompatActivity {
+public class RelatedGroups extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
 
     ListView lv;
@@ -28,19 +25,19 @@ public class NoticeBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_noticeboard);
+        setContentView(R.layout.activity_relatedgroups);
 
         context = this;
 
-        final String[] strings = {"Notice Board 1", "Notice Board 2", "Notice Board 3", "Notice Board 4"};
+        final String[] strings = {"Related Group 1", "Related Group 2", "Related Group 3", "Related Group 4"};
 
-        lv = (ListView) findViewById(R.id.noticeBoardListView);
+        lv = (ListView) findViewById(R.id.relatedGroupsList);
 
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, strings);
 
         lv.setAdapter(adapter);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.noticeBoardLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.relatedGroupsLayout);
 
     }
 
@@ -55,24 +52,24 @@ public class NoticeBoard extends AppCompatActivity {
         switch (id){
 
             case R.id.nav_home:
-                Intent h= new Intent(NoticeBoard.this,Home.class);
+                Intent h= new Intent(RelatedGroups.this,Home.class);
                 startActivity(h);
                 break;
             case R.id.nav_mygroups:
-                Intent g= new Intent(NoticeBoard.this,MyGroups.class);
+                Intent g= new Intent(RelatedGroups.this,MyGroups.class);
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s= new Intent(NoticeBoard.this,AccountSettings.class);
+                Intent s= new Intent(RelatedGroups.this,AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
-                Intent l= new Intent(NoticeBoard.this,LoginActivity.class);
+                Intent l= new Intent(RelatedGroups.this,LoginActivity.class);
                 startActivity(l);
                 break;
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.noticeBoardLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.relatedGroupsLayout);
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
@@ -80,30 +77,30 @@ public class NoticeBoard extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.group_nav_noticeBoard:
-                Intent nb = new Intent(NoticeBoard.this, NoticeBoard.class);
+                Intent nb = new Intent(RelatedGroups.this, NoticeBoard.class);
                 startActivity(nb);
                 break;
             case R.id.group_nav_members:
-                Intent gm = new Intent(NoticeBoard.this, NoticeBoard.class);
+                Intent gm = new Intent(RelatedGroups.this, RelatedGroups.class);
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(NoticeBoard.this, NoticeBoard.class);
+                Intent h = new Intent(RelatedGroups.this, RelatedGroups.class);
                 startActivity(h);
                 break;
             case R.id.group_nav_contactAdmin:
-                Intent ca= new Intent(NoticeBoard.this,NoticeBoard.class);
+                Intent ca= new Intent(RelatedGroups.this,RelatedGroups.class);
                 startActivity(ca);
                 break;
             case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(NoticeBoard.this, RelatedGroups.class);
+                Intent rg = new Intent(RelatedGroups.this, RelatedGroups.class);
                 startActivity(rg);
                 break;
             case R.id.group_nav_leaveGroup:
                 break;
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.noticeBoardLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.relatedGroupsLayout);
         mDrawerLayout.closeDrawer(GravityCompat.END);
     }
 }

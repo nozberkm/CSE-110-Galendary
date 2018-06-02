@@ -126,7 +126,7 @@ public class Home extends AppCompatActivity {
                 startActivity(ca);
                 break;
             case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(Home.this, NoticeBoard.class);
+                Intent rg = new Intent(Home.this, RelatedGroups.class);
                 startActivity(rg);
                 break;
             case R.id.group_nav_leaveGroup:
