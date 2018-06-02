@@ -35,7 +35,7 @@ public class MemberList extends AppCompatActivity {
         lstview.setAdapter(adapter);
         lstview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Intent toMember = new Intent(MemberList.this, MemberPage.class);
+                Intent toMember = new Intent(MemberList.this, MemberPageAdminView.class);
                 toMember.putExtra("name", lstview.getItemAtPosition(position).toString());
                 startActivity(toMember);
             }

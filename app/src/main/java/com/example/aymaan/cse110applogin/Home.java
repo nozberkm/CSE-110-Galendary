@@ -16,12 +16,16 @@ import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.jeff.database_access.EntryObject;
+import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
@@ -32,6 +36,7 @@ public class Home extends AppCompatActivity {
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
     public static Date clickDate = null;
+    public UserObject user = Hashing.global_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class Home extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
+
         actionBar = (ActionBar)getSupportActionBar();
 
         actionBar.setTitle(dateFormatForMonth.format(compactCalendarView.getFirstDayOfCurrentMonth()));
@@ -53,6 +59,20 @@ public class Home extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final ListView listView = (ListView) findViewById(R.id.home_list);
 
+        Map<String, ArrayList<EntryObject>> EntryMap = user.getEntryMap();
+        if(EntryMap!= null) {
+            toolbar.setTitle("Man");
+            for(String s: EntryMap.keySet()) {
+
+            }
+        }
+        else {
+            toolbar.setTitle("FUCK");
+        }
+
+
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,7 +80,7 @@ public class Home extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        
+
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             //This should be on the group home as well
             //TODO
@@ -72,6 +92,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+
             }
         });
 

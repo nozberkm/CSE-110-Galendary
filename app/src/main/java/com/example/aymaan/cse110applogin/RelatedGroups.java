@@ -97,11 +97,11 @@ public class RelatedGroups extends AppCompatActivity {
                 startActivity(nb);
                 break;
             case R.id.group_nav_members:
-                Intent gm = new Intent(RelatedGroups.this, RelatedGroups.class);
+                Intent gm = new Intent(RelatedGroups.this, MemberList.class);
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(RelatedGroups.this, RelatedGroups.class);
+                Intent h = new Intent(RelatedGroups.this, Heatmap.class);
                 startActivity(h);
                 break;
             case R.id.group_nav_contactAdmin:

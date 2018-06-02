@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        
+
         final EditText etLoginEmail = (EditText) findViewById(R.id.etLoginEmail);
         final EditText etLoginPassword = (EditText) findViewById(R.id.etLoginPassword);
         final TextView tLoginRecovery = (TextView) findViewById(R.id.tLoginRecovery);
@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     //login success
                     Intent cLoginLoginIntent = new Intent(LoginActivity.this, Home.class);
                     LoginActivity.this.startActivity(cLoginLoginIntent);
+                    Hashing.global_user = user;
                 }
 
 
