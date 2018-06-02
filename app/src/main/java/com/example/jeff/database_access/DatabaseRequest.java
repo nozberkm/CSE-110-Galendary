@@ -656,4 +656,26 @@ public class DatabaseRequest {
     public static ArrayList<GroupObject> get_related_groups(GroupObject group) throws IOException, JSONException {
         return get_related_groups(group.getUser(), group);
     }
+
+
+    public static boolean add_group_to_related(String username, String passhash, long id_group_a, long id_group_b) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("add_group_to_related");
+        pb.push_username(username)
+            .push_passhash(passhash)
+            .push("group_id_a", id_group_a)
+            .push("group_id_b", id_group_b);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+
+        return (jo.has("affected_rows") && jo.getInt("affected_rows") > 0);
+
+    }
+    public static boolean add_group_to_related(UserObject user, GroupObject group_a, GroupObject group_b) throws IOException, JSONException {
+        return add_group_to_related(user.getUsername(), user.getPasshash(), group_a.getId(), group_b.getId());
+    }
+
+        // Admin of group_a, member of groupb
+    public static boolean add_group_to_related(GroupObject group_a, GroupObject group_b) throws IOException, JSONException {
+        return add_group_to_related(group_a.getUser(), group_a, group_b);
+    }
 }

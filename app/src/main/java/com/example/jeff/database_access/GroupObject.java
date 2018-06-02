@@ -262,9 +262,25 @@ public class GroupObject {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return toret;
     }
 
+
+    // groupA is the group you are an admin of, where you wish GroupB to have access to
+    // the enrollment codes and name of groupA
+    public boolean addGroupToRelated(GroupObject groupA){
+        if(!groupA.isAdmin()) return false;
+
+        boolean status = false;
+        try {
+            status = DatabaseRequest.add_group_to_related(groupA, this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return status;
+    }
 
 }
