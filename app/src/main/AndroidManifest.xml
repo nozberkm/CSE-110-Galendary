@@ -62,6 +62,10 @@
             android:name=".MemberPage"
             android:label="Member List"
             />
+        <activity
+            android:name=".CreateGroup"
+            android:label="Create Group"
+            />
     </application>
 
 </manifest>
