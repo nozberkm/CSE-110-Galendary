@@ -175,10 +175,14 @@ public class EntryObject {
     }
 
 
-    public String getDayString(){
+    public static String getDayString(Date date){
         DateFormat df = new SimpleDateFormat("yyyy/dd/MM");
 
-        return df.format(getStart());
+        return df.format(date);
+    }
+
+    public String getDayString(){
+        return getDayString(getStart());
     }
 
     // TODO:
