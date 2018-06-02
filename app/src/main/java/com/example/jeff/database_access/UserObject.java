@@ -3,6 +3,7 @@ package com.example.jeff.database_access;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -282,6 +283,24 @@ public class UserObject {
 
     public boolean isActive(){
         return active;
+    }
+
+
+    public GroupObject joinGroupByEnrollmentCode(String enrollment_code){
+        GroupObject joined_group;
+        try {
+            joined_group = DatabaseRequest.join_group_by_enrollment_code(this, enrollment_code);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if(joined_group != null) groups.add(joined_group);
+
+        return joined_group;
     }
 //    private boolean updateDatabase(){
 //
