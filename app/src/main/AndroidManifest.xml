@@ -50,6 +50,10 @@
             android:name=".RelatedGroups"
             android:label="Related Groups"
             />
+        <activity
+            android:name=".Heatmap"
+            android:label="Heatmap"
+            />
     </application>
 
 </manifest>

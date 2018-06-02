@@ -118,7 +118,7 @@ public class Home extends AppCompatActivity {
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(Home.this, NoticeBoard.class);
+                Intent h = new Intent(Home.this, Heatmap.class);
                 startActivity(h);
                 break;
             case R.id.group_nav_contactAdmin:
