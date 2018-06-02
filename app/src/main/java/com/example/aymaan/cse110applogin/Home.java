@@ -31,6 +31,7 @@ public class Home extends AppCompatActivity {
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
+    public static Date clickDate = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +62,11 @@ public class Home extends AppCompatActivity {
         });
         
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            //This should be on the group home as well
+            //TODO
             @Override
             public void onDayClick(Date dateClicked) {
-                
+                clickDate = dateClicked;
             }
 
             @Override

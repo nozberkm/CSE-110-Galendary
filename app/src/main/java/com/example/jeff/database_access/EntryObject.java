@@ -181,6 +181,15 @@ public class EntryObject {
         return df.format(getStart());
     }
 
+    public String getDayOfWeek() {
+        String day = new SimpleDateFormat("EEE").format(getStart());
+        return day;
+    }
+
+
+
+
+
     // TODO:
     public void deleteEntry(){
         //TODO:
