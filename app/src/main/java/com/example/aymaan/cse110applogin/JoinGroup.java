@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 
 public class JoinGroup extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
+    private android.support.v7.widget.Toolbar mToolbar;
 
     ListView lstview;
     ArrayAdapter adapter;
@@ -35,7 +37,15 @@ public class JoinGroup extends AppCompatActivity {
         join = (Button) findViewById(R.id.button);
         search = (Button) findViewById(R.id.button2);
 
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.joinGroupLayout);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         join.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -74,6 +84,12 @@ public class JoinGroup extends AppCompatActivity {
                 builder.create().show();
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
     @Override
