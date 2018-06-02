@@ -4,7 +4,12 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import com.example.jeff.database_access.UserObject;
+
 public class Hashing {
+    public static UserObject global_user = null;
+
+    
     private static String convertToHex(byte[] data) {
         StringBuilder buf = new StringBuilder();
         for (byte b : data) {
