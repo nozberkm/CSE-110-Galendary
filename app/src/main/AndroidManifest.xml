@@ -43,6 +43,10 @@
             android:label="Notice Board"
             />
         <activity
+            android:name=".AddNotice"
+            android:label="Add Notice"
+            />
+        <activity
             android:name=".RelatedGroups"
             android:label="Related Groups"
             />

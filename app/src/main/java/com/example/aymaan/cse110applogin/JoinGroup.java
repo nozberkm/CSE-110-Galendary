@@ -19,7 +19,6 @@ import android.widget.ListView;
 
 
 public class JoinGroup extends AppCompatActivity {
-    private DrawerLayout mDrawerLayout;
     private android.support.v7.widget.Toolbar mToolbar;
 
     ListView lstview;
@@ -40,7 +39,6 @@ public class JoinGroup extends AppCompatActivity {
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.joinGroupLayout);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -98,29 +96,4 @@ public class JoinGroup extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onNavigationMenuItemClick(MenuItem item) {
-        int id=item.getItemId();
-        switch (id){
-
-            case R.id.nav_home:
-                Intent h= new Intent(JoinGroup.this,Home.class);
-                startActivity(h);
-                break;
-            case R.id.nav_mygroups:
-                Intent g= new Intent(JoinGroup.this,MyGroups.class);
-                startActivity(g);
-                break;
-            case R.id.nav_settings:
-                Intent s= new Intent(JoinGroup.this,AccountSettings.class);
-                startActivity(s);
-                break;
-            case R.id.nav_logout:
-                Intent l= new Intent(JoinGroup.this,LoginActivity.class);
-                startActivity(l);
-                break;
-        }
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.joinGroupLayout);
-        mDrawerLayout.closeDrawer(GravityCompat.START);
-    }
 }
