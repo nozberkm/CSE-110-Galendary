@@ -54,6 +54,14 @@
             android:name=".Heatmap"
             android:label="Heatmap"
             />
+        <activity
+            android:name=".MemberList"
+            android:label="Member List"
+            />
+        <activity
+            android:name=".MemberPage"
+            android:label="Member List"
+            />
     </application>
 
 </manifest>

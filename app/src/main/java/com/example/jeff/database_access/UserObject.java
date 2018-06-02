@@ -137,7 +137,9 @@ public class UserObject {
 
     public boolean isNotifications() { return notifications; }
 
-    public String getName() { return name; }
+    public String getName() {
+        return name == null ? "email: "+getUsername() :name;
+    }
 
     public String getGroupsString(){
         if(groups == null || groups.isEmpty()) return "[]";

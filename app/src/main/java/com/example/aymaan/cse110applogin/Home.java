@@ -77,7 +77,6 @@ public class Home extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -114,7 +113,7 @@ public class Home extends AppCompatActivity {
                 startActivity(nb);
                 break;
             case R.id.group_nav_members:
-                Intent gm = new Intent(Home.this, NoticeBoard.class);
+                Intent gm = new Intent(Home.this, MemberList.class);
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
