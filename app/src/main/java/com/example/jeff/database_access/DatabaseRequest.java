@@ -656,12 +656,12 @@ public class DatabaseRequest {
     public static ArrayList<GroupObject> get_related_groups(GroupObject group) throws IOException, JSONException {
         return get_related_groups(group.getUser(), group);
     }
-
+/*
     public static ArrayList<String> get_admin_email(long group_id) {
-        ParamterBuilder pb = new ParameterBuilder(new String[][]{
+        ParameterBuilder pb = new ParameterBuilder(new String[][]{
             {"command","get_admin_email"},
         });
-        pb.push("group_id", group_id;)
+        pb.push("group_id", group_id);
         
         JSONObject jo = GalendaryDB.server_request(pb);
 
@@ -671,12 +671,12 @@ public class DatabaseRequest {
         ArrayList<String> emails = new ArrayList<>();
         for (int i = 0; i < data.length(); ++i) {
             String curr_email = data.getJSONObject(i);
-            emails.add(cur_email);
+            emails.add(curr_email);
         }
 
         return emails;
     }
-
+*/
 
     public static boolean add_group_to_related(String username, String passhash, long id_group_a, long id_group_b) throws IOException, JSONException {
         ParameterBuilder pb = new ParameterBuilder("add_group_to_related");
