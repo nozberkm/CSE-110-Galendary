@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GroupObject {
@@ -248,6 +249,21 @@ public class GroupObject {
 
     public ArrayList<EntryObject> getEntries(){
         return entry_list;
+    }
+
+
+    public ArrayList<GroupObject> getRelatedGroups(){
+        ArrayList<GroupObject> toret = null;
+        try {
+            toret = DatabaseRequest.get_related_groups(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+//            Log.e("GROUP", "Failed to get related groups, server issue possible");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return toret;
     }
 
 
