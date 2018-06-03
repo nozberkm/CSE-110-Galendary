@@ -262,6 +262,27 @@ public class GroupObject {
         return entry_list;
     }
 
+    //TODO get map instead of list
+
+    public Map<String, ArrayList<EntryObject>> getEntryMap() {
+        Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
+        if (this.getEntries() == null) return null;
+        else {
+            for (EntryObject eo : this.getEntries()) {
+                String entry_day_str = eo.getDayString();
+                ArrayList<EntryObject> day_entries = entry_map.get(entry_day_str);
+                if(day_entries == null){
+                    day_entries = new ArrayList<>();
+                    day_entries.add(eo);
+                    entry_map.put(entry_day_str, day_entries);
+                } else {
+                    day_entries.add(eo);
+                }
+            }
+        }
+        return entry_map;
+    }
+
 
     public ArrayList<GroupObject> getRelatedGroups(){
         ArrayList<GroupObject> toret = null;
