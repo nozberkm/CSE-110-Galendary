@@ -113,15 +113,30 @@
                 android:layout_weight="0"
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
-            <EditText
-                android:id="@+id/ed_event_date"
+            <TextView
+                android:id="@+id/ed_event_start_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Event Start Date"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/to_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:ems="10"
+                android:text=" to "
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/ed_event_end_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:inputType="date"
-                android:text="Event Date"
+                android:text="Event End Date"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -138,13 +153,12 @@
                 android:layout_weight="0"
                 app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
-            <EditText
+            <TextView
                 android:id="@+id/ed_event_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="time"
+                android:gravity="center"
                 android:text="Event Start Time"
                 android:textSize="20sp" />
 
@@ -156,15 +170,15 @@
                 android:text=" to "
                 android:textSize="20sp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/ed_event_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:ems="10"
-                android:inputType="time"
+                android:gravity="center"
                 android:text="Event End Time"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
         <LinearLayout

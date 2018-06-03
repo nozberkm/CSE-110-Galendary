@@ -12,6 +12,7 @@ import java.util.Date;
 public class EntryObject {
     public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/dd/MM");
     public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
 
     private long id;
     private long group_id;
@@ -217,6 +218,8 @@ public class EntryObject {
     public static String getDayOfWeek(Date date) {
         return new SimpleDateFormat("EEE").format(date);
     }
+
+    public static String getTimeString(Date date) { return TIME_FORMAT.format(date);}
 
 
 

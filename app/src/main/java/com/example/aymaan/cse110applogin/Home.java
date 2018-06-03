@@ -43,15 +43,22 @@ public class Home extends AppCompatActivity {
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            /*
+
             ListView l = (ListView)view;
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
-            long clicked_id = clickedItem.getId();
+            /*
             Bundle b = new Bundle();
-            b.putLong("id",clicked_id);
+            b.putLong("id",clickedItem.getId());
+            b.putLong("group id",clickedItem.getGroupId());
+            b.putString("event name",clickedItem.getTitle());
+            b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
+            b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
+            b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
+            b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
+            b.putString("event description",clickedItem.getDescription());
             */
-            Intent ved = new Intent( Home.this, ViewEventDetails.class);
-            //intent.putExtras(b);
+            Intent ved = new Intent( Home.this, MyGroups.class);
+            //ved.putExtras(b);
             startActivity(ved);
             finish();
         }
