@@ -31,6 +31,9 @@ public class MyGroups extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     private android.support.v7.widget.Toolbar mToolbar;
 
+    public static GroupObject group;
+    ArrayList<GroupObject> groupList;
+
     ListView lv;
     ArrayAdapter adapter;
     private Button join;
@@ -55,7 +58,7 @@ public class MyGroups extends AppCompatActivity {
 
         strings = new String[0];
 
-        ArrayList<GroupObject> groupList = LoginActivity.userLogin.getGroups();
+        groupList = LoginActivity.userLogin.getGroups();
 
         for (GroupObject group : groupList){
             strings = push(strings, group.getName());
@@ -86,7 +89,8 @@ public class MyGroups extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String whichGroup = lv.getItemAtPosition(position).toString();
+                group = groupList.get(position);
+                
             }
         });
 
