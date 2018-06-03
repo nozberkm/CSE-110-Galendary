@@ -10,10 +10,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/GalendARY"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:screenOrientation="portrait">
-        <activity android:name=".LoginActivity"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".LoginActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,69 +22,77 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecoveryActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".RegisterActivity2"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".SuccessActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".RecoveryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RegisterActivity2"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SuccessActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Home"
             android:label="Home"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AccountSettings"
             android:label="Account Settings"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MyGroups"
             android:label="My Groups"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".JoinGroup"
             android:label="Join Group"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".NoticeBoard"
             android:label="Notice Board"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddNotice"
             android:label="Add Notice"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".RelatedGroups"
             android:label="Related Groups"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Heatmap"
             android:label="Heatmap"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MemberList"
             android:label="Member List"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MemberPage"
             android:label="Member List"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".CreateGroup"
             android:label="Create Group"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MemberPageAdminView"
             android:label="Member List"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ViewEventDetails"
             android:label="View Event Details"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddEventActivity"
             android:label="Add Event" />
-        <activity android:name=".ContactAdminActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ContactAdminActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AddTaskEventActivity"
+            android:label="@string/title_activity_add_task_event"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
