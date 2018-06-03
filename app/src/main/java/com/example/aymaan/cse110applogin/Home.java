@@ -109,7 +109,7 @@ public class Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent aea = new Intent(Home.this, AddEventActivity.class);
+                Intent aea = new Intent(Home.this, AddTaskEventActivity.class);
                 startActivity(aea);
             }
         });
