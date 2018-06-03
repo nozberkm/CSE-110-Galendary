@@ -52,8 +52,9 @@ public class MemberList extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
-
+        strings = new String[0];
         userList = MyGroups.currGroup.loadMembers();
+
 
         for (UserObject user : userList){
             strings = push(strings, user.getUsername());
@@ -76,10 +77,6 @@ public class MemberList extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 
     @Override
