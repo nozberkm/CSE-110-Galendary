@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.jeff.database_access.DatabaseRequest;
+import com.example.jeff.database_access.GroupObject;
+
 
 public class CreateGroup extends AppCompatActivity {
 
@@ -43,6 +46,8 @@ public class CreateGroup extends AppCompatActivity {
                     etError.setText("Group Name cannot be empty");
                 } else {
                     etError.setText("");
+                    GroupObject group = LoginActivity.userLogin.createGroup(etGroupName.getText().toString());
+                    MyGroups.group = group;
                     Snackbar.make(v, "CREATE GROUP!!!!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
