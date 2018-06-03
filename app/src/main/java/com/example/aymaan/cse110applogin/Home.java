@@ -24,6 +24,7 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -98,8 +99,15 @@ public class Home extends AppCompatActivity {
                 Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
                 String date = EntryObject.getDayString(dateClicked);
                 ArrayList<EntryObject> list = EntryMap.get(date);
-                eventAdapter = new EventAdapter(Home.this, list);
-                listView.setAdapter(eventAdapter);
+                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                if(list!=null) {
+                    eventAdapter = new EventAdapter(Home.this, list);
+                    listView.setAdapter(eventAdapter);
+                }
+                else{
+                    eventAdapter = new EventAdapter(Home.this, empty_list);
+                    listView.setAdapter(eventAdapter);
+                }
             }
 
             @Override
