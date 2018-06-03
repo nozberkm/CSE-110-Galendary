@@ -60,8 +60,8 @@
             android:label="Member List" />
         <activity
             android:name=".AddEventActivity"
-            android:label="Add Event"
-            />
+            android:label="Add Event" />
+        <activity android:name=".ContactAdminActivity"></activity>
     </application>
 
 </manifest>
