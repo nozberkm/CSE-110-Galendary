@@ -1,13 +1,21 @@
 package com.example.jeff.database_access;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserObject {
+    private static final String LOG_TAG = "UserO";
+    private static void LOG_DEBUG(String msg){
+        Log.d(LOG_TAG, msg);
+    }
+
     private long id;
     private String username; //Username is email in most cases
     private String passhash;
@@ -188,6 +196,8 @@ public class UserObject {
         entries = DatabaseRequest.get_all_entries(this);
 
         //TODO: This is an absolutely terrible way to do this, but it's quick and dirty
+        if(entries == null) return 0;
+        if(groups == null) return 0;
         for(GroupObject go : groups)
             go.addEntriesCheckGID(entries);
 
@@ -201,6 +211,9 @@ public class UserObject {
     public void synchronize(){
         synchronizeGroups();
         synchronizeEntries();
+
+        LOG_DEBUG("Synchronized user");
+        LOG_DEBUG(this.toString());
 
 
     }
@@ -261,6 +274,7 @@ public class UserObject {
         if(groups == null) return null;
         Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
         for(GroupObject go : groups){
+            if(go.getEntries() == null) continue;
             for(EntryObject eo : go.getEntries()){
                 String entry_day_str = eo.getDayString();
                 ArrayList<EntryObject> day_entries = entry_map.get(entry_day_str);
@@ -282,6 +296,24 @@ public class UserObject {
 
     public boolean isActive(){
         return active;
+    }
+
+
+    public GroupObject joinGroupByEnrollmentCode(String enrollment_code){
+        GroupObject joined_group;
+        try {
+            joined_group = DatabaseRequest.join_group_by_enrollment_code(this, enrollment_code);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if(joined_group != null) groups.add(joined_group);
+
+        return joined_group;
     }
 //    private boolean updateDatabase(){
 //

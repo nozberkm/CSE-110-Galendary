@@ -17,7 +17,7 @@
             android:id="@+id/tool_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#ffe95451">
+            android:background="@color/colorPrimary">
 
         </android.support.v7.widget.Toolbar>
 
@@ -29,7 +29,7 @@
             android:paddingLeft="10dp"
             android:layout_height="250dp"
             app:compactCalendarTargetHeight="250dp"
-            app:compactCalendarTextSize="12sp"
+            app:compactCalendarTextSize="16sp"
             app:compactCalendarBackgroundColor="#ffe95451"
             app:compactCalendarTextColor="#fff"
             app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
@@ -55,6 +55,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_gravity="bottom"
                 android:layout_margin="16dp"
+                app:backgroundTint="#ffe95451"
                 app:elevation="0dp"
                 app:srcCompat="@mipmap/ic_launcher_foreground" />
 

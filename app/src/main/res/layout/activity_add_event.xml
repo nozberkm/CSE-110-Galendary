@@ -16,7 +16,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
-    <TextView
+    <EditText
         android:id="@+id/tvEventTitle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -32,6 +32,7 @@
         android:paddingRight="10dp"
         android:text=""
         android:textColor="#FFFFFF"
+        android:textSize="15dp"
         android:textColorHint="#FFFFFF" />
 
     <RelativeLayout
@@ -74,6 +75,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:text="Event"
+            android:textSize="15dp"
             android:textColor="#000000" />
 
         <RadioButton
@@ -83,6 +85,7 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:textColor="#000000"
+            android:textSize="15dp"
             android:text="Task" />
     </RadioGroup>
 
@@ -101,8 +104,10 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Enter start date..."
-            android:textColor="#494949" />
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:hint="Enter start date..."
+            android:textColorHint="#747474" />
 
         <TextView
             android:id="@+id/tvStartTime"
@@ -113,8 +118,10 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Enter start time..."
-            android:textColor="#494949" />
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:hint="Enter start time..."
+            android:textColorHint="#747474" />
     </LinearLayout>
 
     <LinearLayout
@@ -132,8 +139,10 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Enter end date..."
-            android:textColor="#494949" />
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:hint="Enter end date..."
+            android:textColorHint="#747474" />
 
         <TextView
             android:id="@+id/tvEndTime"
@@ -144,13 +153,15 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="Enter end time..."
-            android:textColor="#494949" />
+            android:textColor="#000000"
+            android:textSize="15dp"
+            android:hint="Enter end time..."
+            android:textColorHint="#747474" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvDescription"
+    <EditText
+        android:id="@+id/etDescription"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="315dp"
@@ -159,7 +170,9 @@
         android:gravity="top|left"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Enter task/event description..."
-        android:textColor="#494949" />
+        android:textColor="#000000"
+        android:textSize="15dp"
+        android:hint="Enter task/event description..."
+        android:textColorHint="#747474" />
 
 </RelativeLayout>

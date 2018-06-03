@@ -1,6 +1,7 @@
 package com.example.aymaan.cse110applogin;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,16 +13,23 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.jeff.database_access.EntryObject;
+import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Home extends AppCompatActivity {
 
@@ -31,6 +39,32 @@ public class Home extends AppCompatActivity {
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
+    private EventAdapter eventAdapter;
+    private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            ListView l = (ListView)view;
+            EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
+            /*
+            Bundle b = new Bundle();
+            b.putLong("id",clickedItem.getId());
+            b.putLong("group id",clickedItem.getGroupId());
+            b.putString("event name",clickedItem.getTitle());
+            b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
+            b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
+            b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
+            b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
+            b.putString("event description",clickedItem.getDescription());
+            */
+            Intent ved = new Intent( Home.this, MyGroups.class);
+            //ved.putExtras(b);
+            startActivity(ved);
+            finish();
+        }
+    };
+    public static Date clickDate = null;
+    //public UserObject user = Hashing.global_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,9 +73,10 @@ public class Home extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+
 
         actionBar = (ActionBar)getSupportActionBar();
 
@@ -52,23 +87,58 @@ public class Home extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final ListView listView = (ListView) findViewById(R.id.home_list);
 
+        Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
+        if(EntryMap!= null) {
+            //toolbar.setTitle("Man");
+            for(String s: EntryMap.keySet()) {
+                Date date = EntryObject.getDayDateFromString(s);
+                for(int i=0; i<EntryMap.get(s).size(); i++) {
+                    Event ev1 = new Event(Color.BLACK, date.getTime());
+                    compactCalendarView.addEvent(ev1);
+                }
+            }
+        }
+        else {
+            //Do Nothing
+        }
+
+
+
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Intent to EventActivity", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent aea = new Intent(Home.this, AddEventActivity.class);
+                startActivity(aea);
             }
         });
-        
+
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            //This should be on the group home as well
+            //TODO
             @Override
             public void onDayClick(Date dateClicked) {
-                
+                clickDate = dateClicked;
+                Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
+                String date = EntryObject.getDayString(dateClicked);
+                ArrayList<EntryObject> list = EntryMap.get(date);
+                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                if(list!=null) {
+                    eventAdapter = new EventAdapter(Home.this, list);
+                    listView.setAdapter(eventAdapter);
+                    listView.setOnItemClickListener(eventClickedHandler);
+                }
+                else{
+                    eventAdapter = new EventAdapter(Home.this, empty_list);
+                    listView.setAdapter(eventAdapter);
+                }
             }
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
                 toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+
             }
         });
 

@@ -7,6 +7,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,6 +15,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.jeff.database_access.GroupObject;
+import com.example.jeff.database_access.UserObject;
+
+import java.security.acl.Group;
+import java.util.ArrayList;
 
 /**
  * Created by Pablo on 5/14/2018.
@@ -24,18 +31,39 @@ public class MyGroups extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     private android.support.v7.widget.Toolbar mToolbar;
 
+    public static GroupObject group;
+    ArrayList<GroupObject> groupList;
+
     ListView lv;
     ArrayAdapter adapter;
     private Button join;
     private Button create;
     Context context;
-    String[] strings = {"My group 1", "My group 2", "My group 3", "My group 4",
-            "My group 5", "My group 6", "My group 7", "My group 8"};
+    String[] strings;
+
+    private static String[] push(String[] array, String push) {
+        String[] longer = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++)
+            longer[i] = array[i];
+        longer[array.length] = push;
+        return longer;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.my_groups);
         context = this;
+
+
+        strings = new String[0];
+
+        groupList = LoginActivity.userLogin.getGroups();
+
+        for (GroupObject group : groupList){
+            strings = push(strings, group.getName());
+        }
+
         lv = (ListView) findViewById(R.id.listView);
 
         adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, strings);
@@ -51,10 +79,18 @@ public class MyGroups extends AppCompatActivity {
                 startActivity(toJoinIntent);
             }
         });
+        create.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent cGroupIntent = new Intent(MyGroups.this, CreateGroup.class);
+                startActivity(cGroupIntent);
+            }
+        });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String whichGroup = lv.getItemAtPosition(position).toString();
+                group = groupList.get(position);
+                
             }
         });
 

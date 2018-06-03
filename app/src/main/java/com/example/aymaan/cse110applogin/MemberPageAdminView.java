@@ -10,20 +10,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MemberPage extends AppCompatActivity {
+public class MemberPageAdminView extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
-    private Button report;
+    private Button promote;
+    private Button remove;
     Context context;
     String name;
 
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.member_with_report);
+        setContentView(R.layout.member_with_admin);
         context = this;
+
         Intent intent = getIntent();
         Bundle bd = intent.getExtras();
-
-        report = (Button) findViewById(R.id.button2);
 
         TextView memberName = (TextView) findViewById(R.id.textView);
         TextView email = (TextView) findViewById(R.id.textView2);
@@ -31,11 +31,15 @@ public class MemberPage extends AppCompatActivity {
         memberName.setText(name);
         email.setText("email: email@email.com");
 
-        report.setOnClickListener(new View.OnClickListener(){
+       promote = (Button) findViewById(R.id.button2);
+       remove = (Button) findViewById(R.id.button3);
+
+
+        promote.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to report" + name + "?");
+                builder.setMessage("Do you want to promote" + name + "?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -54,6 +58,30 @@ public class MemberPage extends AppCompatActivity {
             }
         });
 
+
+        remove.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Do you want to remove " + name + "?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //promote to admin
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do nothing
+                    }
+                });
+                builder.create().show();
+            }
+        });
+
+
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
@@ -61,8 +89,6 @@ public class MemberPage extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
-
     }
 
     @Override

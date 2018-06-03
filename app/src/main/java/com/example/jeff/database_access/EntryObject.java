@@ -10,6 +10,10 @@ import java.util.Date;
 
 
 public class EntryObject {
+    public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/dd/MM");
+    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
+
     private long id;
     private long group_id;
     private String title;
@@ -69,7 +73,7 @@ public class EntryObject {
         } else {
             try {
                 try {
-                    start = new SimpleDateFormat("YYYY-MM-DD'T'HH:mm:ss").parse(jo.getString("start"));
+                    start = DB_DATE_FORMAT.parse(jo.getString("start"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -82,7 +86,7 @@ public class EntryObject {
         } else {
             try {
                 try {
-                    end = new SimpleDateFormat("YYYY-MM-DD'T'HH:mm:ss").parse(jo.getString("end"));
+                    end = DB_DATE_FORMAT.parse(jo.getString("end"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -130,6 +134,25 @@ public class EntryObject {
 
     public String getDescription() { return description; }
 
+    public boolean isTask(){
+        return getStart() == null && getEnd() != null;
+    }
+
+    public boolean isEvent(){
+        return getStart() != null && getEnd() != null;
+    }
+
+    public boolean isNotice(){
+        return getStart() != null && getEnd() == null;
+    }
+
+
+
+
+
+
+
+
 
     public String toString(){
         return new StringBuilder().append("EntryObject")
@@ -174,16 +197,33 @@ public class EntryObject {
         setUser(group.getUser());
     }
 
+    public static Date getDayDateFromString(String day_string){
+        Date toret = null;
+        try {
+            toret = DAY_DATE_FORMAT.parse(day_string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return toret;
+    }
 
     public static String getDayString(Date date){
-        DateFormat df = new SimpleDateFormat("yyyy/dd/MM");
-
-        return df.format(date);
+        return DAY_DATE_FORMAT.format(date);
     }
 
     public String getDayString(){
         return getDayString(getStart());
     }
+
+    public static String getDayOfWeek(Date date) {
+        return new SimpleDateFormat("EEE").format(date);
+    }
+
+    public static String getTimeString(Date date) { return TIME_FORMAT.format(date);}
+
+
+
+
 
     // TODO:
     public void deleteEntry(){

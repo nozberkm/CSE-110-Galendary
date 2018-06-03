@@ -1,16 +1,36 @@
 package com.example.aymaan.cse110applogin;
 
+import android.graphics.Color;
+import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.jeff.database_access.EntryObject;
+import com.example.jeff.database_access.GroupObject;
+import com.example.jeff.database_access.UserObject;
+
+import java.security.acl.Group;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.EventObject;
+import java.util.Map;
+
+import static com.example.aymaan.cse110applogin.Home.clickDate;
+
 public class Heatmap extends AppCompatActivity {
     private TextView[][] idArray;
+    private int[][] peopleCountArray;
+    private int iX, jX;
+    private GroupObject group;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heatmap);
+        peopleCountArray = new int[19][7];
 
         idArray = new TextView[19][7];
         idArray[0][0] = findViewById(R.id.m6);
@@ -155,16 +175,175 @@ public class Heatmap extends AppCompatActivity {
     }
 
     public void myMethod(View view) {
-        int iX = -1;
-        int jX = -1;
+        this.iX = -1;
+        this.jX = -1;
         for (int i = 0; i < idArray.length; i++) {
             for (int j = 0; j < idArray[0].length; j++) {
                 if (view.getId() == idArray[i][j].getId()) {
-                    iX = i;
-                    jX = j;
+                    this.iX = i;
+                    this.jX = j;
                 }
             }
-
         }
+        idArray[iX][jX].setBackgroundColor(getColor(100, 100));
     }
+
+    /*private void colorGrid() {
+        Date mapDate;
+        int daysForward = 0;
+        int daysBackward = 0;
+        int switchMonthNum = -1;
+
+        if(clickDate != null)
+            mapDate = clickDate;
+        else
+            mapDate = new Date();
+
+        ArrayList<EntryObject> events = this.group.getAllEntries();
+        EntryObject current;
+        SimpleDateFormat day = new SimpleDateFormat("dd");
+        SimpleDateFormat month = new SimpleDateFormat("mm");
+        SimpleDateFormat year = new SimpleDateFormat("yyyy");
+        SimpleDateFormat hour = new SimpleDateFormat("HH");
+        String selectedDay = day.format(mapDate);
+        String selectedMonth = month.format(mapDate);
+        String selectedDayOfWeek = EntryObject.getDayOfWeek(mapDate);
+        String selectedYear = year.format(mapDate);
+
+        //TODO
+        int numOfUsers = 100;
+        double increment = 255.0/((float)numOfUsers);
+
+        switch (selectedDayOfWeek) {
+            case "Mon":
+                daysBackward = 0;
+                daysForward = 6;
+            case "Tue":
+                daysBackward = 1;
+                daysForward = 5;
+            case "Wed":
+                daysBackward = 2;
+                daysForward = 4;
+            case "Thu":
+                daysBackward = 3;
+                daysForward = 3;
+            case "Fri":
+                daysBackward = 4;
+                daysForward = 2;
+            case "Sat":
+                daysBackward = 5;
+                daysForward = 1;
+            case "Sun":
+                daysBackward = 6;
+                daysForward = 0;
+        }
+
+        int daysInMonth = getDaysOfMonth(selectedMonth, selectedYear);
+
+        int selectedMonthNum = Integer.parseInt(selectedMonth);
+
+
+        int selectedDayNum = Integer.parseInt(selectedDay);
+        if ( selectedDayNum + daysForward > daysInMonth )
+            switchMonthNum = Integer.parseInt(selectedMonth) + 1;
+
+        else if (selectedDayNum - daysBackward < 1)
+            switchMonthNum = Integer.parseInt(selectedMonth) - 1;
+        else
+            switchMonthNum = selectedMonthNum;
+
+        if (switchMonthNum == 13)
+            switchMonthNum = 1;
+        if (switchMonthNum == 0)
+            switchMonthNum = 12;
+
+        if (switchMonthNum == selectedMonthNum) {
+            for (int i = 0; i < events.size(); i++) {
+                current = events.get(i);
+
+                if (!current.isTask()) {
+                    String dayOfEvent = EntryObject.getDayOfWeek(current.getStart());
+                    int startDayIndex = getDayIndex(dayOfEvent);
+                    int endDayIndex = getDayIndex(EntryObject.getDayOfWeek(current.getEnd()));
+                    String hourStart = hour.format(current.getStart());
+                    String hourEnd = hour.format(current.getEnd());
+                    int hourEndNum = Integer.parseInt(hourEnd);
+                    int hourStartNum = Integer.parseInt(hourStart);
+
+
+                    if (startDayIndex != endDayIndex) {
+
+                    }
+                    if (startDayIndex > endDayIndex);
+                    if (hourStartNum >= 6 && hourEndNum < 6);
+                    if (hourStartNum < 6 && hourEndNum < 6) continue;
+                    if (hourStartNum < 6 && hourEndNum > 6);
+                }
+            }
+        }
+    }*/
+
+    private int getDaysOfMonth(String selectedMonth, String selectedYear) {
+        int daysInMonth = -1;
+        switch (selectedMonth) {
+            case "01":
+                daysInMonth = 31;
+            case "02":
+                if(Integer.parseInt(selectedYear) % 4 == 0)
+                    daysInMonth = 29;
+                else
+                    daysInMonth = 28;
+            case "03":
+                daysInMonth = 31;
+            case "04":
+                daysInMonth = 30;
+            case "05":
+                daysInMonth = 31;
+            case "06":
+                daysInMonth = 30;
+            case "07":
+                daysInMonth = 31;
+            case "08":
+                daysInMonth = 31;
+            case "09":
+                daysInMonth = 30;
+            case "10":
+                daysInMonth = 31;
+            case "11":
+                daysInMonth = 30;
+            case "12":
+                daysInMonth = 31;
+        }
+        return daysInMonth;
+    }
+
+    private int getColor(int totalPeople, int unavailablePeople) {
+        float ratio = ((float)unavailablePeople) / ((float)totalPeople);
+
+        @ColorInt
+        int color = Color.rgb(((float)255)*(1-ratio), ((float)255)*(ratio), 0);
+
+        return color;
+    }
+
+    private int getDayIndex(String day) {
+        switch (day) {
+            case "Mon":
+                return 0;
+            case "Tue":
+                return 1;
+            case "Wed":
+                return 2;
+            case "Thu":
+                return 3;
+            case "Fri":
+                return 4;
+            case "Sat":
+                return 5;
+            case "Sun":
+                return 6;
+        }
+        return -1;
+    }
+
 }
