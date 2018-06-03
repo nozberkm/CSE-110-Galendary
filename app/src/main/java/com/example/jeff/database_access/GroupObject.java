@@ -133,6 +133,17 @@ public class GroupObject {
         return add_count;
     }
 
+    public ArrayList<EntryObject> getNotices(){
+
+        if(entry_list == null) return null;
+        ArrayList<EntryObject> notices = new ArrayList<>();
+
+        for(EntryObject eo : entry_list)
+            if(eo.isNotice()) notices.add(eo);
+
+        return notices;
+    }
+
 
 
 
