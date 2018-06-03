@@ -1,6 +1,7 @@
 package com.example.aymaan.cse110applogin;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 import com.example.jeff.database_access.EntryObject;
 import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -61,9 +63,13 @@ public class Home extends AppCompatActivity {
 
         Map<String, ArrayList<EntryObject>> EntryMap = user.getEntryMap();
         if(EntryMap!= null) {
-            toolbar.setTitle("Man");
+            //toolbar.setTitle("Man");
             for(String s: EntryMap.keySet()) {
-                
+                Date date = EntryObject.getDayDateFromString(s);
+                for(int i=0; i<EntryMap.get(s).size(); i++) {
+                    Event ev1 = new Event(Color.BLACK, date.getTime());
+                    compactCalendarView.addEvent(ev1);
+                }
             }
         }
         else {
