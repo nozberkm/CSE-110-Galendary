@@ -34,8 +34,7 @@
             app:compactCalendarTextColor="#fff"
             app:compactCalendarCurrentSelectedDayBackgroundColor="#E57373"
             app:compactCalendarCurrentDayBackgroundColor="#B71C1C"
-            app:compactCalendarMultiEventIndicatorColor="#fff"
-            />
+            app:compactCalendarMultiEventIndicatorColor="#fff" />
 
         <RelativeLayout
             android:layout_width="match_parent"
