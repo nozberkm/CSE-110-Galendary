@@ -52,20 +52,12 @@ public class MemberList extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        strings = new String[0];
+        userList = MyGroups.currGroup.loadMembers();
 
-        DatabaseRequest getMem = new DatabaseRequest();
-        try {
-            userList = getMem.load_group_members(MyGroups.currGroup);
-        }
-        catch (IOException io) {
-            return;
-        }
-        catch (JSONException js) {
-            return;
-        }
 
-        for (UserObject group : userList){
-            strings = push(strings, group.getName());
+        for (UserObject user : userList){
+            strings = push(strings, user.getUsername());
         }
 
         lstview=(ListView)findViewById(R.id.listv);
@@ -85,10 +77,6 @@ public class MemberList extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
     }
 
     @Override

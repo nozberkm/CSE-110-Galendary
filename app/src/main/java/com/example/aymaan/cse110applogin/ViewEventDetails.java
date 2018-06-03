@@ -2,6 +2,7 @@ package com.example.aymaan.cse110applogin;
 
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,7 @@ public class ViewEventDetails extends AppCompatActivity {
         TextView end_time = (TextView)findViewById(R.id.ed_event_end_time);
         TextView reminder_text = (TextView)findViewById(R.id.ed_reminder_text);
         TextView description = (TextView)findViewById(R.id.ed_description_field);
+        ImageButton exit_button = (ImageButton)findViewById(R.id.exit_button);
 
         //TODO:Here we implement the part where we pull the event details from database, and parse them
 
@@ -53,6 +55,15 @@ public class ViewEventDetails extends AppCompatActivity {
             description.setText(b.getString("event description"));
         }
 
+        exit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent toExit = new Intent(ViewEventDetails.this, Home.class);
+                startActivity(toExit);
+            }
+
+
+        });
 /*
         event_name.setText("Armageddon");
         group_name.setText("Jeebus and the Angels");

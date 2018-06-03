@@ -10,8 +10,10 @@ import java.util.Date;
 
 
 public class EntryObject {
+
     public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
-    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/dd/MM");
+//    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
 
     private long id;
@@ -43,6 +45,18 @@ public class EntryObject {
         setUser(user);
     }
 
+    public EntryObject(JSONObject jo){
+        parseIdFromJson(jo);
+        parseGidFromJson(jo);
+        parseTitleFromJson(jo);
+        parseStartFromJson(jo);
+        parseEndFromJSON(jo);
+        parseFileCountFromJson(jo);
+        parsePriorityFromJson(jo);
+        parseRecurrenceFromJson(jo);
+        parseDescriptionFromJson(jo);
+    }
+
     public UserObject getUser() {
         return user;
     }
@@ -51,71 +65,11 @@ public class EntryObject {
         this.user = user;
     }
 
-    public EntryObject(JSONObject jo){
-        try {
-            id = jo.getLong("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            group_id = jo.has("gid") ? jo.getLong("gid") : -1;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        try {
-            title = jo.isNull("title") ? null : jo.getString("title");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if(jo.isNull("start")){
-            start = null;
-        } else {
-            try {
-                try {
-                    start = DB_DATE_FORMAT.parse(jo.getString("start"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        if(jo.isNull("end")){
-            end = null;
-        } else {
-            try {
-                try {
-                    end = DB_DATE_FORMAT.parse(jo.getString("end"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
 
-        try {
-            file_count = jo.isNull("file_count") ? -1 : jo.getInt("file_count");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            priority = jo.isNull("priority") ? -1 : jo.getInt("priority");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            recurrence = jo.isNull("recurrence") ? "no recurrence" :jo.getString("recurrence");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            description = jo.isNull("description") ? "" : jo.getString("description");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+
+
+
 
     public long getId() { return id; }
     public long getGroupId(){ return group_id; }
@@ -147,6 +101,16 @@ public class EntryObject {
     }
 
 
+    public void setTitle(String title) { this.title = title; }
+
+    public void setStart(Date start) { this.start = start; }
+
+    public void setEnd(Date end) { this.end = end; }
+
+    public void setRecurrence(String recurrence) { this.recurrence = recurrence; }
+
+    public void setDescription(String description) { this.description = description; }
+
 
 
 
@@ -168,25 +132,7 @@ public class EntryObject {
     }
 
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
-    public void setRecurrence(String recurrence) {
-        this.recurrence = recurrence;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 
 
@@ -231,5 +177,45 @@ public class EntryObject {
         //TODO:
 
 
+    }
+
+
+
+
+
+
+
+
+
+
+    /*Below are private parsing methods for handling extraction of information from JSONObjects
+     Used by the constructor. */
+
+    private void parseIdFromJson(JSONObject jo){
+        id = JsonHelper.parseLong(jo, "id");
+    }
+    private void parseGidFromJson(JSONObject jo){
+        group_id = JsonHelper.parseLong(jo, "gid");
+    }
+    private void parseTitleFromJson(JSONObject jo){
+        title = JsonHelper.parseString(jo, "title");
+    }
+    private void parseStartFromJson(JSONObject jo){
+        start = JsonHelper.parseDate(jo, "start");
+    }
+    private void parseEndFromJSON(JSONObject jo){
+        end = JsonHelper.parseDate(jo, "end");
+    }
+    private void parseFileCountFromJson(JSONObject jo){
+        file_count = JsonHelper.parseInt(jo, "file_count");
+    }
+    private void parsePriorityFromJson(JSONObject jo){
+        priority = JsonHelper.parseInt(jo, "priority");
+    }
+    private void parseRecurrenceFromJson(JSONObject jo){
+        recurrence = JsonHelper.parseString(jo, "recurrence");
+    }
+    private void parseDescriptionFromJson(JSONObject jo){
+        description = JsonHelper.parseString(jo, "description");
     }
 }

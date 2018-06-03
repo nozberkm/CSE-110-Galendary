@@ -32,62 +32,18 @@ public class GroupObject {
         user = null;
     }
 
-    public GroupObject(JSONObject jo){
-        try {
-            id = jo.getLong("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            name = jo.getString("name");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if(jo.has("enrollment_code")) {
-            try {
-                enrollment_code = jo.isNull("enrollment_code") ? null : jo.getString("enrollment_code");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        if(jo.has("is_public")) {
-            try {
-                is_public = jo.getInt("is_public") == 1;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            is_public = false;
-        }
-        if(jo.has("looking_for_subgroups")) {
-            try {
-                looking_for_subgroups = jo.getInt("looking_for_subgroups") == 1;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            looking_for_subgroups = false;
-        }
-        if(jo.has("individual")) {
-            try {
-                individual = jo.getInt("individual") == 1;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        } else {
-            individual = false;
-        }
 
-        if(jo.has("admin")) {
-            try {
-                admin = jo.getInt("admin") == 1;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+
+    public GroupObject(JSONObject jo){
+        parseIdFromJson(jo);
+        parseNameFromJson(jo);
+        parseEnrollmentCodeFromJson(jo);
+        parseIsPublicFromJson(jo);
+        parseLookingForSubgroupsFromJson(jo);
+        parseIndividualFromJson(jo);
+        parseAdminFromJson(jo);
 
         user = null;
-
     }
 
     public UserObject getUser() { return user; }
@@ -177,14 +133,16 @@ public class GroupObject {
         return add_count;
     }
 
+    public ArrayList<EntryObject> getNotices(){
 
+        if(entry_list == null) return null;
+        ArrayList<EntryObject> notices = new ArrayList<>();
 
+        for(EntryObject eo : entry_list)
+            if(eo.isNotice()) notices.add(eo);
 
-//    public EntryObject pushEntry(EntryObject entry){
-//
-//
-//        return null;
-//    }
+        return notices;
+    }
 
 
 
@@ -333,6 +291,31 @@ public class GroupObject {
         }
 
         return users;
+    }
+
+
+
+
+    private void parseIdFromJson(JSONObject jo){
+        id = JsonHelper.parseLong(jo, "id");
+    }
+    private void parseNameFromJson(JSONObject jo){
+        name = JsonHelper.parseString(jo, "name");
+    }
+    private void parseEnrollmentCodeFromJson(JSONObject jo){
+        enrollment_code = JsonHelper.parseString(jo, "enrollment_code");
+    }
+    private void parseIsPublicFromJson(JSONObject jo){
+        is_public = JsonHelper.parseBoolean(jo, "is_public");
+    }
+    private void parseLookingForSubgroupsFromJson(JSONObject jo){
+        is_public = JsonHelper.parseBoolean(jo, "looking_for_subgroups");
+    }
+    private void parseIndividualFromJson(JSONObject jo){
+        is_public = JsonHelper.parseBoolean(jo, "individual");
+    }
+    private void parseAdminFromJson(JSONObject jo){
+        admin = JsonHelper.parseBoolean(jo, "admin");
     }
 
 }
