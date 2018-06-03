@@ -85,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     //login success
                     Intent cLoginLoginIntent = new Intent(LoginActivity.this, Home.class);
                     LoginActivity.this.startActivity(cLoginLoginIntent);
+                    user.synchronize();
                     Hashing.global_user = user;
                 }
 
