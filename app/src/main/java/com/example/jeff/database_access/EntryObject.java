@@ -10,7 +10,8 @@ import java.util.Date;
 
 
 public class EntryObject {
-    public static String DAY_DATE_FORMAT = "yyyy/dd/MM";
+    public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/dd/MM");
+    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     private long id;
     private long group_id;
@@ -71,7 +72,7 @@ public class EntryObject {
         } else {
             try {
                 try {
-                    start = new SimpleDateFormat("YYYY-MM-DD'T'HH:mm:ss").parse(jo.getString("start"));
+                    start = DB_DATE_FORMAT.parse(jo.getString("start"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -84,7 +85,7 @@ public class EntryObject {
         } else {
             try {
                 try {
-                    end = new SimpleDateFormat("YYYY-MM-DD'T'HH:mm:ss").parse(jo.getString("end"));
+                    end = DB_DATE_FORMAT.parse(jo.getString("end"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -131,6 +132,25 @@ public class EntryObject {
     public String getRecurrence() { return recurrence; }
 
     public String getDescription() { return description; }
+
+    public boolean isTask(){
+        return getStart() == null && getEnd() != null;
+    }
+
+    public boolean isEvent(){
+        return getStart() != null && getEnd() != null;
+    }
+
+    public boolean isNotice(){
+        return getStart() != null && getEnd() == null;
+    }
+
+
+
+
+
+
+
 
 
     public String toString(){
@@ -179,7 +199,7 @@ public class EntryObject {
     public static Date getDayDateFromString(String day_string){
         Date toret = null;
         try {
-            toret = new SimpleDateFormat(DAY_DATE_FORMAT).parse(day_string);
+            toret = DAY_DATE_FORMAT.parse(day_string);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -187,9 +207,7 @@ public class EntryObject {
     }
 
     public static String getDayString(Date date){
-        DateFormat df = new SimpleDateFormat(DAY_DATE_FORMAT);
-
-        return df.format(date);
+        return DAY_DATE_FORMAT.format(date);
     }
 
     public String getDayString(){
