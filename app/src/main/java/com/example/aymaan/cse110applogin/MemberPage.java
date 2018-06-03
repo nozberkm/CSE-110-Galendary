@@ -15,6 +15,7 @@ public class MemberPage extends AppCompatActivity {
     private Button report;
     Context context;
     String name;
+    String username;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +28,10 @@ public class MemberPage extends AppCompatActivity {
 
         TextView memberName = (TextView) findViewById(R.id.textView);
         TextView email = (TextView) findViewById(R.id.textView2);
-        name = (String) bd.get("name");
+        name = MemberList.viewedUser.getName();
+        username = "email: " + MemberList.viewedUser.getUsername();
         memberName.setText(name);
-        email.setText("email: email@email.com");
+        email.setText(username);
 
         report.setOnClickListener(new View.OnClickListener(){
             @Override

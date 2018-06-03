@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 public class MemberList extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
+    public static UserObject viewedUser;
 
     Context context;
     ListView lstview;
@@ -42,7 +43,7 @@ public class MemberList extends AppCompatActivity {
         context=this;
 
         //for now set admin to whatever
-        admin = true;
+        admin = MyGroups.currGroup.isAdmin();
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
@@ -57,7 +58,7 @@ public class MemberList extends AppCompatActivity {
 
 
         for (UserObject user : userList){
-            strings = push(strings, user.getUsername());
+            strings = push(strings, user.getName());
         }
 
         lstview=(ListView)findViewById(R.id.listv);
@@ -65,6 +66,7 @@ public class MemberList extends AppCompatActivity {
         lstview.setAdapter(adapter);
         lstview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                viewedUser = userList.get(position);
                 if(admin) {
                     Intent toMemberAdmin = new Intent(MemberList.this, MemberPageAdminView.class);
                     toMemberAdmin.putExtra("name", lstview.getItemAtPosition(position).toString());
