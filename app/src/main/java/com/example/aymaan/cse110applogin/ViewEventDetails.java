@@ -13,13 +13,13 @@ public class ViewEventDetails extends AppCompatActivity {
     //TODO: Need to link to database
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TextView event_name = (TextView)findViewById(R.id.ed_event_name);
-        TextView group_name = (TextView)findViewById(R.id.ed_group_name);
-        TextView date = (TextView)findViewById(R.id.ed_event_date);
-        TextView start_time = (TextView)findViewById(R.id.ed_event_start_time);
-        TextView end_time = (TextView)findViewById(R.id.ed_event_end_time);
-        TextView reminder_text = (TextView)findViewById(R.id.ed_reminder_text);
-        TextView description = (TextView)findViewById(R.id.ed_description_field);
+//        TextView event_name = (TextView)findViewById(R.id.ed_event_name);
+//        TextView group_name = (TextView)findViewById(R.id.ed_group_name);
+//        TextView date = (TextView)findViewById(R.id.ed_event_date);
+//        TextView start_time = (TextView)findViewById(R.id.ed_event_start_time);
+//        TextView end_time = (TextView)findViewById(R.id.ed_event_end_time);
+//        TextView reminder_text = (TextView)findViewById(R.id.ed_reminder_text);
+//        TextView description = (TextView)findViewById(R.id.ed_description_field);
 
         //TODO:Here we implement the part where we pull the event details from database, and parse them
         /*
@@ -33,13 +33,13 @@ public class ViewEventDetails extends AppCompatActivity {
         description.setText();
         */
 
-        event_name.setText("Armageddon");
-        group_name.setText("Jeebus and the Angels");
-        date.setText("06/10/2018");
-        start_time.setText("12:00AM");
-        end_time.setText("11:59PM");
-        reminder_text.setText("Reminder: None");
-        description.setText("Description: We all gon' DIE");
+//        event_name.setText("Armageddon");
+//        group_name.setText("Jeebus and the Angels");
+//        date.setText("06/10/2018");
+//        start_time.setText("12:00AM");
+//        end_time.setText("11:59PM");
+//        reminder_text.setText("Reminder: None");
+//        description.setText("Description: We all gon' DIE");
 
         //TODO: Here we set the on click listeners for the top buttons
     }
