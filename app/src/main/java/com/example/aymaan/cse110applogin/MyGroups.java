@@ -51,6 +51,13 @@ public class MyGroups extends AppCompatActivity {
                 startActivity(toJoinIntent);
             }
         });
+        create.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent cGroupIntent = new Intent(MyGroups.this, CreateGroup.class);
+                startActivity(cGroupIntent);
+            }
+        });
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

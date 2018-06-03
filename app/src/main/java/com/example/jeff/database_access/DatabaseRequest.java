@@ -711,4 +711,32 @@ public class DatabaseRequest {
     public static boolean add_group_to_related(GroupObject group_a, GroupObject group_b) throws IOException, JSONException {
         return add_group_to_related(group_a.getUser(), group_a, group_b);
     }
+
+
+
+    public static GroupObject join_group_by_enrollment_code(String username, String passhash, String enrollment_code) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("join_group_by_enrollment_code");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("enrollment_code", enrollment_code);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+        if(!jo.has("data")) return null;
+        JSONArray ja = jo.getJSONArray("data");
+        if(ja.length() != 2) {
+            throw new IOException("IDK WTF");
+        }
+        JSONArray ja2 = ja.getJSONArray(1);
+        if(ja2.length() != 1) return null;
+        JSONObject group_jo = ja2.getJSONObject(0);
+
+        return new GroupObject(group_jo);
+//[[{"id":15,"name":"test_Group","enrollment_code":"pd9fnlp","is_public":0,"looking_for_subgroups":0,"individual":0}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":34,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
+
+
+    }
+
+    public static GroupObject join_group_by_enrollment_code(UserObject user, String enrollment_code) throws IOException, JSONException {
+        return join_group_by_enrollment_code(user.getUsername(), user.getPasshash(), enrollment_code);
+    }
 }

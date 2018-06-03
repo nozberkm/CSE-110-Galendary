@@ -43,13 +43,36 @@
         android:layout_width="match_parent"
         android:layout_height="170dp" />
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@android:color/holo_red_dark"
-        android:text="Report"
-        android:textColor="@android:color/background_light" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/holo_orange_dark"
+            android:text="Promote to Admin"
+            android:textColor="@android:color/background_light" />
+
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@android:color/holo_red_dark"
+            android:text="Remove"
+            android:textColor="@android:color/background_light" />
+    </LinearLayout>
 
 </LinearLayout>

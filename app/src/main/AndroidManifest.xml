@@ -24,47 +24,43 @@
         <activity android:name=".SuccessActivity" />
         <activity
             android:name=".Home"
-            android:label="Home"
-            />
+            android:label="Home" />
         <activity
             android:name=".AccountSettings"
-            android:label="Account Settings"
-            />
+            android:label="Account Settings" />
         <activity
             android:name=".MyGroups"
-            android:label="My Groups"
-            />
+            android:label="My Groups" />
         <activity
             android:name=".JoinGroup"
-            android:label="Join Group"
-            />
+            android:label="Join Group" />
         <activity
             android:name=".NoticeBoard"
-            android:label="Notice Board"
-            />
+            android:label="Notice Board" />
         <activity
             android:name=".AddNotice"
-            android:label="Add Notice"
-            />
+            android:label="Add Notice" />
         <activity
             android:name=".RelatedGroups"
-            android:label="Related Groups"
-            />
+            android:label="Related Groups" />
         <activity
             android:name=".Heatmap"
-            android:label="Heatmap"
-            />
+            android:label="Heatmap" />
         <activity
             android:name=".MemberList"
-            android:label="Member List"
-            />
+            android:label="Member List" />
         <activity
             android:name=".MemberPage"
-            android:label="Member List"
-            />
+            android:label="Member List" />
         <activity
             android:name=".CreateGroup"
-            android:label="Create Group"
+            android:label="Create Group" />
+        <activity
+            android:name=".MemberPageAdminView"
+            android:label="Member List" />
+        <activity
+            android:name=".AddEventActivity"
+            android:label="Add Event"
             />
     </application>
 
