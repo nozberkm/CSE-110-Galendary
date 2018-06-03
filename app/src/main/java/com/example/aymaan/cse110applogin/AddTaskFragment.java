@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +22,14 @@ import java.util.Calendar;
 public class AddTaskFragment extends Fragment {
     private static final String TAG = "AddTaskFragment";
 
+    private EditText etTaskTitle;
+
     private TextView tvTaskEndDate;
     private TextView tvTaskEndTime;
 
     private EditText etTaskDescription;
+
+    private FloatingActionButton fabAddTask;
 
     private DatePickerDialog.OnDateSetListener endTaskDateListener;
     private TimePickerDialog.OnTimeSetListener endTaskTimeListener;
@@ -34,10 +39,14 @@ public class AddTaskFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_task_fragment, container, false);
 
+        etTaskTitle = (EditText) view.findViewById(R.id.etTaskTitle);
+
         tvTaskEndDate = (TextView) view.findViewById(R.id.tvTaskEndDate);
         tvTaskEndTime = (TextView) view.findViewById(R.id.tvTaskEndTime);
 
         etTaskDescription = (EditText) view.findViewById(R.id.etTaskDescription);
+
+        fabAddTask = (FloatingActionButton) view.findViewById(R.id.fabAddTask);
 
         tvTaskEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +105,13 @@ public class AddTaskFragment extends Fragment {
                     tvTaskEndTime.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
             }
         };
+
+        fabAddTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+            }
+        });
 
         return view;
     }
