@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="0dp"
         android:orientation="horizontal">
 
         <TextView
@@ -16,12 +16,12 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:gravity="center_vertical"
+            android:hint="Enter end date..."
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="#000000"
-            android:textSize="15dp"
-            android:hint="Enter end date..."
-            android:textColorHint="#747474" />
+            android:textColorHint="#747474"
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/tvTaskEndTime"
@@ -30,12 +30,12 @@
             android:layout_weight="1"
             android:fontFamily="sans-serif"
             android:gravity="center_vertical"
+            android:hint="Enter end time..."
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:textColor="#000000"
-            android:textSize="15dp"
-            android:hint="Enter end time..."
-            android:textColorHint="#747474" />
+            android:textColorHint="#747474"
+            android:textSize="15dp" />
 
     </LinearLayout>
 
@@ -43,15 +43,15 @@
         android:id="@+id/etTaskDescription"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="315dp"
+        android:layout_marginTop="50dp"
         android:layout_weight="1"
         android:fontFamily="sans-serif"
         android:gravity="top|left"
+        android:hint="Enter task/event description..."
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:textColor="#000000"
-        android:textSize="15dp"
-        android:hint="Enter task/event description..."
-        android:textColorHint="#747474" />
+        android:textColorHint="#747474"
+        android:textSize="15dp" />
 
 </RelativeLayout>
