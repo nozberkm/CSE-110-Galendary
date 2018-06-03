@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -39,6 +40,19 @@ public class Home extends AppCompatActivity {
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
     private EventAdapter eventAdapter;
+    private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            ListView l = (ListView)view;
+            EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
+            long clicked_id = clickedItem.getId();
+            Bundle b = new Bundle();
+            b.putLong("id",clicked_id);
+            Intent intent = new Intent( Home.this, ViewEventDetails.class);
+            intent.putExtras(b);
+            startActivity(intent);
+        }
+    };
     public static Date clickDate = null;
     //public UserObject user = Hashing.global_user;
 
