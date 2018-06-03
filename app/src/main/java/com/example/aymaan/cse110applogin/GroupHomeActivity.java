@@ -198,7 +198,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(h);
                 break;
             case R.id.group_nav_contactAdmin:
-                Intent ca= new Intent(GroupHomeActivity.this,NoticeBoard.class);
+                Intent ca= new Intent(GroupHomeActivity.this,ContactAdminActivity.class);
                 startActivity(ca);
                 break;
             case R.id.group_nav_relatedGroups:
