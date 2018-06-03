@@ -53,19 +53,10 @@ public class MemberList extends AppCompatActivity {
         }
 
 
-        DatabaseRequest getMem = new DatabaseRequest();
-        try {
-            userList = getMem.load_group_members(MyGroups.currGroup);
-        }
-        catch (IOException io) {
-            return;
-        }
-        catch (JSONException js) {
-            return;
-        }
+        userList = MyGroups.currGroup.loadMembers();
 
-        for (UserObject group : userList){
-            strings = push(strings, group.getName());
+        for (UserObject user : userList){
+            strings = push(strings, user.getUsername());
         }
 
         lstview=(ListView)findViewById(R.id.listv);

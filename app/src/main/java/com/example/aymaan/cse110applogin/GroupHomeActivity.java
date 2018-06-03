@@ -169,7 +169,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 break;
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.homePageLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.grouphomePageLayout);
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
@@ -200,7 +200,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 break;
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.homePageLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.grouphomePageLayout);
         mDrawerLayout.closeDrawer(GravityCompat.END);
     }
 
