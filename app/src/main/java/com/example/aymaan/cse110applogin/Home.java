@@ -43,14 +43,17 @@ public class Home extends AppCompatActivity {
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            /*
             ListView l = (ListView)view;
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
             long clicked_id = clickedItem.getId();
             Bundle b = new Bundle();
             b.putLong("id",clicked_id);
-            Intent intent = new Intent( Home.this, ViewEventDetails.class);
-            intent.putExtras(b);
-            startActivity(intent);
+            */
+            Intent ved = new Intent( Home.this, ViewEventDetails.class);
+            //intent.putExtras(b);
+            startActivity(ved);
+            finish();
         }
     };
     public static Date clickDate = null;
@@ -117,6 +120,7 @@ public class Home extends AppCompatActivity {
                 if(list!=null) {
                     eventAdapter = new EventAdapter(Home.this, list);
                     listView.setAdapter(eventAdapter);
+                    listView.setOnItemClickListener(eventClickedHandler);
                 }
                 else{
                     eventAdapter = new EventAdapter(Home.this, empty_list);

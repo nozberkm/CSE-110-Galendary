@@ -76,6 +76,10 @@
             android:label="Member List"
             android:screenOrientation="portrait"/>
         <activity
+            android:name=".ViewEventDetails"
+            android:label="View Event Details"
+            android:screenOrientation="portrait"/>
+        <activity
             android:name=".AddEventActivity"
             android:label="Add Event" />
         <activity android:name=".ContactAdminActivity"
