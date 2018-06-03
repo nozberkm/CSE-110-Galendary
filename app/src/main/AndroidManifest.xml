@@ -11,57 +11,75 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RecoveryActivity" />
-        <activity android:name=".RegisterActivity2" />
-        <activity android:name=".SuccessActivity" />
+        <activity android:name=".RecoveryActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterActivity2"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SuccessActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Home"
-            android:label="Home" />
+            android:label="Home"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AccountSettings"
-            android:label="Account Settings" />
+            android:label="Account Settings"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MyGroups"
-            android:label="My Groups" />
+            android:label="My Groups"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".JoinGroup"
-            android:label="Join Group" />
+            android:label="Join Group"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".NoticeBoard"
-            android:label="Notice Board" />
+            android:label="Notice Board"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AddNotice"
-            android:label="Add Notice" />
+            android:label="Add Notice"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".RelatedGroups"
-            android:label="Related Groups" />
+            android:label="Related Groups"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Heatmap"
-            android:label="Heatmap" />
+            android:label="Heatmap"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MemberList"
-            android:label="Member List" />
+            android:label="Member List"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MemberPage"
-            android:label="Member List" />
+            android:label="Member List"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CreateGroup"
-            android:label="Create Group" />
+            android:label="Create Group"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MemberPageAdminView"
-            android:label="Member List" />
+            android:label="Member List"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".AddEventActivity"
             android:label="Add Event" />
-        <activity android:name=".ContactAdminActivity"></activity>
+        <activity android:name=".ContactAdminActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>
