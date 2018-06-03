@@ -22,7 +22,7 @@ public class MemberList extends AppCompatActivity {
         context=this;
 
         //for now set admin to whatever
-        admin = false;
+        admin = true;
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
