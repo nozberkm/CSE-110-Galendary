@@ -111,6 +111,7 @@ public class GroupObject {
 
     public String getEntriesString(){
         StringBuilder sb = new StringBuilder("Entry:[");
+        if(entry_list == null) return sb.append(']').toString();
         for(EntryObject eo : entry_list)
             sb.append(eo.toString()).append('|');
 

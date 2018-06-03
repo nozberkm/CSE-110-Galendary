@@ -197,6 +197,7 @@ public class UserObject {
 
         //TODO: This is an absolutely terrible way to do this, but it's quick and dirty
         if(entries == null) return 0;
+        if(groups == null) return 0;
         for(GroupObject go : groups)
             go.addEntriesCheckGID(entries);
 
@@ -273,6 +274,7 @@ public class UserObject {
         if(groups == null) return null;
         Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
         for(GroupObject go : groups){
+            if(go.getEntries() == null) continue;
             for(EntryObject eo : go.getEntries()){
                 String entry_day_str = eo.getDayString();
                 ArrayList<EntryObject> day_entries = entry_map.get(entry_day_str);
