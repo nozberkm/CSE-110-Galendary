@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class EntryObject {
     public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/dd/MM");
-    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+//    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
 
     private long id;
@@ -185,80 +185,34 @@ public class EntryObject {
 
 
 
-    // Below are private parsing methods for handling extraction of information from JSONObjects
-    // Used by the constructor.
-
-
-    private static String parseStringFromJson(JSONObject jo, String key){
-        String str = null;
-        try {
-            str = jo.isNull(key) ? null : jo.getString(key);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return str;
-    }
-    private static long parseLongFromJson(JSONObject jo, String key){
-        long toret = -1;
-        try {
-            toret = jo.getLong(key);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return toret;
-    }
-    private static int parseIntFromJson(JSONObject jo, String key){
-        int toret = -1;
-        try {
-            toret = jo.isNull(key) ? -1 : jo.getInt(key);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return toret;
-    }
-    private static Date parseDateFromJson(JSONObject jo, String key){
-        Date dat = null;
-        if(!jo.isNull(key)){
-            dat = null;
-            try {
-                try {
-                    dat = DB_DATE_FORMAT.parse(jo.getString(key));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        return dat;
-    }
+    /*Below are private parsing methods for handling extraction of information from JSONObjects
+     Used by the constructor. */
 
     private void parseIdFromJson(JSONObject jo){
-        id = parseLongFromJson(jo, "id");
+        id = JsonHelper.parseLong(jo, "id");
     }
     private void parseGidFromJson(JSONObject jo){
-        group_id = parseLongFromJson(jo, "gid");
+        group_id = JsonHelper.parseLong(jo, "gid");
     }
     private void parseTitleFromJson(JSONObject jo){
-        title = parseStringFromJson(jo, "title");
+        title = JsonHelper.parseString(jo, "title");
     }
     private void parseStartFromJson(JSONObject jo){
-        start = parseDateFromJson(jo, "start");
+        start = JsonHelper.parseDate(jo, "start");
     }
     private void parseEndFromJSON(JSONObject jo){
-        end = parseDateFromJson(jo, "end");
+        end = JsonHelper.parseDate(jo, "end");
     }
     private void parseFileCountFromJson(JSONObject jo){
-        file_count = parseIntFromJson(jo, "file_count");
+        file_count = JsonHelper.parseInt(jo, "file_count");
     }
     private void parsePriorityFromJson(JSONObject jo){
-        priority = parseIntFromJson(jo, "priority");
+        priority = JsonHelper.parseInt(jo, "priority");
     }
     private void parseRecurrenceFromJson(JSONObject jo){
-        recurrence = parseStringFromJson(jo, "recurrence");
+        recurrence = JsonHelper.parseString(jo, "recurrence");
     }
     private void parseDescriptionFromJson(JSONObject jo){
-        description = parseStringFromJson(jo, "description");
+        description = JsonHelper.parseString(jo, "description");
     }
 }

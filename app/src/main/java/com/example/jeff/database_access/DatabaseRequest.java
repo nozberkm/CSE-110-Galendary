@@ -375,10 +375,9 @@ public class DatabaseRequest {
         return !jo.has("err");
     }
 
-    public static boolean create_request(UserObject user) {
+    public static boolean create_request(UserObject user, String group_name) {
         return false;
-        // TODO: What is String group_name?
-        // return create_request(user.getUsername(),user.getPasshash(), String group_name);
+//        return create_request(user.getUsername(),user.getPasshash(), String group_name);
     }
 
     public static boolean make_request_decision(String request_username,
