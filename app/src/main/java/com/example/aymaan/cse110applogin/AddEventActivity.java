@@ -94,7 +94,7 @@ public class AddEventActivity extends AppCompatActivity {
                         endDateListener,
                         year, month, day);
 
-                endDateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                endDateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 endDateDialog.show();
             }
         });
@@ -120,7 +120,7 @@ public class AddEventActivity extends AppCompatActivity {
                         hour, minute, true
                 );
 
-                endTimeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                endTimeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 endTimeDialog.show();
             }
         });
@@ -145,7 +145,7 @@ public class AddEventActivity extends AppCompatActivity {
                         hour, minute, true
                 );
 
-                endTimeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                endTimeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 endTimeDialog.show();
             }
         });
