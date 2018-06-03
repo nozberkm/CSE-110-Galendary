@@ -133,6 +133,25 @@ public class EntryObject {
 
     public String getDescription() { return description; }
 
+    public boolean isTask(){
+        return getStart() == null && getEnd() != null;
+    }
+
+    public boolean isEvent(){
+        return getStart() != null && getEnd() != null;
+    }
+
+    public boolean isNotice(){
+        return getStart() != null && getEnd() == null;
+    }
+
+
+
+
+
+
+
+
 
     public String toString(){
         return new StringBuilder().append("EntryObject")
