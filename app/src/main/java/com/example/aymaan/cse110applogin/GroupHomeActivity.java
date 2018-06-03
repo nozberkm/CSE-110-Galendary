@@ -74,7 +74,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_home);
 
         group_toolbar = (Toolbar)findViewById(R.id.group_tool_bar);
-        group_compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        group_compactCalendarView = (CompactCalendarView) findViewById(R.id.group_compactcalendar_view);
         group_toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(group_toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
