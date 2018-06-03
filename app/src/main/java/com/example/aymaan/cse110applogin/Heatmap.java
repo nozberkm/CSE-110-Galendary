@@ -11,6 +11,9 @@ import com.example.jeff.database_access.EntryObject;
 import com.example.jeff.database_access.GroupObject;
 import com.example.jeff.database_access.UserObject;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.security.acl.Group;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -26,11 +29,16 @@ public class Heatmap extends AppCompatActivity {
     private int[][] peopleCountArray;
     private int iX, jX;
     private GroupObject group;
+    private ArrayList<UserObject> groupMembers;
+    private int groupMemberCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.heatmap);
         peopleCountArray = new int[19][7];
+        this.group = MyGroups.currGroup;
+        this.groupMembers = this.group.loadMembers();
+        this.groupMemberCount = this.groupMembers.size();
 
         idArray = new TextView[19][7];
         idArray[0][0] = findViewById(R.id.m6);
@@ -175,44 +183,30 @@ public class Heatmap extends AppCompatActivity {
     }
 
     public void myMethod(View view) {
-        this.iX = -1;
-        this.jX = -1;
-        for (int i = 0; i < idArray.length; i++) {
-            for (int j = 0; j < idArray[0].length; j++) {
-                if (view.getId() == idArray[i][j].getId()) {
-                    this.iX = i;
-                    this.jX = j;
-                }
-            }
-        }
-        idArray[iX][jX].setBackgroundColor(getColor(100, 100));
+
     }
 
-    /*private void colorGrid() {
+    private void colorGrid() {
+        boolean[][] checkAdded = new boolean[19][7];
         Date mapDate;
         int daysForward = 0;
         int daysBackward = 0;
         int switchMonthNum = -1;
+        Map<String, ArrayList<EntryObject> > events;
 
-        if(clickDate != null)
+        if (clickDate != null)
             mapDate = clickDate;
         else
             mapDate = new Date();
 
-        ArrayList<EntryObject> events = this.group.getAllEntries();
-        EntryObject current;
         SimpleDateFormat day = new SimpleDateFormat("dd");
-        SimpleDateFormat month = new SimpleDateFormat("mm");
+        SimpleDateFormat month = new SimpleDateFormat("MM");
         SimpleDateFormat year = new SimpleDateFormat("yyyy");
         SimpleDateFormat hour = new SimpleDateFormat("HH");
         String selectedDay = day.format(mapDate);
         String selectedMonth = month.format(mapDate);
         String selectedDayOfWeek = EntryObject.getDayOfWeek(mapDate);
         String selectedYear = year.format(mapDate);
-
-        //TODO
-        int numOfUsers = 100;
-        double increment = 255.0/((float)numOfUsers);
 
         switch (selectedDayOfWeek) {
             case "Mon":
@@ -244,7 +238,10 @@ public class Heatmap extends AppCompatActivity {
 
 
         int selectedDayNum = Integer.parseInt(selectedDay);
-        if ( selectedDayNum + daysForward > daysInMonth )
+
+        int switchYearNum = Integer.parseInt(selectedYear);
+
+        if (selectedDayNum + daysForward > daysInMonth)
             switchMonthNum = Integer.parseInt(selectedMonth) + 1;
 
         else if (selectedDayNum - daysBackward < 1)
@@ -252,36 +249,130 @@ public class Heatmap extends AppCompatActivity {
         else
             switchMonthNum = selectedMonthNum;
 
-        if (switchMonthNum == 13)
+        int startYearNum = switchYearNum;
+        if (switchMonthNum == 13) {
             switchMonthNum = 1;
-        if (switchMonthNum == 0)
+            switchYearNum++;
+        }
+        if (switchMonthNum == 0) {
             switchMonthNum = 12;
+            switchYearNum--;
+        }
 
-        if (switchMonthNum == selectedMonthNum) {
-            for (int i = 0; i < events.size(); i++) {
-                current = events.get(i);
+        int startDayNum = selectedDayNum - daysBackward;
+        int endDayNum = selectedDayNum + daysForward;
 
-                if (!current.isTask()) {
-                    String dayOfEvent = EntryObject.getDayOfWeek(current.getStart());
-                    int startDayIndex = getDayIndex(dayOfEvent);
-                    int endDayIndex = getDayIndex(EntryObject.getDayOfWeek(current.getEnd()));
-                    String hourStart = hour.format(current.getStart());
-                    String hourEnd = hour.format(current.getEnd());
-                    int hourEndNum = Integer.parseInt(hourEnd);
-                    int hourStartNum = Integer.parseInt(hourStart);
+        if (switchMonthNum < selectedMonthNum) {
+            startDayNum = getDaysOfMonth(Integer.toString(switchMonthNum), selectedYear) + startDayNum;
+        } else if (switchMonthNum > selectedMonthNum) {
+            endDayNum = endDayNum - getDaysOfMonth(Integer.toString(selectedMonthNum), selectedYear);
+        }
+        boolean switchYear = false;
+        if (switchYearNum != Integer.parseInt(selectedYear)) {
+            switchYear = true;
+        }
 
 
-                    if (startDayIndex != endDayIndex) {
+        Date specifiedDateEnd;
+        Date specifiedDateStart;
 
+        int selectedYearNum = Integer.parseInt(selectedYear);
+
+        if (switchMonthNum < selectedMonthNum && !switchYear)
+            specifiedDateStart = EntryObject.getDayDateFromString(startYearNum + "/" + switchMonthNum + "/" + startDayNum);
+        else if (!switchYear)
+            specifiedDateStart = EntryObject.getDayDateFromString(startYearNum + "/" + selectedMonthNum + "/" + startDayNum);
+        else if (switchYearNum < selectedYearNum)
+            specifiedDateStart = EntryObject.getDayDateFromString(switchYear + "/" + switchMonthNum + "/" + startDayNum);
+        else
+            specifiedDateStart = EntryObject.getDayDateFromString(selectedYearNum + "/" + selectedMonthNum + "/" + startDayNum);
+
+        if (switchMonthNum < selectedMonthNum && !switchYear)
+            specifiedDateEnd = EntryObject.getDayDateFromString(startYearNum + "/" + selectedMonthNum + "/" + endDayNum);
+        else if (!switchYear)
+            specifiedDateEnd = EntryObject.getDayDateFromString(startYearNum + "/" + switchMonthNum + "/" + endDayNum);
+        else if (switchYearNum < selectedYearNum)
+            specifiedDateEnd = EntryObject.getDayDateFromString(selectedYearNum + "/" + selectedMonthNum + "/" + startDayNum);
+        else
+            specifiedDateEnd = EntryObject.getDayDateFromString(switchYear + "/" + switchMonthNum+ "/" + startDayNum);
+
+
+        for (UserObject user : this.groupMembers) {
+            events = user.getEntryMap();
+            checkAdded = new boolean[19][7];
+            for (Map.Entry<String, ArrayList<EntryObject> > entryPair : events.entrySet()) {
+                Date currentDate = EntryObject.getDayDateFromString(entryPair.getKey());
+                if (currentDate.equals(specifiedDateEnd)
+                        || currentDate.equals(specifiedDateStart)
+                        || (currentDate.before(specifiedDateEnd) && currentDate.after(specifiedDateStart))) {
+                    for (EntryObject current : entryPair.getValue()) {
+                        if (!current.isTask()) {
+                            String dayOfEvent = EntryObject.getDayOfWeek(current.getStart());
+                            int startDayIndex = getDayIndex(dayOfEvent);
+                            int endDayIndex = getDayIndex(EntryObject.getDayOfWeek(current.getEnd()));
+                            String hourStart = hour.format(current.getStart());
+                            String hourEnd = hour.format(current.getEnd());
+                            int hourEndNum = Integer.parseInt(hourEnd);
+                            int hourStartNum = Integer.parseInt(hourStart);
+
+
+                            if (startDayIndex == endDayIndex) {
+                                if (hourStartNum < 6 && hourEndNum > 6) {
+                                    hourStartNum = 6;
+                                } else if (hourStartNum < 6 && hourEndNum <= 6) {
+                                    continue;
+                                }
+
+                                if (hourEndNum == 0)
+                                    hourEndNum = 24;
+                                for (int j = hourStartNum - 6; j < hourEndNum - 5; j++) {
+                                    if (checkAdded[j][startDayIndex] == false) {
+                                        peopleCountArray[j][startDayIndex] += 1;
+                                        checkAdded[j][startDayIndex] = true;
+                                    }
+                                }
+                            } else if (startDayIndex < endDayIndex) {
+                                if (hourStartNum < 6) {
+                                    hourStartNum = 6;
+                                }
+                                if (hourEndNum == 0)
+                                    hourEndNum = 24;
+                                for (int j = startDayIndex; j <= endDayIndex; j++) {
+                                    if (j != endDayIndex) {
+                                        for (int k = hourStartNum - 6; k < hourEndNum - 5; k++) {
+                                            if (checkAdded[j][startDayIndex] == false) {
+                                                peopleCountArray[k][j] += 1;
+                                                checkAdded[j][startDayIndex] = true;
+                                            }
+                                        }
+                                    } else {
+                                        for (int k = hourStartNum - 6; k < 19; k++) {
+                                            if (checkAdded[j][startDayIndex] == false) {
+                                                peopleCountArray[k][j] += 1;
+                                                checkAdded[j][startDayIndex] = true;
+                                            }
+                                        }
+                                    }
+                                    hourStartNum = 6;
+                                }
+                            }
+                        }
                     }
-                    if (startDayIndex > endDayIndex);
-                    if (hourStartNum >= 6 && hourEndNum < 6);
-                    if (hourStartNum < 6 && hourEndNum < 6) continue;
-                    if (hourStartNum < 6 && hourEndNum > 6);
                 }
             }
         }
-    }*/
+
+        insertGrid();
+    }
+
+    private void insertGrid() {
+        for (int i = 0; i < idArray.length; i++) {
+            for (int j = 0; j < idArray[0].length; j++) {
+                idArray[iX][jX].setBackgroundColor(getColor(this.groupMemberCount, peopleCountArray[i][j]));
+            }
+        }
+    }
+
 
     private int getDaysOfMonth(String selectedMonth, String selectedYear) {
         int daysInMonth = -1;
