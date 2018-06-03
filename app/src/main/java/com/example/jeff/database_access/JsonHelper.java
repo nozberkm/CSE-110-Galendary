@@ -11,6 +11,16 @@ import java.util.Date;
 public class JsonHelper {
     public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
+//    public static String parseString(JSONObject jo, String key, boolean disallow_null){
+//        if(!disallow_null) return parseString(jo, key);
+//        String str = null;
+//        try {
+//            str = jo.isNull(key) ? null : jo.getString(key);
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return str;
+//    }
     public static String parseString(JSONObject jo, String key){
         String str = null;
         try {
@@ -37,6 +47,19 @@ public class JsonHelper {
             e.printStackTrace();
         }
 
+        return toret;
+    }
+
+    public static boolean parseBoolean(JSONObject jo, String key){
+        boolean toret = false;
+
+        if(jo.has(key)) {
+            try {
+                toret = jo.getInt(key) > 0;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
         return toret;
     }
     public static Date parseDate(JSONObject jo, String key){
