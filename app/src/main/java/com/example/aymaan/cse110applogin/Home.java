@@ -73,7 +73,7 @@ public class Home extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
