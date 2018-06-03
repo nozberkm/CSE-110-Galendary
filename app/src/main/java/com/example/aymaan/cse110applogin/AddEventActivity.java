@@ -128,7 +128,14 @@ public class AddEventActivity extends AppCompatActivity {
         startTimeListener = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet (TimePicker view, int hourOfDay, int minute){
-                tvStartTime.setText(hourOfDay + ":" + minute);
+                if (hourOfDay < 10 && minute < 10)
+                    tvStartTime.setText("0" + Integer.toString(hourOfDay) + ":" + "0" + Integer.toString(minute));
+                else if (minute < 10)
+                    tvStartTime.setText(Integer.toString(hourOfDay) + ":" + "0" + Integer.toString(minute));
+                else if (hourOfDay < 10)
+                    tvStartTime.setText("0" + Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
+                else
+                    tvStartTime.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
             }
         };
 
@@ -153,7 +160,14 @@ public class AddEventActivity extends AppCompatActivity {
         endTimeListener = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet (TimePicker view, int hourOfDay, int minute){
-                tvEndTime.setText(hourOfDay + ":" + minute);
+                if (hourOfDay < 10 && minute < 10)
+                    tvEndTime.setText("0" + Integer.toString(hourOfDay) + ":" + "0" + Integer.toString(minute));
+                else if (minute < 10)
+                    tvEndTime.setText(Integer.toString(hourOfDay) + ":" + "0" + Integer.toString(minute));
+                else if (hourOfDay < 10)
+                    tvEndTime.setText("0" + Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
+                else
+                    tvEndTime.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
             }
         };
     }

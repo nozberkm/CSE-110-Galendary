@@ -271,12 +271,13 @@ public class Heatmap extends AppCompatActivity {
                     int hourStartNum = Integer.parseInt(hourStart);
 
 
+                    if (startDayIndex != endDayIndex) {
+
+                    }
+                    if (startDayIndex > endDayIndex);
                     if (hourStartNum >= 6 && hourEndNum < 6);
                     if (hourStartNum < 6 && hourEndNum < 6) continue;
                     if (hourStartNum < 6 && hourEndNum > 6);
-                    if (startDayIndex != endDayIndex);
-                    if (startDayIndex > endDayIndex);
-
                 }
             }
         }
