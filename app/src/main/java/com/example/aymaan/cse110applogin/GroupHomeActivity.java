@@ -48,11 +48,21 @@ public class GroupHomeActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            ListView l = (ListView)view;
+            ListView l = (ListView)parent;
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
 
-            Intent ved = new Intent( GroupHomeActivity.this, MyGroups.class);
-            //ved.putExtras(b);
+            Bundle b = new Bundle();
+            b.putLong("id",clickedItem.getId());
+            b.putLong("group id",clickedItem.getGroupId());
+            b.putString("event name",clickedItem.getTitle());
+            b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
+            b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
+            b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
+            b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
+            b.putString("event description",clickedItem.getDescription());
+
+            Intent ved = new Intent( GroupHomeActivity.this, ViewEventDetails.class);
+            ved.putExtras(b);
             startActivity(ved);
             finish();
         }
@@ -61,7 +71,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_group_home);
 
         group_toolbar = (Toolbar)findViewById(R.id.group_tool_bar);
         group_compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
@@ -79,7 +89,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.group_fab);
         final ListView listView = (ListView) findViewById(R.id.group_home_list);
 
-        /*Map<String, ArrayList<EntryObject>> GroupEntryMap = MyGroups.group.getEntries();
+        Map<String, ArrayList<EntryObject>> GroupEntryMap = MyGroups.currGroup.getEntryMap();
         if(GroupEntryMap!= null) {
             //toolbar.setTitle("Man");
             for(String s: GroupEntryMap.keySet()) {
@@ -92,7 +102,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         }
         else {
             //Do Nothing
-        }*/
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,14 +128,14 @@ public class GroupHomeActivity extends AppCompatActivity {
                     listView.setOnItemClickListener(eventClickedHandler);
                 }
                 else{
-                    //eventAdapter = new EventAdapter(Home.this, empty_list);
-                    //listView.setAdapter(eventAdapter);
+                    group_eventAdapter = new EventAdapter(GroupHomeActivity.this, empty_list);
+                    listView.setAdapter(group_eventAdapter);
                 }
             }
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                //toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+                group_toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
 
             }
         });
@@ -138,23 +148,23 @@ public class GroupHomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /*public void onNavigationMenuItemClick(MenuItem item) {
+    public void onNavigationMenuItemClick(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
             case R.id.nav_home:
-                Intent h = new Intent(Home.this, Home.class);
+                Intent h = new Intent(GroupHomeActivity.this, Home.class);
                 startActivity(h);
                 break;
             case R.id.nav_mygroups:
-                Intent g = new Intent(Home.this, MyGroups.class);
+                Intent g = new Intent(GroupHomeActivity.this, MyGroups.class);
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s = new Intent(Home.this, AccountSettings.class);
+                Intent s = new Intent(GroupHomeActivity.this, AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
-                Intent l= new Intent(Home.this,LoginActivity.class);
+                Intent l= new Intent(GroupHomeActivity.this,LoginActivity.class);
                 startActivity(l);
                 break;
         }
@@ -167,23 +177,23 @@ public class GroupHomeActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.group_nav_noticeBoard:
-                Intent nb = new Intent(Home.this, NoticeBoard.class);
+                Intent nb = new Intent(GroupHomeActivity.this, NoticeBoard.class);
                 startActivity(nb);
                 break;
             case R.id.group_nav_members:
-                Intent gm = new Intent(Home.this, MemberList.class);
+                Intent gm = new Intent(GroupHomeActivity.this, MemberList.class);
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(Home.this, Heatmap.class);
+                Intent h = new Intent(GroupHomeActivity.this, Heatmap.class);
                 startActivity(h);
                 break;
             case R.id.group_nav_contactAdmin:
-                Intent ca= new Intent(Home.this,NoticeBoard.class);
+                Intent ca= new Intent(GroupHomeActivity.this,NoticeBoard.class);
                 startActivity(ca);
                 break;
             case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(Home.this, RelatedGroups.class);
+                Intent rg = new Intent(GroupHomeActivity.this, RelatedGroups.class);
                 startActivity(rg);
                 break;
             case R.id.group_nav_leaveGroup:
@@ -192,7 +202,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.homePageLayout);
         mDrawerLayout.closeDrawer(GravityCompat.END);
-    }*/
+    }
 
     public void onFilterMenuItemClick(MenuItem item) {
         Drawable icon = item.getIcon();
