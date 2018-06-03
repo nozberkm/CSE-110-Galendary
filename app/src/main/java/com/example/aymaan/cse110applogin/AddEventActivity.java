@@ -153,7 +153,7 @@ public class AddEventActivity extends AppCompatActivity {
         endTimeListener = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet (TimePicker view, int hourOfDay, int minute){
-                tvEndTime.setText(hourOfDay + ":" + minute);
+                tvEndTime.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
             }
         };
     }
