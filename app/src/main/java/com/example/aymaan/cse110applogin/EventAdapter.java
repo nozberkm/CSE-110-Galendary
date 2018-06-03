@@ -39,10 +39,10 @@ public class EventAdapter extends ArrayAdapter<EntryObject> {
         TextView name = (TextView) listItem.findViewById(R.id.textView_event_details);
 
         if(currentEntryObject.getStart()== null) {
-            name.setText(currentEntryObject.getTitle() + "at" + currentEntryObject.getEnd().toString() + "with" + currentEntryObject.getDescription());
+            name.setText(currentEntryObject.getTitle() + " at " + currentEntryObject.getEnd().toString() + " with " + currentEntryObject.getDescription());
         }
         else {
-            name.setText(currentEntryObject.getTitle() + "at" + currentEntryObject.getStart().toString() + "to" + currentEntryObject.getEnd().toString() + "with" + currentEntryObject.getDescription());
+            name.setText(currentEntryObject.getTitle() + " at " + currentEntryObject.getStart().toString() + " to " + currentEntryObject.getEnd().toString() + " with " + currentEntryObject.getDescription() );
         }
 
 
