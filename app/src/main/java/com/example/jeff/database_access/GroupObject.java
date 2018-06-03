@@ -7,6 +7,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GroupObject {
     private long id = -1;
     private String name = null;
