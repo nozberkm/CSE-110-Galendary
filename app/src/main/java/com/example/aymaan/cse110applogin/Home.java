@@ -37,8 +37,9 @@ public class Home extends AppCompatActivity {
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
+    private EventAdapter eventAdapter;
     public static Date clickDate = null;
-    public UserObject user = Hashing.global_user;
+    //public UserObject user = Hashing.global_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class Home extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         final ListView listView = (ListView) findViewById(R.id.home_list);
 
-        Map<String, ArrayList<EntryObject>> EntryMap = user.getEntryMap();
+        Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
         if(EntryMap!= null) {
             //toolbar.setTitle("Man");
             for(String s: EntryMap.keySet()) {
@@ -73,8 +74,9 @@ public class Home extends AppCompatActivity {
             }
         }
         else {
-            toolbar.setTitle("FUCK");
+            //Do Nothing
         }
+
 
 
 
@@ -93,6 +95,11 @@ public class Home extends AppCompatActivity {
             @Override
             public void onDayClick(Date dateClicked) {
                 clickDate = dateClicked;
+                Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
+                String date = EntryObject.getDayString(dateClicked);
+                ArrayList<EntryObject> list = EntryMap.get(date);
+                eventAdapter = new EventAdapter(Home.this, list);
+                listView.setAdapter(eventAdapter);
             }
 
             @Override
