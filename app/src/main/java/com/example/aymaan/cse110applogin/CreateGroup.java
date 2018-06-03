@@ -47,7 +47,7 @@ public class CreateGroup extends AppCompatActivity {
                 } else {
                     etError.setText("");
                     GroupObject group = LoginActivity.userLogin.createGroup(etGroupName.getText().toString());
-                    MyGroups.group = group;
+                    MyGroups.currGroup = group;
                     Snackbar.make(v, "CREATE GROUP!!!!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }

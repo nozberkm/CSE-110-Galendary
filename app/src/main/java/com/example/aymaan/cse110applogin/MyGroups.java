@@ -31,7 +31,7 @@ public class MyGroups extends AppCompatActivity {
     private ActionBarDrawerToggle mToggle;
     private android.support.v7.widget.Toolbar mToolbar;
 
-    public static GroupObject group;
+    public static GroupObject currGroup;
     ArrayList<GroupObject> groupList;
 
     ListView lv;
@@ -89,7 +89,7 @@ public class MyGroups extends AppCompatActivity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                group = groupList.get(position);
+                currGroup = groupList.get(position);
                 
             }
         });
