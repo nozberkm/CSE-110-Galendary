@@ -43,6 +43,18 @@ public class EntryObject {
         setUser(user);
     }
 
+    public EntryObject(JSONObject jo){
+        parseIdFromJson(jo);
+        parseGidFromJson(jo);
+        parseTitleFromJson(jo);
+        parseStartFromJson(jo);
+        parseEndFromJSON(jo);
+        parseFileCountFromJson(jo);
+        parsePriorityFromJson(jo);
+        parseRecurrenceFromJson(jo);
+        parseDescriptionFromJson(jo);
+    }
+
     public UserObject getUser() {
         return user;
     }
@@ -51,71 +63,11 @@ public class EntryObject {
         this.user = user;
     }
 
-    public EntryObject(JSONObject jo){
-        try {
-            id = jo.getLong("id");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            group_id = jo.has("gid") ? jo.getLong("gid") : -1;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        try {
-            title = jo.isNull("title") ? null : jo.getString("title");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        if(jo.isNull("start")){
-            start = null;
-        } else {
-            try {
-                try {
-                    start = DB_DATE_FORMAT.parse(jo.getString("start"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-        if(jo.isNull("end")){
-            end = null;
-        } else {
-            try {
-                try {
-                    end = DB_DATE_FORMAT.parse(jo.getString("end"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
 
-        try {
-            file_count = jo.isNull("file_count") ? -1 : jo.getInt("file_count");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            priority = jo.isNull("priority") ? -1 : jo.getInt("priority");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            recurrence = jo.isNull("recurrence") ? "no recurrence" :jo.getString("recurrence");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            description = jo.isNull("description") ? "" : jo.getString("description");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+
+
+
 
     public long getId() { return id; }
     public long getGroupId(){ return group_id; }
@@ -147,6 +99,16 @@ public class EntryObject {
     }
 
 
+    public void setTitle(String title) { this.title = title; }
+
+    public void setStart(Date start) { this.start = start; }
+
+    public void setEnd(Date end) { this.end = end; }
+
+    public void setRecurrence(String recurrence) { this.recurrence = recurrence; }
+
+    public void setDescription(String description) { this.description = description; }
+
 
 
 
@@ -168,25 +130,7 @@ public class EntryObject {
     }
 
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
-    public void setStart(Date start) {
-        this.start = start;
-    }
-
-    public void setEnd(Date end) {
-        this.end = end;
-    }
-
-    public void setRecurrence(String recurrence) {
-        this.recurrence = recurrence;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
 
 
@@ -230,5 +174,91 @@ public class EntryObject {
         //TODO:
 
 
+    }
+
+
+
+
+
+
+
+
+
+
+    // Below are private parsing methods for handling extraction of information from JSONObjects
+    // Used by the constructor.
+
+
+    private static String parseStringFromJson(JSONObject jo, String key){
+        String str = null;
+        try {
+            str = jo.isNull(key) ? null : jo.getString(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+    private static long parseLongFromJson(JSONObject jo, String key){
+        long toret = -1;
+        try {
+            toret = jo.getLong(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return toret;
+    }
+    private static int parseIntFromJson(JSONObject jo, String key){
+        int toret = -1;
+        try {
+            toret = jo.isNull(key) ? -1 : jo.getInt(key);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return toret;
+    }
+    private static Date parseDateFromJson(JSONObject jo, String key){
+        Date dat = null;
+        if(!jo.isNull(key)){
+            dat = null;
+            try {
+                try {
+                    dat = DB_DATE_FORMAT.parse(jo.getString(key));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return dat;
+    }
+
+    private void parseIdFromJson(JSONObject jo){
+        id = parseLongFromJson(jo, "id");
+    }
+    private void parseGidFromJson(JSONObject jo){
+        group_id = parseLongFromJson(jo, "gid");
+    }
+    private void parseTitleFromJson(JSONObject jo){
+        title = parseStringFromJson(jo, "title");
+    }
+    private void parseStartFromJson(JSONObject jo){
+        start = parseDateFromJson(jo, "start");
+    }
+    private void parseEndFromJSON(JSONObject jo){
+        end = parseDateFromJson(jo, "end");
+    }
+    private void parseFileCountFromJson(JSONObject jo){
+        file_count = parseIntFromJson(jo, "file_count");
+    }
+    private void parsePriorityFromJson(JSONObject jo){
+        priority = parseIntFromJson(jo, "priority");
+    }
+    private void parseRecurrenceFromJson(JSONObject jo){
+        recurrence = parseStringFromJson(jo, "recurrence");
+    }
+    private void parseDescriptionFromJson(JSONObject jo){
+        description = parseStringFromJson(jo, "description");
     }
 }
