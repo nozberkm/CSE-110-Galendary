@@ -214,13 +214,6 @@ public class EntryObject {
         return getDayString(getStart());
     }
 
-    public boolean isTask() {
-        if (this.getStart() == null)
-            return true;
-        else
-            return false;
-    }
-
     public static String getDayOfWeek(Date date) {
         return new SimpleDateFormat("EEE").format(date);
     }
