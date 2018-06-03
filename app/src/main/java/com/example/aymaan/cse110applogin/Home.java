@@ -76,8 +76,8 @@ public class Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Intent to EventActivity", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent aea = new Intent(Home.this, AddEventActivity.class);
+                startActivity(aea);
             }
         });
 
