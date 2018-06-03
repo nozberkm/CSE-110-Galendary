@@ -59,7 +59,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/ed_event_name"
             android:layout_width="match_parent"
             android:layout_height="90dp"
             android:background="@color/colorPrimary"
@@ -93,7 +93,7 @@
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/group_name"
+                android:id="@+id/ed_group_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -114,7 +114,7 @@
                 app:srcCompat="@android:drawable/ic_menu_my_calendar" />
 
             <EditText
-                android:id="@+id/event_date"
+                android:id="@+id/ed_event_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
@@ -139,7 +139,7 @@
                 app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
             <EditText
-                android:id="@+id/event_start_time"
+                android:id="@+id/ed_event_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -157,7 +157,7 @@
                 android:textSize="20sp" />
 
             <EditText
-                android:id="@+id/event_end_time"
+                android:id="@+id/ed_event_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -182,7 +182,7 @@
                 app:srcCompat="@android:drawable/ic_lock_idle_alarm" />
 
             <TextView
-                android:id="@+id/reminder_text"
+                android:id="@+id/ed_reminder_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -192,7 +192,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/description_field"
+            android:id="@+id/ed_description_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0"
