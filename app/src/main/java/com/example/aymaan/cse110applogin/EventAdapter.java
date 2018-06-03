@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.jeff.database_access.EntryObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,10 +40,19 @@ public class EventAdapter extends ArrayAdapter<EntryObject> {
         TextView name = (TextView) listItem.findViewById(R.id.textView_event_details);
 
         if(currentEntryObject.getStart()== null) {
-            name.setText(currentEntryObject.getTitle() + " at " + currentEntryObject.getEnd().toString() + " with " + currentEntryObject.getDescription());
+            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+            String endTime = localDateFormat.format(currentEntryObject.getEnd());
+            name.setText(currentEntryObject.getTitle() + "\n" +
+                    endTime + "\n" +
+                    currentEntryObject.getDescription());
         }
         else {
-            name.setText(currentEntryObject.getTitle() + " at " + currentEntryObject.getStart().toString() + " to " + currentEntryObject.getEnd().toString() + " with " + currentEntryObject.getDescription() );
+            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+            String endTime = localDateFormat.format(currentEntryObject.getEnd());
+            String startTime = localDateFormat.format(currentEntryObject.getStart());
+            name.setText(currentEntryObject.getTitle() + "\n" +
+                    startTime + " to " + endTime + "\n" +
+                    currentEntryObject.getDescription());
         }
 
 
