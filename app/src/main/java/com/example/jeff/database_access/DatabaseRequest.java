@@ -749,4 +749,40 @@ public class DatabaseRequest {
     public static GroupObject join_group_by_enrollment_code(UserObject user, String enrollment_code) throws IOException, JSONException {
         return join_group_by_enrollment_code(user.getUsername(), user.getPasshash(), enrollment_code);
     }
+
+    public static ArrayList<UserObject> load_group_members(GroupObject group) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder(new String[][] {
+            {"command", "load_group_members"}
+        });
+
+        pb.push("group_id", group.getId());
+
+        JSONObject jo = null;
+        try {
+            jo = GalendaryDB.server_request(pb);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (!jo.has("data") || jo.isNull("data")) return null;
+
+        JSONArray data = null;
+        try {
+            data = jo.getJSONArray("data");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if (data.length() == 0) return null;
+
+        ArrayList<UserObject> user_list = new ArrayList<>();
+        for (int i = 0; i < data.length(); ++i) {
+            try {
+                user_list.add(new UserObject(data.getJSONObject(i)));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return user_list;
+    }
 }
