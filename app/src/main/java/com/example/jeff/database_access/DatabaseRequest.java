@@ -749,9 +749,13 @@ public class DatabaseRequest {
     }
 
     public static ArrayList<UserObject> load_group_members(GroupObject group) throws IOException, JSONException {
+        // TODO: Handle security issue by requiring username and passhash
+        // So that only members of the group have access to the group members
+
         ParameterBuilder pb = new ParameterBuilder(new String[][] {
             {"command", "load_group_members"}
         });
+
 
         pb.push("group_id", group.getId());
 
