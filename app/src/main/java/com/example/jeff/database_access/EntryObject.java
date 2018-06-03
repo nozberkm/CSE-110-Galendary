@@ -10,6 +10,8 @@ import java.util.Date;
 
 
 public class EntryObject {
+    public static String DAY_DATE_FORMAT = "yyyy/dd/MM";
+
     private long id;
     private long group_id;
     private String title;
@@ -174,9 +176,18 @@ public class EntryObject {
         setUser(group.getUser());
     }
 
+    public static Date getDayDateFromString(String day_string){
+        Date toret = null;
+        try {
+            toret = new SimpleDateFormat(DAY_DATE_FORMAT).parse(day_string);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return toret;
+    }
 
     public static String getDayString(Date date){
-        DateFormat df = new SimpleDateFormat("yyyy/dd/MM");
+        DateFormat df = new SimpleDateFormat(DAY_DATE_FORMAT);
 
         return df.format(date);
     }
