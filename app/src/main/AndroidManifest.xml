@@ -93,6 +93,7 @@
             android:name=".AddTaskEventActivity"
             android:label="@string/title_activity_add_task_event"
             android:theme="@style/AppTheme"></activity>
+        <activity android:name=".GroupHomeActivity"></activity>
     </application>
 
 </manifest>

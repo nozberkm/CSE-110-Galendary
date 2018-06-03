@@ -28,7 +28,7 @@ public class ViewEventDetails extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_details);
-/*
+
         TextView event_name = (TextView)findViewById(R.id.ed_event_name);
         TextView group_name = (TextView)findViewById(R.id.ed_group_name);
         TextView start_date = (TextView)findViewById(R.id.ed_event_start_date);
@@ -37,12 +37,12 @@ public class ViewEventDetails extends AppCompatActivity {
         TextView end_time = (TextView)findViewById(R.id.ed_event_end_time);
         TextView reminder_text = (TextView)findViewById(R.id.ed_reminder_text);
         TextView description = (TextView)findViewById(R.id.ed_description_field);
-*/
+
         //TODO:Here we implement the part where we pull the event details from database, and parse them
 
         //Pull here?
         Bundle b = getIntent().getExtras();
-/*        if(b != null) {
+        if(b != null) {
             event_name.setText(b.getString("event name"));
             //group_name.setText();
             start_date.setText(b.getString("event start"));

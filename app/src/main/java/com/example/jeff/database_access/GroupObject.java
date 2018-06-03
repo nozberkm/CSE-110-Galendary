@@ -7,6 +7,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class GroupObject {
     private long id = -1;
     private String name = null;
@@ -260,6 +263,27 @@ public class GroupObject {
 
     public ArrayList<EntryObject> getEntries(){
         return entry_list;
+    }
+
+    //TODO get map instead of list
+
+    public Map<String, ArrayList<EntryObject>> getEntryMap() {
+        Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
+        if (this.getEntries() == null) return null;
+        else {
+            for (EntryObject eo : this.getEntries()) {
+                String entry_day_str = eo.getDayString();
+                ArrayList<EntryObject> day_entries = entry_map.get(entry_day_str);
+                if(day_entries == null){
+                    day_entries = new ArrayList<>();
+                    day_entries.add(eo);
+                    entry_map.put(entry_day_str, day_entries);
+                } else {
+                    day_entries.add(eo);
+                }
+            }
+        }
+        return entry_map;
     }
 
 
