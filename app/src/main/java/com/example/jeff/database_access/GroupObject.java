@@ -320,7 +320,7 @@ public class GroupObject {
 
 
 
-    public ArrayList<UserObject> loadMember(){
+    public ArrayList<UserObject> loadMembers(){
         ArrayList<UserObject> users = null;
         try {
             users = DatabaseRequest.load_group_members(this);
