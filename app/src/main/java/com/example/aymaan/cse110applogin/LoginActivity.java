@@ -13,10 +13,12 @@ import android.support.v7.widget.CardView;
 import com.example.jeff.database_access.UserObject;
 
 public class LoginActivity extends AppCompatActivity {
+    public static UserObject userLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userLogin = null;
 
         // Shite patch
         int SDK_INT = android.os.Build.VERSION.SDK_INT;
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        
+
         final EditText etLoginEmail = (EditText) findViewById(R.id.etLoginEmail);
         final EditText etLoginPassword = (EditText) findViewById(R.id.etLoginPassword);
         final TextView tLoginRecovery = (TextView) findViewById(R.id.tLoginRecovery);
@@ -69,6 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 UserObject user = new UserObject(username, password);
+
+                userLogin = user.fetchFromDatabase();
                 //etLoginError.setText(username);
                 if (etLoginPassword.getText().toString().equals("")) {
                     etLoginError.setText("Password can not be empty");
@@ -77,14 +81,17 @@ public class LoginActivity extends AppCompatActivity {
                     etLoginError.setText("Username can not be empty");
                 }
 
-                else if(user.fetchFromDatabase() == null){
+                else if(userLogin == null){
                     //login failed
                     etLoginError.setText("Login Failure");
                 }
                 else {
                     //login success
+
                     Intent cLoginLoginIntent = new Intent(LoginActivity.this, Home.class);
                     LoginActivity.this.startActivity(cLoginLoginIntent);
+                    user.synchronize();
+                    Hashing.global_user = user;
                 }
 
 

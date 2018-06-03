@@ -15,10 +15,14 @@ public class MemberList extends AppCompatActivity {
     Context context;
     ListView lstview;
     ArrayAdapter adapter;
+    Boolean admin;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_list);
         context=this;
+
+        //for now set admin to whatever
+        admin = true;
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
@@ -35,9 +39,16 @@ public class MemberList extends AppCompatActivity {
         lstview.setAdapter(adapter);
         lstview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                Intent toMember = new Intent(MemberList.this, MemberPage.class);
-                toMember.putExtra("name", lstview.getItemAtPosition(position).toString());
-                startActivity(toMember);
+                if(admin) {
+                    Intent toMemberAdmin = new Intent(MemberList.this, MemberPageAdminView.class);
+                    toMemberAdmin.putExtra("name", lstview.getItemAtPosition(position).toString());
+                    startActivity(toMemberAdmin);
+                }
+                else {
+                    Intent toMember = new Intent(MemberList.this, MemberPage.class);
+                    toMember.putExtra("name", lstview.getItemAtPosition(position).toString());
+                    startActivity(toMember);
+                }
             }
         });
 

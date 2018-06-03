@@ -108,8 +108,19 @@ public class GroupObject {
 
     public boolean isIndividual() { return individual; }
 
+
+    public String getEntriesString(){
+        StringBuilder sb = new StringBuilder("Entry:[");
+        if(entry_list == null) return sb.append(']').toString();
+        for(EntryObject eo : entry_list)
+            sb.append(eo.toString()).append('|');
+
+        return sb.append(']').toString();
+    }
     public String toString(){
-        return "Group(" + getId() + ", " + getName() + ", " + (entry_list ==null ? 0 : entry_list.size()) + ')';
+//        return "Group(" + getId() + ", " + getName() + ", " + (entry_list ==null ? 0 : entry_list.size()) + ')';
+        return "Group(" + getId() + ", " + getName() + ", " + (entry_list ==null ? 0 : entry_list.size())+ ',' + getEntriesString() + ')';
+
     }
 
     public boolean isAdmin(){ return admin; }
