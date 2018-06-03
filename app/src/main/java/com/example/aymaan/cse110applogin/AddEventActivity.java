@@ -128,7 +128,7 @@ public class AddEventActivity extends AppCompatActivity {
         startTimeListener = new TimePickerDialog.OnTimeSetListener(){
             @Override
             public void onTimeSet (TimePicker view, int hourOfDay, int minute){
-                tvStartTime.setText(hourOfDay + ":" + minute);
+                tvStartTime.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
             }
         };
 
