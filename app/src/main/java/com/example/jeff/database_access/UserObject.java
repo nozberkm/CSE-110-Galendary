@@ -315,6 +315,17 @@ public class UserObject {
 
         return joined_group;
     }
+
+
+    public GroupObject getIndividualGroup(){
+        if(groups == null) return null;
+        for(GroupObject go : groups){
+            if(go.isIndividual()) return go;
+        }
+        return null;
+    }
+
+
 //    private boolean updateDatabase(){
 //
 //

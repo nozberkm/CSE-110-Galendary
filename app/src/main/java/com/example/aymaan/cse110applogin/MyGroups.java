@@ -90,7 +90,8 @@ public class MyGroups extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currGroup = groupList.get(position);
-                
+                Intent toGroupHome = new Intent(MyGroups.this, GroupHomeActivity.class);
+                startActivity(toGroupHome);
             }
         });
 

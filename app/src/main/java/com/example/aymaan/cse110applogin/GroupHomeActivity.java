@@ -34,15 +34,17 @@ import java.util.Map;
 public class GroupHomeActivity extends AppCompatActivity {
 
     private DrawerLayout mDrawerLayout;
-    private Toolbar group_toolbar;
-    private ActionBar group_actionBar;
+    private Toolbar group_toolbar_month;
+    private Toolbar group_toolbar_name;
+    private ActionBar group_actionBar_month;
+    private ActionBar group_actionBar_name;
     private SimpleDateFormat dateFormatForDisplaying = new SimpleDateFormat("dd-M-yyyy hh:mm:ss a", Locale.getDefault());
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView group_compactCalendarView;
     private EventAdapter group_eventAdapter;
 
     public static Date clickDate = null;
-    //public UserObject user = Hashing.global_user;
+
 
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
@@ -70,19 +72,26 @@ public class GroupHomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
+        group_compactCalendarView = (CompactCalendarView) findViewById(R.id.group_compactcalendar_view);
 
-        group_toolbar = (Toolbar)findViewById(R.id.group_tool_bar);
-        group_compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
-        group_toolbar.setTitleTextColor(Color.WHITE);
-        setSupportActionBar(group_toolbar);
+        group_toolbar_month = (Toolbar)findViewById(R.id.group_tool_bar_month);
+        group_toolbar_name = (Toolbar) findViewById(R.id.group_tool_bar_name);
+
+        group_toolbar_month.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(group_toolbar_month);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        group_actionBar_month = (ActionBar)getSupportActionBar();
+        group_actionBar_month.setTitle(dateFormatForMonth.format(group_compactCalendarView.getFirstDayOfCurrentMonth()));
 
+        group_toolbar_name.setTitleTextColor(Color.WHITE);
+        setSupportActionBar(group_toolbar_name);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        group_actionBar_name = (ActionBar)getSupportActionBar();
+        group_actionBar_name.setTitle(MyGroups.currGroup.getName());
 
-        group_actionBar = (ActionBar)getSupportActionBar();
-
-        group_actionBar.setTitle(dateFormatForMonth.format(group_compactCalendarView.getFirstDayOfCurrentMonth()));
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.grouphomePageLayout);
 
@@ -135,7 +144,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                group_toolbar.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
+                group_toolbar_month.setTitle(dateFormatForMonth.format(firstDayOfNewMonth));
 
             }
         });
@@ -169,7 +178,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 break;
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.homePageLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.grouphomePageLayout);
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
@@ -200,7 +209,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 break;
         }
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.homePageLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.grouphomePageLayout);
         mDrawerLayout.closeDrawer(GravityCompat.END);
     }
 

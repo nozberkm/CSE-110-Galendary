@@ -9,6 +9,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.jeff.database_access.DatabaseRequest;
+import com.example.jeff.database_access.GroupObject;
+import com.example.jeff.database_access.UserObject;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
 public class MemberList extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
 
@@ -16,6 +25,17 @@ public class MemberList extends AppCompatActivity {
     ListView lstview;
     ArrayAdapter adapter;
     Boolean admin;
+    ArrayList<UserObject> userList;
+    String[] strings;
+
+    private static String[] push(String[] array, String push) {
+        String[] longer = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++)
+            longer[i] = array[i];
+        longer[array.length] = push;
+        return longer;
+    }
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.member_list);
@@ -33,9 +53,14 @@ public class MemberList extends AppCompatActivity {
         }
 
 
+        userList = MyGroups.currGroup.loadMembers();
+
+        for (UserObject user : userList){
+            strings = push(strings, user.getUsername());
+        }
+
         lstview=(ListView)findViewById(R.id.listv);
-        String[] items={"Group Member 1","Group Member 2","Group Member 3","Group Member 4","Group Member 5"};
-        adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, items);
+        adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, strings);
         lstview.setAdapter(adapter);
         lstview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){

@@ -318,4 +318,21 @@ public class GroupObject {
         return status;
     }
 
+
+
+    public ArrayList<UserObject> loadMembers(){
+        ArrayList<UserObject> users = null;
+        try {
+            users = DatabaseRequest.load_group_members(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return users;
+    }
+
 }
