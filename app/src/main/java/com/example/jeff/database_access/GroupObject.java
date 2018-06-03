@@ -136,15 +136,6 @@ public class GroupObject {
 
 
 
-//    public EntryObject pushEntry(EntryObject entry){
-//
-//
-//        return null;
-//    }
-
-
-
-
 
     public boolean setPublicFlag(boolean public_flag){
         if(getUser() == null){
