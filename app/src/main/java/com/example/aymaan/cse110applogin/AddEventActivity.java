@@ -11,6 +11,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -41,18 +42,18 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        EditText tvEventTitle = (EditText) findViewById(R.id.tvEventTitle);
+        tvEventTitle = (EditText) findViewById(R.id.tvEventTitle);
 
-        ImageButton ibCloseAddEvent = (ImageButton) findViewById(R.id.ibCloseAddEvent);
-        ImageButton ibAddEvent = (ImageButton) findViewById(R.id.ibAddEvent);
+        ibCloseAddEvent = (ImageButton) findViewById(R.id.ibCloseAddEvent);
+        ibAddEvent = (ImageButton) findViewById(R.id.ibAddEvent);
 
-        final TextView tvStartDate = (TextView) findViewById(R.id.tvStartDate);
-        TextView tvStartTime = (TextView) findViewById(R.id.tvStartTime);
+        tvStartDate = (TextView) findViewById(R.id.tvStartDate);
+        tvStartTime = (TextView) findViewById(R.id.tvStartTime);
 
-        TextView tvEndDate = (TextView) findViewById(R.id.tvEndDate);
-        TextView tvEndTime = (TextView) findViewById(R.id.tvEndTime);
+        tvEndDate = (TextView) findViewById(R.id.tvEndDate);
+        tvEndTime = (TextView) findViewById(R.id.tvEndTime);
 
-        EditText etDescription = (EditText) findViewById(R.id.etDescription);
+        etDescription = (EditText) findViewById(R.id.etDescription);
 
         tvStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,11 +65,10 @@ public class AddEventActivity extends AppCompatActivity {
 
                 DatePickerDialog startDateDialog = new DatePickerDialog(
                         AddEventActivity.this,
-                        android.R.style.Theme_Holo_Dialog_MinWidth,
                         startDateListener,
                         year, month, day);
 
-                startDateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                startDateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 startDateDialog.show();
             }
         });
@@ -78,6 +78,82 @@ public class AddEventActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
                 tvStartDate.setText(month+"/"+dayOfMonth+"/"+year);
+            }
+        };
+
+        tvEndDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get (Calendar.YEAR);
+                int month = cal.get (Calendar.MONTH);
+                int day = cal.get (Calendar.DAY_OF_MONTH);
+
+                DatePickerDialog endDateDialog = new DatePickerDialog(
+                        AddEventActivity.this,
+                        endDateListener,
+                        year, month, day);
+
+                endDateDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                endDateDialog.show();
+            }
+        });
+
+        endDateListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                month = month + 1;
+                tvEndDate.setText(month+"/"+dayOfMonth+"/"+year);
+            }
+        };
+
+        tvStartTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get (Calendar.HOUR_OF_DAY);
+                int minute = cal.get (Calendar.MINUTE);
+
+                TimePickerDialog endTimeDialog = new TimePickerDialog(
+                        AddEventActivity.this,
+                        startTimeListener,
+                        hour, minute, true
+                );
+
+                endTimeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                endTimeDialog.show();
+            }
+        });
+
+        startTimeListener = new TimePickerDialog.OnTimeSetListener(){
+            @Override
+            public void onTimeSet (TimePicker view, int hourOfDay, int minute){
+                tvStartTime.setText(hourOfDay + ":" + minute);
+            }
+        };
+
+        tvEndTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar cal = Calendar.getInstance();
+                int hour = cal.get (Calendar.HOUR_OF_DAY);
+                int minute = cal.get (Calendar.MINUTE);
+
+                TimePickerDialog endTimeDialog = new TimePickerDialog(
+                        AddEventActivity.this,
+                        endTimeListener,
+                        hour, minute, true
+                );
+
+                endTimeDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                endTimeDialog.show();
+            }
+        });
+
+        endTimeListener = new TimePickerDialog.OnTimeSetListener(){
+            @Override
+            public void onTimeSet (TimePicker view, int hourOfDay, int minute){
+                tvEndTime.setText(hourOfDay + ":" + minute);
             }
         };
     }
