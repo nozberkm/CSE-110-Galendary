@@ -10,7 +10,8 @@ import java.util.Date;
 
 
 public class EntryObject {
-    public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/dd/MM");
+
+    public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 //    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
 
@@ -150,6 +151,7 @@ public class EntryObject {
         }
         return toret;
     }
+
 
     public static String getDayString(Date date){
         return DAY_DATE_FORMAT.format(date);
