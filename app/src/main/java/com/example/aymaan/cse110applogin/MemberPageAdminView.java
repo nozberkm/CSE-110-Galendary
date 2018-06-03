@@ -16,6 +16,7 @@ public class MemberPageAdminView extends AppCompatActivity {
     private Button remove;
     Context context;
     String name;
+    String username;
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -27,9 +28,10 @@ public class MemberPageAdminView extends AppCompatActivity {
 
         TextView memberName = (TextView) findViewById(R.id.textView);
         TextView email = (TextView) findViewById(R.id.textView2);
-        name = (String) bd.get("name");
+        name = MemberList.viewedUser.getUsername();
+        username = MemberList.viewedUser.getUsername();
         memberName.setText(name);
-        email.setText("email: email@email.com");
+        email.setText("email: " + username);
 
        promote = (Button) findViewById(R.id.button2);
        remove = (Button) findViewById(R.id.button3);
