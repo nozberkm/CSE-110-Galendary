@@ -196,6 +196,7 @@ public class UserObject {
         entries = DatabaseRequest.get_all_entries(this);
 
         //TODO: This is an absolutely terrible way to do this, but it's quick and dirty
+        if(entries == null) return 0;
         for(GroupObject go : groups)
             go.addEntriesCheckGID(entries);
 
@@ -211,6 +212,7 @@ public class UserObject {
         synchronizeEntries();
 
         LOG_DEBUG("Synchronized user");
+        LOG_DEBUG(this.toString());
 
 
     }
