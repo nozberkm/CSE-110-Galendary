@@ -324,6 +324,18 @@ public class UserObject {
         return DatabaseRequest.search_group_name(groupName);
     }
 
+    public boolean create_request(long group_id) throws IOException {
+        return DatabaseRequest.create_request(this,group_id);
+    }
+
+    public boolean make_request_decision(long request_id, long group_id, boolean decision)
+                                         throws IOException{
+        return DatabaseRequest.make_request_decision(request_id,this,group_id,decision);
+    }
+
+    public ArrayList<GroupRequestObject> get_requests() {
+        return DatabaseRequest.get_requests(this);
+    }
 
 //    private boolean updateDatabase(){
 //

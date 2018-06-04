@@ -17,11 +17,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class AddTaskEventActivity extends AppCompatActivity {
 
     private static final String TAG = "AddTaskEventFragment";
+
+    ImageButton ibClose;
 
     private SectionsPageAdapter mSectionPageAdapter;
     private ViewPager mViewPager;
@@ -31,12 +34,21 @@ public class AddTaskEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task_event);
 
+        ibClose = (ImageButton) findViewById(R.id.ibClose);
+
         mSectionPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+
+        ibClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddTaskEventActivity.this.finish();
+            }
+        });
     }
     public void onBackPressed(){
     }
