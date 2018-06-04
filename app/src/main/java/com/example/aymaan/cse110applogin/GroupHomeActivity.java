@@ -169,7 +169,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s = new Intent(GroupHomeActivity.this, AccountSettings.class);
+                Intent s = new Intent(GroupHomeActivity.this, SettingsActivity.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
@@ -204,6 +204,10 @@ public class GroupHomeActivity extends AppCompatActivity {
             case R.id.group_nav_relatedGroups:
                 Intent rg = new Intent(GroupHomeActivity.this, RelatedGroups.class);
                 startActivity(rg);
+                break;
+            case R.id.group_nav_groupSettings:
+                Intent gs = new Intent(GroupHomeActivity.this, GroupSettings.class);
+                startActivity(gs);
                 break;
             case R.id.group_nav_leaveGroup:
                 break;

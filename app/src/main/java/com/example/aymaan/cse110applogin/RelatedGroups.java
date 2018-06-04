@@ -76,7 +76,7 @@ public class RelatedGroups extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s= new Intent(RelatedGroups.this,AccountSettings.class);
+                Intent s= new Intent(RelatedGroups.this,SettingsActivity.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
@@ -111,6 +111,10 @@ public class RelatedGroups extends AppCompatActivity {
             case R.id.group_nav_relatedGroups:
                 Intent rg = new Intent(RelatedGroups.this, RelatedGroups.class);
                 startActivity(rg);
+                break;
+            case R.id.group_nav_groupSettings:
+                Intent gs = new Intent(RelatedGroups.this, GroupSettings.class);
+                startActivity(gs);
                 break;
             case R.id.group_nav_leaveGroup:
                 break;

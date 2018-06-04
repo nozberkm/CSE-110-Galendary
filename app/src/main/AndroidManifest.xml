@@ -36,10 +36,6 @@
             android:label="Home"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AccountSettings"
-            android:label="Account Settings"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MyGroups"
             android:label="My Groups"
             android:screenOrientation="portrait" />
