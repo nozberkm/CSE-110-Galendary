@@ -233,25 +233,34 @@ public class Heatmap extends AppCompatActivity {
             case "Mon":
                 daysBackward = 0;
                 daysForward = 6;
+                break;
             case "Tue":
                 daysBackward = 1;
                 daysForward = 5;
+                break;
             case "Wed":
                 daysBackward = 2;
                 daysForward = 4;
+                break;
             case "Thu":
                 daysBackward = 3;
                 daysForward = 3;
+                break;
             case "Fri":
                 daysBackward = 4;
                 daysForward = 2;
+                break;
             case "Sat":
                 daysBackward = 5;
                 daysForward = 1;
+                break;
             case "Sun":
                 daysBackward = 6;
                 daysForward = 0;
+                break;
         }
+//        System.out.println("+++++++++++++++");
+//        System.out.println(selectedDayOfWeek);
 
         int daysInMonth = getDaysOfMonth(selectedMonth, selectedYear);
 
@@ -280,8 +289,14 @@ public class Heatmap extends AppCompatActivity {
             switchYearNum--;
         }
 
+//        System.out.println(selectedDayNum);
         int startDayNum = selectedDayNum - daysBackward;
         int endDayNum = selectedDayNum + daysForward;
+//        System.out.println(daysBackward);
+//        System.out.println(daysForward);
+//        System.out.println(startDayNum);
+//        System.out.println(endDayNum);
+
 
         if (switchMonthNum < selectedMonthNum) {
             startDayNum = getDaysOfMonth(Integer.toString(switchMonthNum), selectedYear) + startDayNum;
@@ -332,6 +347,11 @@ public class Heatmap extends AppCompatActivity {
             if (currentDate.equals(specifiedDateEnd)
                     || currentDate.equals(specifiedDateStart)
                     || (currentDate.before(specifiedDateEnd) && currentDate.after(specifiedDateStart))) {
+                System.out.println(currentDate);
+                System.out.println(specifiedDateEnd);
+                System.out.println(specifiedDateStart);
+                System.out.println("------------");
+
                 if (!current.isTask()) {
                     String dayOfEvent = EntryObject.getDayOfWeek(current.getStart());
                     int startDayIndex = getDayIndex(dayOfEvent);
