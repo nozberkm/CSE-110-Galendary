@@ -22,8 +22,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-            finish();
-            System.exit(0);
     }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
