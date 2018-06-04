@@ -26,7 +26,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/edit_button"
+                    android:id="@+id/ed_edit_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="false"
@@ -37,7 +37,7 @@
                     app:srcCompat="@android:drawable/ic_menu_edit" />
 
                 <ImageButton
-                    android:id="@+id/delete_button"
+                    android:id="@+id/ed_delete_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -48,7 +48,7 @@
             </LinearLayout>
 
             <ImageButton
-                android:id="@+id/exit_button"
+                android:id="@+id/ed_exit_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="false"
