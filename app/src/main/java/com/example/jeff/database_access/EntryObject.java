@@ -27,6 +27,7 @@ public class EntryObject {
     private String description;
 
     private UserObject user = null;
+    private GroupObject group = null;
 
     public EntryObject(){
         id = -1;
@@ -141,6 +142,7 @@ public class EntryObject {
         this.id = entry_id;
         group.addEntryCheckGID(this);
         setUser(group.getUser());
+        setGroup(group);
     }
 
     public static Date getDayDateFromString(String day_string){
@@ -174,10 +176,15 @@ public class EntryObject {
 
 
 
-    // TODO:
+    // Deletes this entry from the database and attempts to remove all references to this
+    // from the Java program
     public boolean delete(){
+
         try {
-            return DatabaseRequest.delete_entry(this);
+            if(DatabaseRequest.delete_entry(this)){
+                getUser().removeEntryFromLists(this);
+                return true;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -225,5 +232,9 @@ public class EntryObject {
     }
     private void parseDescriptionFromJson(JSONObject jo){
         description = JsonHelper.parseString(jo, "description");
+    }
+
+    public void setGroup(GroupObject group) {
+        this.group = group;
     }
 }

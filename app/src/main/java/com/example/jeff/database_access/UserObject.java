@@ -86,6 +86,22 @@ public class UserObject {
         }
     }
 
+    public boolean removeEntryFromLists(EntryObject entry){
+        if(entries == null) return false;
+        if(groups == null) return false;
+        boolean entries_removed = entries.remove(entry);
+        for(GroupObject go : groups){
+            if(go == null){
+                System.err.println("THIS MEANS SOMEONE MESSED UP");
+                return false;
+            }
+            if(go.getEntries().remove(entry))
+                return entries_removed;
+        }
+        return false;
+    }
+
+
     public UserObject(JSONObject jo){
         if(!jo.has("passhash")){
             assignUserObject(new UserObject(jo, false));
@@ -308,6 +324,18 @@ public class UserObject {
         return DatabaseRequest.search_group_name(groupName);
     }
 
+    public boolean create_request(long group_id) throws IOException {
+        return DatabaseRequest.create_request(this,group_id);
+    }
+
+    public boolean make_request_decision(long request_id, long group_id, boolean decision)
+                                         throws IOException{
+        return DatabaseRequest.make_request_decision(request_id,this,group_id,decision);
+    }
+
+    public ArrayList<GroupRequestObject> get_requests() {
+        return DatabaseRequest.get_requests(this);
+    }
 
 //    private boolean updateDatabase(){
 //

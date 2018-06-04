@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CalendarView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -95,6 +97,12 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.grouphomePageLayout);
 
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.group_home_navView);
+        View headerView = navigationView.getHeaderView(0);
+        EditText navHeader = (EditText) headerView.findViewById(R.id.group_nav_header);
+        navHeader.setText(MyGroups.currGroup.getName());
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.group_fab);
         final ListView listView = (ListView) findViewById(R.id.group_home_list);
 
@@ -113,13 +121,17 @@ public class GroupHomeActivity extends AppCompatActivity {
             //Do Nothing
         }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent aea = new Intent(GroupHomeActivity.this, AddTaskEventActivity.class);
-                startActivity(aea);
-            }
-        });
+        if (!MyGroups.currGroup.isAdmin()){
+            fab.setVisibility(View.INVISIBLE);
+        } else {
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent aea = new Intent(GroupHomeActivity.this, AddTaskEventActivity.class);
+                    startActivity(aea);
+                }
+            });
+        }
 
         group_compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             //This should be on the group home as well
