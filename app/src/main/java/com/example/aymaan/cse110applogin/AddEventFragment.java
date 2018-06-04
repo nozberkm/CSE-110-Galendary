@@ -22,11 +22,13 @@ import android.widget.TimePicker;
 
 import com.example.jeff.database_access.EntryObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class AddEventFragment extends Fragment {
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
     private static final String TAG = "AddEventFragment";
 
     private EditText etEventTitle;
@@ -67,6 +69,8 @@ public class AddEventFragment extends Fragment {
         etEventDescription = (EditText) view.findViewById(R.id.etEventDescription);
 
         fabAddEvent = (FloatingActionButton) view.findViewById(R.id.fabAddEvent);
+
+        tvEventStartDate.setText(DATE_FORMAT.format(new Date(getArguments().getLong("date"))));
 
         tvEventStartDate.setOnClickListener(new View.OnClickListener() {
             @Override

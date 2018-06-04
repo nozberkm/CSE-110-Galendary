@@ -21,6 +21,7 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
@@ -115,7 +116,15 @@ public class Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle b = new Bundle();
+                if(clickDate == null) {
+                    b.putLong("date",Calendar.getInstance().getTimeInMillis());
+                }
+                else {
+                    b.putLong("date",clickDate.getTime());
+                }
                 Intent aea = new Intent(Home.this, AddTaskEventActivity.class);
+                aea.putExtras(b);
                 startActivity(aea);
             }
         });

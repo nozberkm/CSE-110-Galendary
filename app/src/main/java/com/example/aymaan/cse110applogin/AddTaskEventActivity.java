@@ -54,8 +54,12 @@ public class AddTaskEventActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AddEventFragment(),"Add Event");
-        adapter.addFragment(new AddTaskFragment(),"Add Task");
+        AddEventFragment newEvent = new AddEventFragment();
+        AddTaskFragment newTask = new AddTaskFragment();
+        newEvent.setArguments(getIntent().getExtras());
+        newTask.setArguments(getIntent().getExtras());
+        adapter.addFragment(newEvent,"Add Event");
+        adapter.addFragment(newTask,"Add Task");
         viewPager.setAdapter(adapter);
     }
 }
