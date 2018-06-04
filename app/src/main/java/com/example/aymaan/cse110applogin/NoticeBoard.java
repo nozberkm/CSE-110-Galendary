@@ -16,6 +16,11 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.jeff.database_access.EntryObject;
+
+import java.util.ArrayList;
+import java.util.Date;
+
 /**
  * Created by Pablo on 5/14/2018.
  */
@@ -28,6 +33,40 @@ public class NoticeBoard extends AppCompatActivity {
     ListView lv;
     ArrayAdapter adapter;
     Context context;
+    String[] strings;
+
+    ArrayList<EntryObject> noticeList;
+
+    private static String[] push(String[] array, String push) {
+        String[] longer = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++)
+            longer[i] = array[i];
+        longer[array.length] = push;
+        return longer;
+    }
+
+    private static ArrayList<EntryObject> orderByDate(ArrayList<EntryObject> array) {
+        ArrayList<EntryObject> toReturn = new ArrayList<EntryObject>();
+        int size = array.size();
+        int indexToReturn = 0;
+        while (size>0) {
+            Date toPushDate = new Date();
+            EntryObject toPushEntry = new EntryObject();
+            int toDeletePosition = 0;
+            for (EntryObject notice : array){
+                 if(notice.getStart().before(toPushDate)){
+                    toDeletePosition = array.indexOf(notice);
+                    toPushEntry = notice;
+                    toPushDate = notice.getStart();
+                 }
+            }
+            toReturn.add(indexToReturn, toPushEntry);
+            indexToReturn ++;
+            array.remove(toDeletePosition);
+            size = array.size();
+        }
+        return toReturn;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +75,14 @@ public class NoticeBoard extends AppCompatActivity {
 
         context = this;
 
-        final String[] strings = {"Notice Board 1aaaaaaaaaaaaaaaaaaaaa aa a a a a a aa ", "Notice Board 2", "Notice Board 3", "Notice Board 4"};
+        strings = new String[0];
+
+        noticeList = MyGroups.currGroup.getNotices();
+        ArrayList<EntryObject> orderedNoticeList = orderByDate(noticeList);
+        for (EntryObject notice : orderedNoticeList){
+            strings = push(strings, notice.getDescription());
+        }
+
 
         lv = (ListView) findViewById(R.id.noticeBoardListView);
 
@@ -90,7 +136,7 @@ public class NoticeBoard extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s= new Intent(NoticeBoard.this,AccountSettings.class);
+                Intent s= new Intent(NoticeBoard.this,SettingsActivity.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
@@ -125,6 +171,10 @@ public class NoticeBoard extends AppCompatActivity {
             case R.id.group_nav_relatedGroups:
                 Intent rg = new Intent(NoticeBoard.this, RelatedGroups.class);
                 startActivity(rg);
+                break;
+            case R.id.group_nav_groupSettings:
+                Intent gs = new Intent(NoticeBoard.this, GroupSettings.class);
+                startActivity(gs);
                 break;
             case R.id.group_nav_leaveGroup:
                 break;

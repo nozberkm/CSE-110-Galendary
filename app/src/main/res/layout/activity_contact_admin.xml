@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:id="@+id/contact_admin_toolbar"
+        app:titleTextColor="#FFFFFF"
         android:background="@color/colorPrimaryDark">
     </android.support.v7.widget.Toolbar>
 
@@ -20,6 +21,8 @@
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:id="@+id/subject_edit_text"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:hint="Subject"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_weight="1"/>
@@ -30,6 +33,8 @@
         android:id="@+id/message_edit_text"
         android:hint="Compose message"
         android:textAppearance="?android:attr/textAppearanceMedium"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:layout_marginTop="8dp"
         android:layout_weight="5"
         android:gravity="start"
@@ -55,7 +60,8 @@
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:textAppearance="?android:attr/textAppearanceMediumInverse"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="#FFFFFF"
                 android:fontFamily="sans-serif"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="Send Message"/>

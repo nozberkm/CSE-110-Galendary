@@ -37,7 +37,7 @@ public class MemberPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to report" + name + "?");
+                builder.setMessage("Do you want to report " + name + "?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override

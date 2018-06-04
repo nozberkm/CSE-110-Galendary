@@ -143,12 +143,12 @@ public class UserObject {
 
     public String toString() {
         return new StringBuilder().append("UserObject(").append(getId())
-                .append(", ").append(getUsername())
-                .append(", ").append(getPasshash())
-                .append(", ").append(isEmailConfirmed())
-                .append(", ").append(isNotifications())
-                .append(", ").append(getName())
-                .append(", ").append(getGroupsString())
+                .append(", un:").append(getUsername())
+                .append(", ph:").append(getPasshash())
+                .append(", ec:").append(isEmailConfirmed())
+                .append(", in:").append(isNotifications())
+                .append(", gn:").append(getName())
+                .append(", gs:").append(getGroupsString())
                 .append(')').toString();
     }
 
@@ -300,6 +300,12 @@ public class UserObject {
             if(go.isIndividual()) return go;
         }
         return null;
+    }
+
+
+    // Search for groups by name
+    public ArrayList<GroupObject> getGroupsMatchingString(String groupName){
+        return DatabaseRequest.search_group_name(groupName);
     }
 
 

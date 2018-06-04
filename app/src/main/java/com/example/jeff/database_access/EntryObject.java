@@ -143,6 +143,7 @@ public class EntryObject {
     }
 
     public static Date getDayDateFromString(String day_string){
+        if(day_string == null) return null;
         Date toret = null;
         try {
             toret = DAY_DATE_FORMAT.parse(day_string);
@@ -154,11 +155,12 @@ public class EntryObject {
 
 
     public static String getDayString(Date date){
+        if(date == null) return null;
         return DAY_DATE_FORMAT.format(date);
     }
 
     public String getDayString(){
-        return getDayString(getStart());
+        return getDayString(getStart() == null ? getEnd() : getStart() );
     }
 
     public static String getDayOfWeek(Date date) {
@@ -174,6 +176,7 @@ public class EntryObject {
     // TODO:
     public void deleteEntry(){
         //TODO:
+
 
 
     }

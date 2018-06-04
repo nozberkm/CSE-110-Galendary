@@ -59,9 +59,17 @@ public class MyGroups extends AppCompatActivity {
         strings = new String[0];
 
         groupList = LoginActivity.userLogin.getGroups();
+        String check;
 
-        for (GroupObject group : groupList){
-            strings = push(strings, group.getName());
+        for(int i = 0; i < groupList.size(); i++) {
+            check = groupList.get(i).getName();
+            if(check.equals("(individual group)")) {
+                groupList.remove(i);
+                i--;
+            }
+            else {
+                strings = push(strings, check);
+            }
         }
 
         lv = (ListView) findViewById(R.id.listView);
@@ -131,7 +139,7 @@ public class MyGroups extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s= new Intent(MyGroups.this,AccountSettings.class);
+                Intent s= new Intent(MyGroups.this,SettingsActivity.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:

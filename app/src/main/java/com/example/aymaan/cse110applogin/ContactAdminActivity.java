@@ -41,8 +41,8 @@ public class ContactAdminActivity extends AppCompatActivity {
                         Uri.fromParts("mailto", "", null));
                 emailAdminIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
                 emailAdminIntent.putExtra(Intent.EXTRA_TEXT, message);
+                startActivity(Intent.createChooser(emailAdminIntent, "Send Email"));
             }
         });
-
     }
 }
