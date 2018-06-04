@@ -176,7 +176,8 @@ public class EntryObject {
 
 
 
-    // TODO:
+    // Deletes this entry from the database and attempts to remove all references to this
+    // from the Java program
     public boolean delete(){
 
         try {
