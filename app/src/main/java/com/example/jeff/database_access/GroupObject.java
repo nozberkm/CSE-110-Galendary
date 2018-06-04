@@ -1,5 +1,7 @@
 package com.example.jeff.database_access;
 
+import android.support.v4.util.Pair;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -291,6 +293,21 @@ public class GroupObject {
         }
 
         return users;
+    }
+
+
+    public ArrayList<Pair<Long, EntryObject>> getMemberEntries(){
+        ArrayList<Pair<Long, EntryObject>> member_entries = null;
+
+        try {
+            member_entries = DatabaseRequest.get_group_member_entries(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return member_entries;
     }
 
 
