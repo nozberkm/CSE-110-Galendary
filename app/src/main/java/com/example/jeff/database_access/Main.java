@@ -45,6 +45,7 @@ public class Main {
 //        System.out.println(new_user);
 
         System.out.println(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
         EntryObject new_entry = new EntryObject();
         new_entry.setTitle("Test new EntryObject for new group method");
         new_entry.setDescription("testytest");

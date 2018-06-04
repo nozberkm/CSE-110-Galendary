@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,6 +19,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.jeff.database_access.GroupObject;
+
+import java.util.ArrayList;
+
 
 public class JoinGroup extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
@@ -29,7 +34,15 @@ public class JoinGroup extends AppCompatActivity {
     private Button join;
     private EditText joinCode;
     private EditText searchIn;
-    String[] items={"Random Group 1","Random Group 2","Random Group 3","Random Group 4","Random Group 5"};
+    String[] strings;
+
+    private static String[] push(String[] array, String push) {
+        String[] longer = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++)
+            longer[i] = array[i];
+        longer[array.length] = push;
+        return longer;
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +57,6 @@ public class JoinGroup extends AppCompatActivity {
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
-
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -54,13 +66,30 @@ public class JoinGroup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String code = joinCode.getText().toString();
+                GroupObject joinedGroup = LoginActivity.userLogin.joinGroupByEnrollmentCode(code);
+                if(joinedGroup == null) {
+                    Snackbar.make(v, "Error: not a valid enrollment code", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else {
+                    MyGroups.currGroup = joinedGroup;
+                    Intent toGroup = new Intent(JoinGroup.this, GroupHomeActivity.class);
+                    startActivity(toGroup);
+                }
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                strings = new String[0];
                 String sendSearch = searchIn.getText().toString();
-                adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, items);
+                ArrayList<GroupObject> searchResults = LoginActivity.userLogin.getGroupsMatchingString(sendSearch);
+                if(searchResults != null) {
+                    for (GroupObject group : searchResults) {
+                        strings = push(strings, group.getName());
+                    }
+                }
+                adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, strings);
                 lstview.setAdapter(adapter);
             }
         });
