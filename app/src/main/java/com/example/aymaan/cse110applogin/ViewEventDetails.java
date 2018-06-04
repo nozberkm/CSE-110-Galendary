@@ -22,10 +22,14 @@ import android.widget.Toast;
 
 public class ViewEventDetails extends AppCompatActivity {
 
-    @Override
     //TODO: Need to implement oncreate; set 3 listeners for edit, delete, and exit
     //TODO: Need to link to database
 
+    private ImageButton exit_button;
+    private ImageButton edit_button;
+    private ImageButton delete_button;
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_details);
@@ -38,11 +42,7 @@ public class ViewEventDetails extends AppCompatActivity {
         TextView end_time = (TextView)findViewById(R.id.ed_event_end_time);
         TextView reminder_text = (TextView)findViewById(R.id.ed_reminder_text);
         TextView description = (TextView)findViewById(R.id.ed_description_field);
-        ImageButton exit_button = (ImageButton)findViewById(R.id.exit_button);
 
-        //TODO:Here we implement the part where we pull the event details from database, and parse them
-
-        //Pull here?
         Bundle b = getIntent().getExtras();
         if(b != null) {
             event_name.setText(b.getString("event name"));
@@ -55,25 +55,19 @@ public class ViewEventDetails extends AppCompatActivity {
             description.setText(b.getString("event description"));
         }
 
+        exit_button = (ImageButton) findViewById(R.id.ed_exit_button);
+        edit_button = (ImageButton) findViewById(R.id.ed_edit_button);
+        delete_button = (ImageButton) findViewById(R.id.ed_delete_button);
+
+        //TODO: Here we set the on click listeners for the top buttons
         exit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent toExit = new Intent(ViewEventDetails.this, Home.class);
                 startActivity(toExit);
+                finish();
             }
-
-
         });
-/*
-        event_name.setText("Armageddon");
-        group_name.setText("Jeebus and the Angels");
-        date.setText("06/10/2018");
-        start_time.setText("12:00AM");
-        end_time.setText("11:59PM");
-        reminder_text.setText("Reminder: None");
-        description.setText("Description: We all gon' DIE");
-*/
-        //TODO: Here we set the on click listeners for the top buttons
     }
 }
 
