@@ -99,6 +99,8 @@ public class GroupObject {
         return result;
     }
 
+
+    /* DO NOT USE THIS METHOD UNDER ANY CIRCUMSTANCES */
     public EntryObject addEntry(EntryObject eo){
         if (eo != null) {
             if (entry_list == null) entry_list = new ArrayList<>();
@@ -131,6 +133,15 @@ public class GroupObject {
         for(EntryObject eo : entry_list)
             add_count += addEntryCheckGID(eo);
         return add_count;
+    }
+
+    public ArrayList<EntryObject> getNotices(){
+        ArrayList<EntryObject> notices = new ArrayList<>();
+        if(entry_list != null)
+            for(EntryObject eo : entry_list)
+                if(eo.isNotice()) notices.add(eo);
+
+        return notices;
     }
 
 
