@@ -25,9 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class GroupAddTaskFragment extends Fragment {
+public class GroupAddTaskFragment extends android.support.v4.app.Fragment {
 
-    private static final String TAG = "AddTaskFragment";
+    private static final String TAG = "GroupAddTaskFragment";
 
     private EditText etTaskTitle;
 
@@ -44,16 +44,16 @@ public class GroupAddTaskFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_task_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_group_add_task_fragment, container, false);
 
-        etTaskTitle = (EditText) view.findViewById(R.id.etTaskTitle);
+        etTaskTitle = (EditText) view.findViewById(R.id.group_etTaskTitle);
 
-        tvTaskEndDate = (TextView) view.findViewById(R.id.tvTaskEndDate);
-        tvTaskEndTime = (TextView) view.findViewById(R.id.tvTaskEndTime);
+        tvTaskEndDate = (TextView) view.findViewById(R.id.group_tvTaskEndDate);
+        tvTaskEndTime = (TextView) view.findViewById(R.id.group_tvTaskEndTime);
 
-        etTaskDescription = (EditText) view.findViewById(R.id.etTaskDescription);
+        etTaskDescription = (EditText) view.findViewById(R.id.group_etTaskDescription);
 
-        fabAddTask = (FloatingActionButton) view.findViewById(R.id.fabAddTask);
+        fabAddTask = (FloatingActionButton) view.findViewById(R.id.group_fabAddTask);
 
         tvTaskEndDate.setOnClickListener(new View.OnClickListener() {
             @Override

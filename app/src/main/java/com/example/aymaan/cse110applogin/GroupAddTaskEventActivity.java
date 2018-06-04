@@ -9,26 +9,26 @@ import android.widget.ImageButton;
 
 public class GroupAddTaskEventActivity extends AppCompatActivity {
 
-    private static final String TAG = "AddTaskEventFragment";
+    private static final String TAG = "GroupAddTaskEventFragment";
 
     ImageButton ibClose;
 
-    private SectionsPageAdapter mSectionPageAdapter;
-    private ViewPager mViewPager;
+    private SectionsPageAdapter mGroupSectionPageAdapter;
+    private ViewPager mGroupViewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_task_event);
+        setContentView(R.layout.activity_group_add_task_event);
 
-        ibClose = (ImageButton) findViewById(R.id.ibClose);
+        ibClose = (ImageButton) findViewById(R.id.group_ibClose);
 
-        mSectionPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        setupViewPager(mViewPager);
+        mGroupSectionPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
+        mGroupViewPager = (ViewPager) findViewById(R.id.group_container);
+        setupViewPager(mGroupViewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.group_tabs);
+        tabLayout.setupWithViewPager(mGroupViewPager);
 
         ibClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,8 +42,8 @@ public class GroupAddTaskEventActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new AddEventFragment(),"Add Event");
-        adapter.addFragment(new AddTaskFragment(),"Add Task");
+        adapter.addFragment(new GroupAddEventFragment(),"Add Group Event");
+        adapter.addFragment(new GroupAddTaskFragment(),"Add Group Task");
         viewPager.setAdapter(adapter);
     }
 }
