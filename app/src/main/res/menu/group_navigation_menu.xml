@@ -34,6 +34,12 @@
         android:title="Related Groups"
         />
 
+    <item android:id = "@+id/group_nav_groupSettings"
+        android:icon="@mipmap/baseline_settings_black_24"
+        android:onClick="onGroupNavigationMenuItemClick"
+        android:title="Group Settings"
+        />
+
     <item android:id = "@+id/group_nav_leaveGroup"
         android:icon="@mipmap/baseline_exit_to_app_black_24"
         android:onClick="onGroupNavigationMenuItemClick"
