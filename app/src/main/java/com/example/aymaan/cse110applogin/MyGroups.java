@@ -127,9 +127,7 @@ public class MyGroups extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onBackPressed() {
-
-    }
+    //public void onBackPressed() { }
 
     public void onNavigationMenuItemClick(MenuItem item) {
         int id=item.getItemId();
