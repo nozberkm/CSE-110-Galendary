@@ -824,5 +824,26 @@ public class DatabaseRequest {
     public static ArrayList<Pair<Long, EntryObject>> get_group_member_entries(GroupObject group) throws IOException, JSONException {
         return get_group_member_entries(group.getUser(), group);
     }
+
+
+
+    public static boolean delete_entry(String username, String passhash, long entry_id) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("delete_entry");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("entry_id", entry_id);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+
+
+        return jo.has("affected_rows") && jo.getInt("affectedRows") == 1;
+
+    }
+
+
+    public static boolean delete_entry(EntryObject entry) throws IOException, JSONException {
+        UserObject user = entry.getUser();
+        return delete_entry(user.getUsername(), user.getPasshash(), entry.getId());
+    }
 }
 
