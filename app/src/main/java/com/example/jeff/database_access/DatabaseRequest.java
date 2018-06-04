@@ -402,7 +402,6 @@ public class DatabaseRequest {
     public static boolean make_request_decision(long request_id,
                                                 UserObject admin,
                                                 long group_id,
-                                                String group_name,
                                                 boolean accepted)throws IOException{
   //      return false;
         //TODO: Figure out how to make this call without causing a compiler error
