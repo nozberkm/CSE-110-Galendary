@@ -16,6 +16,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.jeff.database_access.EntryObject;
+
+import java.util.ArrayList;
+
 /**
  * Created by Pablo on 5/14/2018.
  */
@@ -28,6 +32,17 @@ public class NoticeBoard extends AppCompatActivity {
     ListView lv;
     ArrayAdapter adapter;
     Context context;
+    String[] strings;
+
+    ArrayList<EntryObject> noticeList;
+
+    private static String[] push(String[] array, String push) {
+        String[] longer = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++)
+            longer[i] = array[i];
+        longer[array.length] = push;
+        return longer;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +51,14 @@ public class NoticeBoard extends AppCompatActivity {
 
         context = this;
 
-        final String[] strings = {"Notice Board 1aaaaaaaaaaaaaaaaaaaaa aa a a a a a aa ", "Notice Board 2", "Notice Board 3", "Notice Board 4"};
+        strings = new String[0];
+
+        noticeList = MyGroups.currGroup.getNotices();
+
+        for (EntryObject notice : noticeList){
+            strings = push(strings, notice.getDescription());
+        }
+
 
         lv = (ListView) findViewById(R.id.noticeBoardListView);
 

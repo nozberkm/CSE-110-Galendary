@@ -56,34 +56,33 @@ public class UserObject {
         up_to_date = false;
         active = false;
     }
-
+    private void parseIdFromJson(JSONObject jo){
+        id = JsonHelper.parseLong(jo, "id");
+    }
+    private void parseUsernameFromJson(JSONObject jo){
+        username = JsonHelper.parseString(jo, "username");
+    }
+    private void parseNameFromJson(JSONObject jo){
+        name = JsonHelper.parseString(jo, "username");
+    }
+    private void parsePasshashFromJson(JSONObject jo){
+        passhash = JsonHelper.parseString(jo, "passhash");
+    }
+    private void parseEmailConfirmedFromJson(JSONObject jo){
+        email_confirmed = JsonHelper.parseBoolean(jo,"email_confirmed");
+    }
+    private void parseNotificationsFromJson(JSONObject jo){
+        notifications = JsonHelper.parseBoolean(jo,"notifications");
+    }
 
 
     public UserObject(JSONObject jo, boolean active_user){
         if(active_user){
             assignUserObject(new UserObject(jo));
         } else {
-            if(jo.has("username")){
-                try {
-                    username = jo.isNull("username") ? null : jo.getString("username");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(jo.has("id")){
-                try {
-                    id = jo.getLong("id");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            if(jo.has("name")){
-                try {
-                    name = jo.isNull("name") ? null : jo.getString("name");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            parseIdFromJson(jo);
+            parseUsernameFromJson(jo);
+            parseNameFromJson(jo);
         }
     }
 
@@ -92,37 +91,15 @@ public class UserObject {
             assignUserObject(new UserObject(jo, false));
         } else {
 
-            try {
-                id = jo.getLong("id");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                username = jo.getString("username");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                passhash = jo.getString("passhash");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-//        email = jo.getString("email");
-            try {
-                email_confirmed = jo.getInt("email_confirmed") == 1;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                notifications = jo.getInt("notifications") == 1;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                name = jo.isNull("name") ? null : jo.getString("name");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            parseIdFromJson(jo);
+            parseUsernameFromJson(jo);
+
+            parsePasshashFromJson(jo);
+            parseEmailConfirmedFromJson(jo);
+
+            parseNotificationsFromJson(jo);
+
+            parseNameFromJson(jo);
 
             up_to_date = (id >= 0);
 
@@ -146,7 +123,7 @@ public class UserObject {
     public boolean isNotifications() { return notifications; }
 
     public String getName() {
-        return name == null ? "email: "+getUsername() :name;
+        return name == null ? ('('+getUsername()+')') :name;
     }
 
     public String getGroupsString(){
@@ -323,6 +300,12 @@ public class UserObject {
             if(go.isIndividual()) return go;
         }
         return null;
+    }
+
+
+    // Search for groups by name
+    public ArrayList<GroupObject> getGroupsMatchingString(String groupName){
+        return DatabaseRequest.search_group_name(groupName);
     }
 
 

@@ -92,6 +92,7 @@ public class Home extends AppCompatActivity {
             //toolbar.setTitle("Man");
             for(String s: EntryMap.keySet()) {
                 Date date = EntryObject.getDayDateFromString(s);
+                if(date == null) continue;
                 for(int i=0; i<EntryMap.get(s).size(); i++) {
                     Event ev1 = new Event(Color.BLACK, date.getTime());
                     compactCalendarView.addEvent(ev1);
@@ -109,7 +110,7 @@ public class Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent aea = new Intent(Home.this, AddEventActivity.class);
+                Intent aea = new Intent(Home.this, AddTaskEventActivity.class);
                 startActivity(aea);
             }
         });
@@ -175,36 +176,6 @@ public class Home extends AppCompatActivity {
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    public void onGroupNavigationMenuItemClick(MenuItem item) {
-        int id = item.getItemId();
-        switch (id) {
-            case R.id.group_nav_noticeBoard:
-                Intent nb = new Intent(Home.this, NoticeBoard.class);
-                startActivity(nb);
-                break;
-            case R.id.group_nav_members:
-                Intent gm = new Intent(Home.this, MemberList.class);
-                startActivity(gm);
-                break;
-            case R.id.group_nav_heatmap:
-                Intent h = new Intent(Home.this, Heatmap.class);
-                startActivity(h);
-                break;
-            case R.id.group_nav_contactAdmin:
-                Intent ca= new Intent(Home.this,NoticeBoard.class);
-                startActivity(ca);
-                break;
-            case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(Home.this, RelatedGroups.class);
-                startActivity(rg);
-                break;
-            case R.id.group_nav_leaveGroup:
-                break;
-        }
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.homePageLayout);
-        mDrawerLayout.closeDrawer(GravityCompat.END);
-    }
 
     public void onFilterMenuItemClick(MenuItem item) {
         Drawable icon = item.getIcon();

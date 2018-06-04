@@ -10,7 +10,8 @@ import java.util.Date;
 
 
 public class EntryObject {
-    public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/dd/MM");
+
+    public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 //    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
 
@@ -142,6 +143,7 @@ public class EntryObject {
     }
 
     public static Date getDayDateFromString(String day_string){
+        if(day_string == null) return null;
         Date toret = null;
         try {
             toret = DAY_DATE_FORMAT.parse(day_string);
@@ -151,12 +153,14 @@ public class EntryObject {
         return toret;
     }
 
+
     public static String getDayString(Date date){
+        if(date == null) return null;
         return DAY_DATE_FORMAT.format(date);
     }
 
     public String getDayString(){
-        return getDayString(getStart());
+        return getDayString(getStart() == null ? getEnd() : getStart() );
     }
 
     public static String getDayOfWeek(Date date) {
@@ -172,6 +176,7 @@ public class EntryObject {
     // TODO:
     public void deleteEntry(){
         //TODO:
+
 
 
     }

@@ -1,8 +1,10 @@
 package com.example.aymaan.cse110applogin;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,15 +20,12 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MemberList extends AppCompatActivity {
+public class JoinRequests extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
-    public static UserObject viewedUser;
 
     Context context;
     ListView lstview;
     ArrayAdapter adapter;
-    Boolean admin;
-    ArrayList<UserObject> userList;
     String[] strings;
 
     private static String[] push(String[] array, String push) {
@@ -39,11 +38,8 @@ public class MemberList extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.member_list);
+        setContentView(R.layout.join_requests);
         context=this;
-
-        //for now set admin to whatever
-        admin = MyGroups.currGroup.isAdmin();
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
@@ -54,29 +50,30 @@ public class MemberList extends AppCompatActivity {
         }
 
         strings = new String[0];
-        userList = MyGroups.currGroup.loadMembers();
 
-
-        for (UserObject user : userList){
-            strings = push(strings, user.getName());
-        }
 
         lstview=(ListView)findViewById(R.id.listv);
         adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, strings);
         lstview.setAdapter(adapter);
         lstview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                viewedUser = userList.get(position);
-                if(admin) {
-                    Intent toMemberAdmin = new Intent(MemberList.this, MemberPageAdminView.class);
-                    toMemberAdmin.putExtra("name", lstview.getItemAtPosition(position).toString());
-                    startActivity(toMemberAdmin);
-                }
-                else {
-                    Intent toMember = new Intent(MemberList.this, MemberPage.class);
-                    toMember.putExtra("name", lstview.getItemAtPosition(position).toString());
-                    startActivity(toMember);
-                }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Do you want to add to the group?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //add to group
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //remove from join request list
+                    }
+                });
+                builder.create().show();
             }
         });
     }

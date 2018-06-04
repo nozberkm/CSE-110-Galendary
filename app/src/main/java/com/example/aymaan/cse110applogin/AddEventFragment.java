@@ -7,6 +7,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,8 @@ import java.util.Calendar;
 public class AddEventFragment extends Fragment {
     private static final String TAG = "AddEventFragment";
 
+    private EditText etEventTitle;
+
     private TextView tvEventStartDate;
     private TextView tvEventStartTime;
 
@@ -32,6 +35,8 @@ public class AddEventFragment extends Fragment {
     private EditText etEventLocation;
 
     private EditText etEventDescription;
+
+    private FloatingActionButton fabAddEvent;
 
     private DatePickerDialog.OnDateSetListener startEventDateListener;
     private DatePickerDialog.OnDateSetListener endEventDateListener;
@@ -43,6 +48,8 @@ public class AddEventFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.add_event_fragment, container, false);
 
+        etEventTitle = (EditText) view.findViewById(R.id.etEventTitle);
+
         tvEventStartDate = (TextView) view.findViewById(R.id.tvEventStartDate);
         tvEventStartTime = (TextView) view.findViewById(R.id.tvEventStartTime);
 
@@ -52,6 +59,8 @@ public class AddEventFragment extends Fragment {
         etEventLocation = (EditText) view.findViewById(R.id.etEventLocation);
 
         etEventDescription = (EditText) view.findViewById(R.id.etEventDescription);
+
+        fabAddEvent = (FloatingActionButton) view.findViewById(R.id.fabAddEvent);
 
         tvEventStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +177,13 @@ public class AddEventFragment extends Fragment {
                     tvEventEndTime.setText(Integer.toString(hourOfDay) + ":" + Integer.toString(minute));
             }
         };
+
+        fabAddEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+
+            }
+        });
 
         return view;
     }

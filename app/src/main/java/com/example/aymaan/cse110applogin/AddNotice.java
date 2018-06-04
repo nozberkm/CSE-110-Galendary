@@ -50,6 +50,9 @@ public class AddNotice extends AppCompatActivity {
                     etError.setText("Notice cannot be empty");
                 } else {
                     etError.setText("");
+                    /* To Do: ADD a notice!!
+                       MyGroups.currGroup.addEntry();
+                                        */
                     Snackbar.make(v, "Add Notice!!!!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }

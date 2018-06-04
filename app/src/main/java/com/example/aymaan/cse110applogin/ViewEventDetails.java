@@ -55,22 +55,19 @@ public class ViewEventDetails extends AppCompatActivity {
             description.setText(b.getString("event description"));
         }
 
-
-        //TODO: Here we set the on click listeners for the top buttons
-
         exit_button = (ImageButton) findViewById(R.id.ed_exit_button);
         edit_button = (ImageButton) findViewById(R.id.ed_edit_button);
         delete_button = (ImageButton) findViewById(R.id.ed_delete_button);
 
+        //TODO: Here we set the on click listeners for the top buttons
         exit_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent h = new Intent( ViewEventDetails.this, Home.class);
-                startActivity(h);
+            public void onClick(View view) {
+                Intent toExit = new Intent(ViewEventDetails.this, Home.class);
+                startActivity(toExit);
                 finish();
             }
         });
-
     }
 }
 
