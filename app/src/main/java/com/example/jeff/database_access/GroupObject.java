@@ -99,6 +99,8 @@ public class GroupObject {
         return result;
     }
 
+
+    /* DO NOT USE THIS METHOD UNDER ANY CIRCUMSTANCES */
     public EntryObject addEntry(EntryObject eo){
         if (eo != null) {
             if (entry_list == null) entry_list = new ArrayList<>();
