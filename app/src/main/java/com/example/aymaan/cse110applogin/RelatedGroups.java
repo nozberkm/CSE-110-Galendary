@@ -3,13 +3,16 @@ package com.example.aymaan.cse110applogin;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 /**
@@ -50,6 +53,11 @@ public class RelatedGroups extends AppCompatActivity {
         mToggle.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.related_groups_navView);
+        View headerView = navigationView.getHeaderView(0);
+        EditText navHeader = (EditText) headerView.findViewById(R.id.group_nav_header);
+        navHeader.setText(MyGroups.currGroup.getName());
 
     }
 
