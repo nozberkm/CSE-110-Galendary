@@ -46,6 +46,13 @@ public class EventAdapter extends ArrayAdapter<EntryObject> {
                     endTime + "\n" +
                     currentEntryObject.getDescription());
         }
+        else if(currentEntryObject.getEnd()==null) {
+            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+            String startTime = localDateFormat.format(currentEntryObject.getStart());
+            name.setText(currentEntryObject.getTitle() + "\n" +
+                    startTime + "\n" +
+                    currentEntryObject.getDescription());
+        }
         else {
             SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
             String endTime = localDateFormat.format(currentEntryObject.getEnd());
