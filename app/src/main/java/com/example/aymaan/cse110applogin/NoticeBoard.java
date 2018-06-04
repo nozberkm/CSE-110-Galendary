@@ -78,10 +78,11 @@ public class NoticeBoard extends AppCompatActivity {
         strings = new String[0];
 
         noticeList = MyGroups.currGroup.getNotices();
-        ArrayList<EntryObject> orderedNoticeList = orderByDate(noticeList);
-        for (EntryObject notice : orderedNoticeList){
+        //ArrayList<EntryObject> orderedNoticeList = orderByDate(noticeList);
+        for (EntryObject notice : noticeList){
             strings = push(strings, notice.getDescription());
         }
+
 
 
         lv = (ListView) findViewById(R.id.noticeBoardListView);
@@ -103,13 +104,17 @@ public class NoticeBoard extends AppCompatActivity {
 
         FloatingActionButton noticeBoard_fab = (FloatingActionButton) findViewById(R.id.noticeboard_fab);
 
-        noticeBoard_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent an = new Intent(NoticeBoard.this, AddNotice.class);
-                startActivity(an);
-            }
-        });
+        if (!MyGroups.currGroup.isAdmin()){
+            noticeBoard_fab.setVisibility(View.INVISIBLE);
+        } else {
+            noticeBoard_fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent an = new Intent(NoticeBoard.this, AddNotice.class);
+                    startActivity(an);
+                }
+            });
+        }
 
     }
 
