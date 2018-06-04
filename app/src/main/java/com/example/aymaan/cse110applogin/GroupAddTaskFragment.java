@@ -1,15 +1,16 @@
 package com.example.aymaan.cse110applogin;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddTaskFragment extends Fragment {
+public class GroupAddTaskFragment extends Fragment {
+
     private static final String TAG = "AddTaskFragment";
 
     private EditText etTaskTitle;
@@ -135,7 +137,7 @@ public class AddTaskFragment extends Fragment {
                     entryObject.setDescription(etTaskDescription.getText().toString());
                     entryObject.setTitle(etTaskTitle.getText().toString());
                     entryObject.setEnd(end_date);
-                    LoginActivity.userLogin.getIndividualGroup().pushEntry(entryObject);
+                    MyGroups.currGroup.pushEntry(entryObject);
                     LoginActivity.userLogin.synchronize();
                 }
                 catch(Exception e) {

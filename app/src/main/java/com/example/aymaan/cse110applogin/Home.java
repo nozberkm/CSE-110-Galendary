@@ -49,13 +49,27 @@ public class Home extends AppCompatActivity {
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
 
             Bundle b = new Bundle();
-            b.putLong("id",clickedItem.getId());
-            b.putLong("group id",clickedItem.getGroupId());
+            //b.putLong("id",clickedItem.getId());
+            //b.putLong("group id",clickedItem.getGroupId());
+
             b.putString("event name",clickedItem.getTitle());
-            b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
-            b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
-            b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
-            b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
+            if(clickedItem.getEnd() == null){
+                b.putString("event end","");
+                b.putString("event end time","");
+            }
+            else {
+                b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
+                b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
+            }
+            if(clickedItem.getStart() == null){
+                b.putString("event start","");
+                b.putString("event start time","");
+            }
+            else {
+                b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
+                b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
+            }
+
             b.putString("event description",clickedItem.getDescription());
 
             Intent ved = new Intent( Home.this, ViewEventDetails.class);
@@ -66,6 +80,7 @@ public class Home extends AppCompatActivity {
     };
     public static Date clickDate = null;
     //public UserObject user = Hashing.global_user;
+    public void onBackPressed(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
