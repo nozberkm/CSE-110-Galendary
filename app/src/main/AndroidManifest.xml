@@ -103,7 +103,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".GroupAddTaskEventActivity" />
         <activity android:name=".GroupAddEventFragment" />
-        <activity android:name=".GroupAddTaskFragment"></activity>
+        <activity android:name=".GroupAddTaskFragment" />
     </application>
 
 </manifest>

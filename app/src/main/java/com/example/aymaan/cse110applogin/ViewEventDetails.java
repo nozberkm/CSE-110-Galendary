@@ -28,7 +28,7 @@ public class ViewEventDetails extends AppCompatActivity {
     private ImageButton exit_button;
     private ImageButton edit_button;
     private ImageButton delete_button;
-
+    String previous;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +53,7 @@ public class ViewEventDetails extends AppCompatActivity {
             end_time.setText(b.getString("event end time"));
             //reminder_text.setText();
             description.setText(b.getString("event description"));
+            previous = b.getString("previous");
         }
 
         exit_button = (ImageButton) findViewById(R.id.ed_exit_button);
@@ -63,9 +64,17 @@ public class ViewEventDetails extends AppCompatActivity {
         exit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent toExit = new Intent(ViewEventDetails.this, Home.class);
-                startActivity(toExit);
-                finish();
+                System.err.println(previous);
+                if(previous.equals("Home")) {
+                    Intent toExit = new Intent(ViewEventDetails.this, Home.class);
+                    startActivity(toExit);
+                    finish();
+                }
+                else if (previous.equals("groupHome")) {
+                    Intent toExit = new Intent(ViewEventDetails.this, GroupHomeActivity.class);
+                    startActivity(toExit);
+                    finish();
+                }
             }
         });
     }

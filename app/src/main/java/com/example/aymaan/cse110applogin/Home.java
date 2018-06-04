@@ -71,7 +71,7 @@ public class Home extends AppCompatActivity {
             }
 
             b.putString("event description",clickedItem.getDescription());
-
+            b.putString("previous", "Home");
             Intent ved = new Intent( Home.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
