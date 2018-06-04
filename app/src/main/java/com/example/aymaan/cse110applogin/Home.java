@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -14,21 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CalendarView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.jeff.database_access.EntryObject;
-import com.example.jeff.database_access.GroupObject;
-import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -75,12 +68,12 @@ public class Home extends AppCompatActivity {
             Intent ved = new Intent( Home.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
-            finish();
+            //finish();
         }
     };
     public static Date clickDate = null;
     //public UserObject user = Hashing.global_user;
-    public void onBackPressed(){}
+    //public void onBackPressed(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -188,7 +181,9 @@ public class Home extends AppCompatActivity {
                 break;
             case R.id.nav_logout:
                 Intent l= new Intent(Home.this,LoginActivity.class);
+                l.putExtra("logout", true);
                 startActivity(l);
+                finish();
                 break;
         }
 

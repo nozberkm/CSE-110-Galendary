@@ -64,7 +64,8 @@ public class ViewEventDetails extends AppCompatActivity {
         exit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.err.println(previous);
+                finish();
+                /*System.err.println(previous);
                 if(previous.equals("Home")) {
                     Intent toExit = new Intent(ViewEventDetails.this, Home.class);
                     startActivity(toExit);
@@ -74,7 +75,7 @@ public class ViewEventDetails extends AppCompatActivity {
                     Intent toExit = new Intent(ViewEventDetails.this, GroupHomeActivity.class);
                     startActivity(toExit);
                     finish();
-                }
+                }*/
             }
         });
     }

@@ -207,7 +207,9 @@ public class GroupHomeActivity extends AppCompatActivity {
                 break;
             case R.id.nav_logout:
                 Intent l= new Intent(GroupHomeActivity.this,LoginActivity.class);
+                l.putExtra("logout", true);
                 startActivity(l);
+                finish();
                 break;
         }
 
