@@ -21,6 +21,10 @@ public class LoginActivity extends AppCompatActivity {
     public static UserObject userLogin;
 
     @Override
+    public void onBackPressed(){
+            finish();
+            System.exit(0);
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userLogin = null;
