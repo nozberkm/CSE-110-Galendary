@@ -1,5 +1,7 @@
 package com.example.jeff.database_access;
 
+import android.support.v4.util.Pair;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -294,6 +296,22 @@ public class GroupObject {
     }
 
 
+    // The long is the User's id
+    public ArrayList<Pair<Long, EntryObject>> getMemberEntries(){
+        ArrayList<Pair<Long, EntryObject>> member_entries = null;
+
+        try {
+            member_entries = DatabaseRequest.get_group_member_entries(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return member_entries;
+    }
+
+
 
 
     private void parseIdFromJson(JSONObject jo){
@@ -312,7 +330,7 @@ public class GroupObject {
         is_public = JsonHelper.parseBoolean(jo, "looking_for_subgroups");
     }
     private void parseIndividualFromJson(JSONObject jo){
-        is_public = JsonHelper.parseBoolean(jo, "individual");
+        individual = JsonHelper.parseBoolean(jo, "individual");
     }
     private void parseAdminFromJson(JSONObject jo){
         admin = JsonHelper.parseBoolean(jo, "admin");

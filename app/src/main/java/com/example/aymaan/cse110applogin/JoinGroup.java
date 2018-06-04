@@ -21,9 +21,12 @@ import android.widget.ListView;
 
 import com.example.jeff.database_access.GroupObject;
 
+import java.util.ArrayList;
+
 
 public class JoinGroup extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
+    public static GroupObject selectedGroup;
 
     ListView lstview;
     ArrayAdapter adapter;
@@ -32,7 +35,16 @@ public class JoinGroup extends AppCompatActivity {
     private Button join;
     private EditText joinCode;
     private EditText searchIn;
-    String[] items={"Random Group 1","Random Group 2","Random Group 3","Random Group 4","Random Group 5"};
+    String[] strings;
+    ArrayList<GroupObject> searchResults;
+
+    private static String[] push(String[] array, String push) {
+        String[] longer = new String[array.length + 1];
+        for (int i = 0; i < array.length; i++)
+            longer[i] = array[i];
+        longer[array.length] = push;
+        return longer;
+    }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +58,6 @@ public class JoinGroup extends AppCompatActivity {
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-
 
         if (getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -72,8 +83,16 @@ public class JoinGroup extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                strings = new String[0];
                 String sendSearch = searchIn.getText().toString();
-                adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, items);
+                searchResults = LoginActivity.userLogin.getGroupsMatchingString(sendSearch);
+                if(searchResults != null) {
+                    for (GroupObject group : searchResults) {
+                        strings = push(strings, group.getName());
+                    }
+                }
+                strings = push(strings, "Definitely A Real Group");
+                adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, strings);
                 lstview.setAdapter(adapter);
             }
         });
@@ -82,9 +101,9 @@ public class JoinGroup extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = lstview.getItemAtPosition(position).toString();
-                System.out.println(text);
+                //selectedGroup = searchResults.get(position);
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to send " + text + " a join request?");
+                builder.setMessage("Do you want to join " + text + "?");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override

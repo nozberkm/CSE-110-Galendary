@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.jeff.database_access.EntryObject;
+import com.example.jeff.database_access.GroupObject;
 import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -76,7 +77,7 @@ public class Home extends AppCompatActivity {
         toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
-
+        LoginActivity.userLogin.synchronize();
 
         actionBar = (ActionBar)getSupportActionBar();
 
@@ -102,10 +103,6 @@ public class Home extends AppCompatActivity {
         else {
             //Do Nothing
         }
-
-
-
-
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +160,7 @@ public class Home extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s = new Intent(Home.this, AccountSettings.class);
+                Intent s = new Intent(Home.this, SettingsActivity.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:

@@ -1,0 +1,57 @@
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="allowNotifications"
+        android:summary="Allow Galendary to send notifications to your Android device"
+        android:title="Enable Notifications" />
+
+    <!-- NOTE: EditTextPreference accepts EditText attributes. -->
+    <!-- NOTE: EditTextPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:capitalize="words"
+        android:inputType="textCapWords"
+        android:key="emailAddress"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="user@host.edu"
+
+        android:title="Email Address" />
+
+    <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
+         dismiss it. -->
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:key="displayName"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:summary="DisplayName"
+        android:title="Change Display Name" />
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:key="importCalendar"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Import Calendar" />
+    <EditTextPreference
+        android:defaultValue="Default value"
+        android:key="changePassword"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Change Password"
+
+        />
+    <ListPreference
+        android:defaultValue="-1"
+
+        android:key="deleteAccount"
+        android:negativeButtonText="@null"
+        android:summary="WARNING: This action will be permanent"
+
+        android:positiveButtonText="@null"
+        android:title="Delete Account" />
+
+</PreferenceScreen>

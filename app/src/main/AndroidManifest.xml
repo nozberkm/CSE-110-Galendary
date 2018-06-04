@@ -36,10 +36,6 @@
             android:label="Home"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AccountSettings"
-            android:label="Account Settings"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".MyGroups"
             android:label="My Groups"
             android:screenOrientation="portrait" />
@@ -92,12 +88,22 @@
         <activity
             android:name=".AddTaskEventActivity"
             android:label="@string/title_activity_add_task_event"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".GroupHomeActivity" />
+        <activity
+            android:name=".JoinRequests"
+            android:label="Join Requests" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".PasswordChange"
+            android:label="@string/title_activity_password_change"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GroupSettings"
+            android:label="@string/title_activity_group_settings"
             android:theme="@style/AppTheme"/>
-
-        <activity android:name=".GroupHomeActivity"/>
-        <activity android:name=".JoinRequests"
-            android:label="Join Requests"
-        />
     </application>
 
 </manifest>
