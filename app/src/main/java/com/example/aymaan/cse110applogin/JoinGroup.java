@@ -69,14 +69,9 @@ public class JoinGroup extends AppCompatActivity {
             public void onClick(View v) {
                 String code = joinCode.getText().toString();
                 GroupObject joinedGroup = LoginActivity.userLogin.joinGroupByEnrollmentCode(code);
-                if(joinedGroup == null) {
-                    Snackbar.make(v, "Error: not a valid enrollment code", Snackbar.LENGTH_LONG)
+                if(joinedGroup != null ) {
+                    Snackbar.make(v, "Joined group" + joinedGroup.getName(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
-                }
-                else {
-                    MyGroups.currGroup = joinedGroup;
-                    Intent toGroup = new Intent(JoinGroup.this, GroupHomeActivity.class);
-                    startActivity(toGroup);
                 }
             }
         });
