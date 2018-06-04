@@ -116,7 +116,7 @@ public class GroupHomeActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent aea = new Intent(GroupHomeActivity.this, AddEventActivity.class);
+                Intent aea = new Intent(GroupHomeActivity.this, AddTaskEventActivity.class);
                 startActivity(aea);
             }
         });

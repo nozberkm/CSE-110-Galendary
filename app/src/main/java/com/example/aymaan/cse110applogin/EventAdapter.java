@@ -37,30 +37,33 @@ public class EventAdapter extends ArrayAdapter<EntryObject> {
         EntryObject currentEntryObject = EntryObjectList.get(position);
 
 
-        TextView name = (TextView) listItem.findViewById(R.id.textView_event_details);
 
-        if(currentEntryObject.getStart()== null) {
-            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
-            String endTime = localDateFormat.format(currentEntryObject.getEnd());
-            name.setText(currentEntryObject.getTitle() + "\n" +
-                    endTime + "\n" +
-                    currentEntryObject.getDescription());
+        if(!currentEntryObject.isNotice()) {
+            TextView name = (TextView) listItem.findViewById(R.id.textView_event_details);
+            if(currentEntryObject.getStart()== null) {
+                SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+                String endTime = localDateFormat.format(currentEntryObject.getEnd());
+                name.setText(currentEntryObject.getTitle() + "\n" +
+                        endTime + "\n" +
+                        currentEntryObject.getDescription());
+            }
+            else if(currentEntryObject.getEnd()==null) {
+                SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+                String startTime = localDateFormat.format(currentEntryObject.getStart());
+                name.setText(currentEntryObject.getTitle() + "\n" +
+                        startTime + "\n" +
+                        currentEntryObject.getDescription());
+            }
+            else {
+                SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
+                String endTime = localDateFormat.format(currentEntryObject.getEnd());
+                String startTime = localDateFormat.format(currentEntryObject.getStart());
+                name.setText(currentEntryObject.getTitle() + "\n" +
+                        startTime + " to " + endTime + "\n" +
+                        currentEntryObject.getDescription());
+            }
         }
-        else if(currentEntryObject.getEnd()==null) {
-            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
-            String startTime = localDateFormat.format(currentEntryObject.getStart());
-            name.setText(currentEntryObject.getTitle() + "\n" +
-                    startTime + "\n" +
-                    currentEntryObject.getDescription());
-        }
-        else {
-            SimpleDateFormat localDateFormat = new SimpleDateFormat("HH:mm");
-            String endTime = localDateFormat.format(currentEntryObject.getEnd());
-            String startTime = localDateFormat.format(currentEntryObject.getStart());
-            name.setText(currentEntryObject.getTitle() + "\n" +
-                    startTime + " to " + endTime + "\n" +
-                    currentEntryObject.getDescription());
-        }
+
 
 
         return listItem;
