@@ -3,6 +3,7 @@ package com.example.jeff.database_access;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -174,11 +175,16 @@ public class EntryObject {
 
 
     // TODO:
-    public void deleteEntry(){
-        //TODO:
+    public boolean delete(){
+        try {
+            return DatabaseRequest.delete_entry(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-
-
+        return false;
     }
 
 

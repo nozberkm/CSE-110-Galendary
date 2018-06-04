@@ -377,54 +377,54 @@ public class DatabaseRequest {
         return !jo.has("err");
     }
 
-<<<<<<< HEAD
-    public static boolean create_request(UserObject user, long group_id) throws IOException {
-//        return false;
-        return create_request(user.getUsername(),user.getPasshash(), group_id);
-=======
-    public static boolean create_request(UserObject user, String group_name) throws IOException {
-//        return false;
-        return create_request(user.getUsername(),user.getPasshash(), group_name);
->>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
-    }
-
-    public static boolean make_request_decision(long request_id,
-                                                String admin_username,
-                                                String admin_passhash,
-                                                long group_id,
-                                                boolean accepted) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "respond_request"},
-                {"admin_username", admin_username},
-                {"admin_passhash", admin_passhash},
-                {"decision", accepted ? "true" : "false"}
-        });
-<<<<<<< HEAD
-        pb.push("group_id", group_id);
-=======
->>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
-        pb.push("request_id",request_id);
-        JSONObject jo = GalendaryDB.server_request(pb);
-        return !jo.has("err");
-    }
-
-    public static boolean make_request_decision(long request_id,
-                                                UserObject admin,
-<<<<<<< HEAD
-                                                long group_id,
-=======
-                                                String group_name,
->>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
-                                                boolean accepted)throws IOException{
-  //      return false;
-//        TODO: Figure out how to make this call without causing a compiler error
-        return make_request_decision(request_id,admin.getUsername(),admin.getPasshash(),
-<<<<<<< HEAD
-                                     group_id,accepted);
-=======
-                                     group_name,accepted);
->>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
-    }
+//<<<<<<< HEAD
+//    public static boolean create_request(UserObject user, long group_id) throws IOException {
+////        return false;
+//        return create_request(user.getUsername(),user.getPasshash(), group_id);
+//=======
+//    public static boolean create_request(UserObject user, String group_name) throws IOException {
+////        return false;
+//        return create_request(user.getUsername(),user.getPasshash(), group_name);
+//>>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
+//    }
+//
+//    public static boolean make_request_decision(long request_id,
+//                                                String admin_username,
+//                                                String admin_passhash,
+//                                                long group_id,
+//                                                boolean accepted) throws IOException {
+//        ParameterBuilder pb = new ParameterBuilder(new String[][]{
+//                {"command", "respond_request"},
+//                {"admin_username", admin_username},
+//                {"admin_passhash", admin_passhash},
+//                {"decision", accepted ? "true" : "false"}
+//        });
+//<<<<<<< HEAD
+//        pb.push("group_id", group_id);
+//=======
+//>>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
+//        pb.push("request_id",request_id);
+//        JSONObject jo = GalendaryDB.server_request(pb);
+//        return !jo.has("err");
+//    }
+//
+//    public static boolean make_request_decision(long request_id,
+//                                                UserObject admin,
+//<<<<<<< HEAD
+//                                                long group_id,
+//=======
+//                                                String group_name,
+//>>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
+//                                                boolean accepted)throws IOException{
+//  //      return false;
+////        TODO: Figure out how to make this call without causing a compiler error
+//        return make_request_decision(request_id,admin.getUsername(),admin.getPasshash(),
+//<<<<<<< HEAD
+//                                     group_id,accepted);
+//=======
+//                                     group_name,accepted);
+//>>>>>>> 2f9e62d08cac6341ae9c729bb3cc62b29f420184
+//    }
 
     public static ArrayList<GroupRequestObject> get_requests(String username,
                                                              String passhash) throws IOException {
@@ -840,6 +840,27 @@ public class DatabaseRequest {
 
     public static ArrayList<Pair<Long, EntryObject>> get_group_member_entries(GroupObject group) throws IOException, JSONException {
         return get_group_member_entries(group.getUser(), group);
+    }
+
+
+
+    public static boolean delete_entry(String username, String passhash, long entry_id) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("delete_entry");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("entry_id", entry_id);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+
+
+        return jo.has("affected_rows") && jo.getInt("affectedRows") == 1;
+
+    }
+
+
+    public static boolean delete_entry(EntryObject entry) throws IOException, JSONException {
+        UserObject user = entry.getUser();
+        return delete_entry(user.getUsername(), user.getPasshash(), entry.getId());
     }
 }
 
