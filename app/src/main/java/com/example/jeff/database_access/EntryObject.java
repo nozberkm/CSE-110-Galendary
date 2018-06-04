@@ -175,7 +175,7 @@ public class EntryObject {
 
 
     // TODO:
-    public boolean deleteEntry(){
+    public boolean delete(){
         try {
             return DatabaseRequest.delete_entry(this);
         } catch (IOException e) {
