@@ -1,5 +1,6 @@
 package com.example.aymaan.cse110applogin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -48,8 +49,8 @@ public class CreateGroup extends AppCompatActivity {
                     etError.setText("");
                     GroupObject group = LoginActivity.userLogin.createGroup(etGroupName.getText().toString());
                     MyGroups.currGroup = group;
-                    Snackbar.make(v, "CREATE GROUP!!!!", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Intent toGroupHome = new Intent(CreateGroup.this, GroupHomeActivity.class);
+                    startActivity(toGroupHome);
                 }
             }
         });
