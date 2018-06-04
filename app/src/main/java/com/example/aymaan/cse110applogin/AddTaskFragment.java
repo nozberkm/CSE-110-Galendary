@@ -142,8 +142,7 @@ public class AddTaskFragment extends Fragment {
 
                 }
 
-                Intent toHome = new Intent(getActivity(), Home.class);
-                startActivity(toHome);
+                getActivity().finish();
 
             }
         });

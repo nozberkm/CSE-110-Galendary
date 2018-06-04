@@ -233,8 +233,7 @@ public class AddEventFragment extends Fragment {
 
                 }
 
-                Intent toHome = new Intent(getActivity(), Home.class);
-                startActivity(toHome);
+                getActivity().finish();
 
             }
         });
