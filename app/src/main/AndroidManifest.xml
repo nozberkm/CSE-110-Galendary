@@ -80,9 +80,6 @@
             android:label="View Event Details"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AddEventActivity"
-            android:label="Add Event" />
-        <activity
             android:name=".ContactAdminActivity"
             android:screenOrientation="portrait" />
         <activity
