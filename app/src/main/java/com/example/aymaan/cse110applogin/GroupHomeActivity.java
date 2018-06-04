@@ -139,12 +139,20 @@ public class GroupHomeActivity extends AppCompatActivity {
             @Override
             public void onDayClick(Date dateClicked) {
                 clickDate = dateClicked;
-                Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
+                Map<String, ArrayList<EntryObject>> EntryMap = MyGroups.currGroup.getEntryMap();
                 String date = EntryObject.getDayString(dateClicked);
                 ArrayList<EntryObject> list = EntryMap.get(date);
-                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                ArrayList<EntryObject> showList = new ArrayList<>();
                 if(list!=null) {
-                    group_eventAdapter = new EventAdapter(GroupHomeActivity.this, list);
+                    for(EntryObject e: list) {
+                        if(!e.isNotice()) {
+                            showList.add(e);
+                        }
+                    }
+                }
+                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                if(showList!=null) {
+                    group_eventAdapter = new EventAdapter(GroupHomeActivity.this, showList);
                     listView.setAdapter(group_eventAdapter);
                     listView.setOnItemClickListener(eventClickedHandler);
                 }
