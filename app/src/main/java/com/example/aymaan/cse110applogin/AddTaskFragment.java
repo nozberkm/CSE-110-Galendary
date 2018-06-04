@@ -2,6 +2,7 @@ package com.example.aymaan.cse110applogin;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -17,7 +18,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.example.jeff.database_access.EntryObject;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddTaskFragment extends Fragment {
     private static final String TAG = "AddTaskFragment";
@@ -30,7 +35,7 @@ public class AddTaskFragment extends Fragment {
     private EditText etTaskDescription;
 
     private FloatingActionButton fabAddTask;
-
+    private String endDateObject;
     private DatePickerDialog.OnDateSetListener endTaskDateListener;
     private TimePickerDialog.OnTimeSetListener endTaskTimeListener;
 
@@ -70,7 +75,19 @@ public class AddTaskFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                tvTaskEndDate.setText(month+"/"+dayOfMonth+"/"+year);
+                //tvTaskEndDate.setText(month+"/"+dayOfMonth+"/"+year);
+                if(month<10 & dayOfMonth<10) {
+                    tvTaskEndDate.setText("0"+month+"/"+ "0"+ dayOfMonth+"/"+year);
+                }
+                else if(month<10){
+                    tvTaskEndDate.setText("0"+month+"/"+dayOfMonth+"/"+year);
+                }
+                else if(dayOfMonth<10) {
+                    tvTaskEndDate.setText(month+"/0"+dayOfMonth+"/"+year);
+                }
+                else {
+                    tvTaskEndDate.setText(month+"/"+dayOfMonth+"/"+year);
+                }
             }
         };
 
@@ -109,6 +126,24 @@ public class AddTaskFragment extends Fragment {
         fabAddTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                endDateObject = tvTaskEndDate.getText().toString() + " " + tvTaskEndTime.getText().toString();
+                SimpleDateFormat formatter1=new SimpleDateFormat("MM/dd/yyyy HH:mm");
+
+                try {
+                    Date end_date=formatter1.parse(endDateObject);
+                    EntryObject entryObject = new EntryObject();
+                    entryObject.setDescription(etTaskDescription.getText().toString());
+                    entryObject.setTitle(etTaskTitle.getText().toString());
+                    entryObject.setEnd(end_date);
+                    LoginActivity.userLogin.getIndividualGroup().pushEntry(entryObject);
+                    LoginActivity.userLogin.synchronize();
+                }
+                catch(Exception e) {
+
+                }
+
+                Intent toHome = new Intent(getActivity(), Home.class);
+                startActivity(toHome);
 
             }
         });

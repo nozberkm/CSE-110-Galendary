@@ -2,6 +2,7 @@ package com.example.aymaan.cse110applogin;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -19,7 +20,11 @@ import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TimePicker;
 
+import com.example.jeff.database_access.EntryObject;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddEventFragment extends Fragment {
     private static final String TAG = "AddEventFragment";
@@ -42,7 +47,8 @@ public class AddEventFragment extends Fragment {
     private DatePickerDialog.OnDateSetListener endEventDateListener;
     private TimePickerDialog.OnTimeSetListener startEventTimeListener;
     private TimePickerDialog.OnTimeSetListener endEventTimeListener;
-
+    private String startDateObject;
+    private String endDateObject;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -84,7 +90,19 @@ public class AddEventFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                tvEventStartDate.setText(month+"/"+dayOfMonth+"/"+year);
+                //tvEventStartDate.setText(month+"/"+dayOfMonth+"/"+year);
+                if(month<10 & dayOfMonth<10) {
+                    tvEventStartDate.setText("0"+month+"/"+ "0"+ dayOfMonth+"/"+year);
+                }
+                else if(month<10){
+                    tvEventStartDate.setText("0"+month+"/"+dayOfMonth+"/"+year);
+                }
+                else if(dayOfMonth<10) {
+                    tvEventStartDate.setText(month+"/0"+dayOfMonth+"/"+year);
+                }
+                else {
+                    tvEventStartDate.setText(month+"/"+dayOfMonth+"/"+year);
+                }
             }
         };
 
@@ -110,7 +128,19 @@ public class AddEventFragment extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month + 1;
-                tvEventEndDate.setText(month+"/"+dayOfMonth+"/"+year);
+                //tvEventEndDate.setText(month+"/"+dayOfMonth+"/"+year);
+                if(month<10 & dayOfMonth<10) {
+                    tvEventEndDate.setText("0"+month+"/"+ "0"+ dayOfMonth+"/"+year);
+                }
+                else if(month<10){
+                    tvEventEndDate.setText("0"+month+"/"+dayOfMonth+"/"+year);
+                }
+                else if(dayOfMonth<10) {
+                    tvEventEndDate.setText(month+"/0"+dayOfMonth+"/"+year);
+                }
+                else {
+                    tvEventEndDate.setText(month+"/"+dayOfMonth+"/"+year);
+                }
             }
         };
 
@@ -181,6 +211,30 @@ public class AddEventFragment extends Fragment {
         fabAddEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
+                endDateObject = tvEventEndDate.getText().toString() + " " + tvEventEndTime.getText().toString();
+                startDateObject = tvEventStartDate.getText().toString() + " " + tvEventStartTime.getText().toString();
+                SimpleDateFormat formatter1=new SimpleDateFormat("MM/dd/yyyy HH:mm");
+
+                try {
+                    Date start_date=formatter1.parse(startDateObject);
+                    Date end_date=formatter1.parse(endDateObject);
+
+                    EntryObject entryObject = new EntryObject();
+                    entryObject.setDescription(etEventDescription.getText().toString() +
+                                                "\n" + "Location: " + etEventLocation.getText().toString());
+                    entryObject.setTitle(etEventTitle.getText().toString());
+                    entryObject.setStart(start_date);
+                    entryObject.setEnd(end_date);
+
+                    LoginActivity.userLogin.getIndividualGroup().pushEntry(entryObject);
+                    LoginActivity.userLogin.synchronize();
+                }
+                catch(Exception e) {
+
+                }
+
+                Intent toHome = new Intent(getActivity(), Home.class);
+                startActivity(toHome);
 
             }
         });
