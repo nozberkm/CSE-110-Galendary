@@ -41,8 +41,12 @@ public class GroupAddTaskEventActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new GroupAddEventFragment(),"Add Group Event");
-        adapter.addFragment(new GroupAddTaskFragment(),"Add Group Task");
+        GroupAddEventFragment newGroupEvent = new GroupAddEventFragment();
+        GroupAddTaskFragment newGroupTask = new GroupAddTaskFragment();
+        newGroupEvent.setArguments(getIntent().getExtras());
+        newGroupTask.setArguments(getIntent().getExtras());
+        adapter.addFragment(newGroupEvent,"Add Group Event");
+        adapter.addFragment(newGroupTask,"Add Group Task");
         viewPager.setAdapter(adapter);
     }
 }

@@ -27,6 +27,7 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -90,6 +91,9 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
+
+        clickDate = null;
+
         group_compactCalendarView = (CompactCalendarView) findViewById(R.id.group_compactcalendar_view);
 
         group_toolbar_month = (Toolbar)findViewById(R.id.group_tool_bar_month);
@@ -140,7 +144,15 @@ public class GroupHomeActivity extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    Bundle b = new Bundle();
+                    if(clickDate == null) {
+                        b.putLong("date", Calendar.getInstance().getTimeInMillis());
+                    }
+                    else {
+                        b.putLong("date",clickDate.getTime());
+                    }
                     Intent aea = new Intent(GroupHomeActivity.this, GroupAddTaskEventActivity.class);
+                    aea.putExtras(b);
                     startActivity(aea);
                 }
             });

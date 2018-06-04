@@ -21,11 +21,14 @@ import android.widget.TimePicker;
 
 import com.example.jeff.database_access.EntryObject;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 public class GroupAddTaskFragment extends android.support.v4.app.Fragment {
+
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
 
     private static final String TAG = "GroupAddTaskFragment";
 
@@ -54,6 +57,8 @@ public class GroupAddTaskFragment extends android.support.v4.app.Fragment {
         etTaskDescription = (EditText) view.findViewById(R.id.group_etTaskDescription);
 
         fabAddTask = (FloatingActionButton) view.findViewById(R.id.group_fabAddTask);
+
+        tvTaskEndDate.setText(DATE_FORMAT.format(new Date(getArguments().getLong("date"))));
 
         tvTaskEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
