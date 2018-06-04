@@ -121,9 +121,17 @@ public class Home extends AppCompatActivity {
                 Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
                 String date = EntryObject.getDayString(dateClicked);
                 ArrayList<EntryObject> list = EntryMap.get(date);
-                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                ArrayList<EntryObject> showList = new ArrayList<>();
                 if(list!=null) {
-                    eventAdapter = new EventAdapter(Home.this, list);
+                    for(EntryObject e: list) {
+                        if(!e.isNotice()) {
+                            showList.add(e);
+                        }
+                    }
+                }
+                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                if(showList!=null) {
+                    eventAdapter = new EventAdapter(Home.this, showList);
                     listView.setAdapter(eventAdapter);
                     listView.setOnItemClickListener(eventClickedHandler);
                 }

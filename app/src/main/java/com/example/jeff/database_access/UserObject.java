@@ -86,6 +86,22 @@ public class UserObject {
         }
     }
 
+    public boolean removeEntryFromLists(EntryObject entry){
+        if(entries == null) return false;
+        if(groups == null) return false;
+        boolean entries_removed = entries.remove(entry);
+        for(GroupObject go : groups){
+            if(go == null){
+                System.err.println("THIS MEANS SOMEONE MESSED UP");
+                return false;
+            }
+            if(go.getEntries().remove(entry))
+                return entries_removed;
+        }
+        return false;
+    }
+
+
     public UserObject(JSONObject jo){
         if(!jo.has("passhash")){
             assignUserObject(new UserObject(jo, false));
