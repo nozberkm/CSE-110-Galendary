@@ -327,7 +327,7 @@ public class GroupObject {
         is_public = JsonHelper.parseBoolean(jo, "is_public");
     }
     private void parseLookingForSubgroupsFromJson(JSONObject jo){
-        is_public = JsonHelper.parseBoolean(jo, "looking_for_subgroups");
+        looking_for_subgroups = JsonHelper.parseBoolean(jo, "looking_for_subgroups");
     }
     private void parseIndividualFromJson(JSONObject jo){
         individual = JsonHelper.parseBoolean(jo, "individual");
