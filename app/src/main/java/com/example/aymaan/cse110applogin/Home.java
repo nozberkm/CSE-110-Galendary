@@ -66,6 +66,7 @@ public class Home extends AppCompatActivity {
     };
     public static Date clickDate = null;
     //public UserObject user = Hashing.global_user;
+    public void onBackPressed(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

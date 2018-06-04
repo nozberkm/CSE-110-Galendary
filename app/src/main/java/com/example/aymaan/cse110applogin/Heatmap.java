@@ -4,7 +4,11 @@ import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.util.Pair;
 import android.view.View;
+
+import java.text.CollationElementIterator;
+import java.util.*;
 import android.widget.TextView;
 
 import com.example.jeff.database_access.EntryObject;
@@ -22,7 +26,9 @@ import java.util.Date;
 import java.util.EventObject;
 import java.util.Map;
 
-import static com.example.aymaan.cse110applogin.Home.clickDate;
+import static com.example.aymaan.cse110applogin.GroupHomeActivity.clickDate;
+
+
 
 public class Heatmap extends AppCompatActivity {
     private TextView[][] idArray;
@@ -31,6 +37,9 @@ public class Heatmap extends AppCompatActivity {
     private GroupObject group;
     private ArrayList<UserObject> groupMembers;
     private int groupMemberCount;
+    private ArrayList<Pair<Long, EntryObject>> groupEvents;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +48,17 @@ public class Heatmap extends AppCompatActivity {
         this.group = MyGroups.currGroup;
         this.groupMembers = this.group.loadMembers();
         this.groupMemberCount = this.groupMembers.size();
+
+        this.groupEvents = this.group.getMemberEntries();
+
+        Collections.sort(this.groupEvents, new Comparator<Pair<Long, EntryObject> >() {
+            @Override
+            public int compare(Pair<Long, EntryObject> lhs, Pair<Long, EntryObject> rhs) {
+                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                return lhs.first > rhs.first ? -1 : (lhs.first < rhs.first) ? 1 : 0;
+            }
+        });
+
 
         idArray = new TextView[19][7];
         idArray[0][0] = findViewById(R.id.m6);
@@ -180,6 +200,8 @@ public class Heatmap extends AppCompatActivity {
         idArray[16][6] = findViewById(R.id.s22);
         idArray[17][6] = findViewById(R.id.s23);
         idArray[18][6] = findViewById(R.id.s0);
+
+        colorGrid();
     }
 
     public void myMethod(View view) {
@@ -187,12 +209,11 @@ public class Heatmap extends AppCompatActivity {
     }
 
     private void colorGrid() {
-        boolean[][] checkAdded = new boolean[19][7];
+        boolean[][] checkAdded = new boolean[19][7];;
         Date mapDate;
         int daysForward = 0;
         int daysBackward = 0;
         int switchMonthNum = -1;
-        Map<String, ArrayList<EntryObject> > events;
 
         if (clickDate != null)
             mapDate = clickDate;
@@ -292,83 +313,87 @@ public class Heatmap extends AppCompatActivity {
         else if (!switchYear)
             specifiedDateEnd = EntryObject.getDayDateFromString(startYearNum + "/" + switchMonthNum + "/" + endDayNum);
         else if (switchYearNum < selectedYearNum)
-            specifiedDateEnd = EntryObject.getDayDateFromString(selectedYearNum + "/" + selectedMonthNum + "/" + startDayNum);
+            specifiedDateEnd = EntryObject.getDayDateFromString(selectedYearNum + "/" + selectedMonthNum + "/" + endDayNum);
         else
-            specifiedDateEnd = EntryObject.getDayDateFromString(switchYear + "/" + switchMonthNum+ "/" + startDayNum);
+            specifiedDateEnd = EntryObject.getDayDateFromString(switchYear + "/" + switchMonthNum+ "/" + endDayNum);
+
+        Long currentPerson = this.groupEvents.get(0).first;
+        EntryObject current;
+        for (Pair<Long, EntryObject> entry : this.groupEvents) {
+            if (entry.second.isTask())
+                continue;
+            if (!currentPerson.equals(entry.first)) {
+                checkAdded = new boolean[19][7];
+            }
+            current = entry.second;
+            if (current.getStart() == null || current.getEnd() == null)
+                continue;
+            Date currentDate = EntryObject.getDayDateFromString(EntryObject.getDayString(current.getStart()));
+            if (currentDate.equals(specifiedDateEnd)
+                    || currentDate.equals(specifiedDateStart)
+                    || (currentDate.before(specifiedDateEnd) && currentDate.after(specifiedDateStart))) {
+                if (!current.isTask()) {
+                    String dayOfEvent = EntryObject.getDayOfWeek(current.getStart());
+                    int startDayIndex = getDayIndex(dayOfEvent);
+                    int endDayIndex = getDayIndex(EntryObject.getDayOfWeek(current.getEnd()));
+                    String hourStart = hour.format(current.getStart());
+                    String hourEnd = hour.format(current.getEnd());
+                    int hourEndNum = Integer.parseInt(hourEnd);
+                    int hourStartNum = Integer.parseInt(hourStart);
 
 
-        for (UserObject user : this.groupMembers) {
-            events = user.getEntryMap();
-            checkAdded = new boolean[19][7];
-            for (Map.Entry<String, ArrayList<EntryObject> > entryPair : events.entrySet()) {
-                Date currentDate = EntryObject.getDayDateFromString(entryPair.getKey());
-                if (currentDate.equals(specifiedDateEnd)
-                        || currentDate.equals(specifiedDateStart)
-                        || (currentDate.before(specifiedDateEnd) && currentDate.after(specifiedDateStart))) {
-                    for (EntryObject current : entryPair.getValue()) {
-                        if (!current.isTask()) {
-                            String dayOfEvent = EntryObject.getDayOfWeek(current.getStart());
-                            int startDayIndex = getDayIndex(dayOfEvent);
-                            int endDayIndex = getDayIndex(EntryObject.getDayOfWeek(current.getEnd()));
-                            String hourStart = hour.format(current.getStart());
-                            String hourEnd = hour.format(current.getEnd());
-                            int hourEndNum = Integer.parseInt(hourEnd);
-                            int hourStartNum = Integer.parseInt(hourStart);
+                    if (startDayIndex == endDayIndex) {
+                        if (hourStartNum < 6 && hourEndNum > 6) {
+                            hourStartNum = 6;
+                        } else if (hourStartNum < 6 && hourEndNum <= 6) {
+                            continue;
+                        }
 
-
-                            if (startDayIndex == endDayIndex) {
-                                if (hourStartNum < 6 && hourEndNum > 6) {
-                                    hourStartNum = 6;
-                                } else if (hourStartNum < 6 && hourEndNum <= 6) {
-                                    continue;
-                                }
-
-                                if (hourEndNum == 0)
-                                    hourEndNum = 24;
-                                for (int j = hourStartNum - 6; j < hourEndNum - 5; j++) {
-                                    if (checkAdded[j][startDayIndex] == false) {
-                                        peopleCountArray[j][startDayIndex] += 1;
-                                        checkAdded[j][startDayIndex] = true;
+                        if (hourEndNum == 0)
+                            hourEndNum = 24;
+                        for (int j = hourStartNum - 6; j < hourEndNum - 5; j++) {
+                            if (checkAdded[j][startDayIndex] == false) {
+                                peopleCountArray[j][startDayIndex] += 1;
+                                checkAdded[j][startDayIndex] = true;
+                            }
+                        }
+                    } else if (startDayIndex < endDayIndex) {
+                        if (hourStartNum < 6) {
+                            hourStartNum = 6;
+                        }
+                        if (hourEndNum == 0)
+                            hourEndNum = 24;
+                        for (int j = startDayIndex; j <= endDayIndex; j++) {
+                            if (j != endDayIndex) {
+                                for (int k = hourStartNum - 6; k < hourEndNum - 5; k++) {
+                                    if (checkAdded[k][j] == false) {
+                                        peopleCountArray[k][j] += 1;
+                                        checkAdded[k][j] = true;
                                     }
                                 }
-                            } else if (startDayIndex < endDayIndex) {
-                                if (hourStartNum < 6) {
-                                    hourStartNum = 6;
-                                }
-                                if (hourEndNum == 0)
-                                    hourEndNum = 24;
-                                for (int j = startDayIndex; j <= endDayIndex; j++) {
-                                    if (j != endDayIndex) {
-                                        for (int k = hourStartNum - 6; k < hourEndNum - 5; k++) {
-                                            if (checkAdded[j][startDayIndex] == false) {
-                                                peopleCountArray[k][j] += 1;
-                                                checkAdded[j][startDayIndex] = true;
-                                            }
-                                        }
-                                    } else {
-                                        for (int k = hourStartNum - 6; k < 19; k++) {
-                                            if (checkAdded[j][startDayIndex] == false) {
-                                                peopleCountArray[k][j] += 1;
-                                                checkAdded[j][startDayIndex] = true;
-                                            }
-                                        }
+                            } else {
+                                for (int k = hourStartNum - 6; k < 19; k++) {
+                                    if (checkAdded[k][j] == false) {
+                                        peopleCountArray[k][j] += 1;
+                                        checkAdded[k][j] = true;
                                     }
-                                    hourStartNum = 6;
                                 }
                             }
+                            hourStartNum = 6;
                         }
                     }
                 }
             }
+
         }
 
         insertGrid();
     }
 
-    private void insertGrid() {
+    private void insertGrid() { ;
         for (int i = 0; i < idArray.length; i++) {
             for (int j = 0; j < idArray[0].length; j++) {
-                idArray[iX][jX].setBackgroundColor(getColor(this.groupMemberCount, peopleCountArray[i][j]));
+                idArray[i][j].setBackgroundColor(getColor(this.groupMemberCount, peopleCountArray[i][j]));
             }
         }
     }
@@ -409,10 +434,10 @@ public class Heatmap extends AppCompatActivity {
     }
 
     private int getColor(int totalPeople, int unavailablePeople) {
-        float ratio = ((float)unavailablePeople) / ((float)totalPeople);
+        float ratio = ((float)(totalPeople-unavailablePeople)) / ((float)totalPeople);
 
         @ColorInt
-        int color = Color.rgb(((float)255)*(1-ratio), ((float)255)*(ratio), 0);
+        int color = Color.rgb((int)(((float)255)*(1-ratio)), (int)(((float)255)*(ratio)), 0);
 
         return color;
     }
