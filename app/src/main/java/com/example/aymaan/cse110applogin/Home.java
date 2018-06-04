@@ -80,6 +80,7 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        clickDate = null;
 
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
