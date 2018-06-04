@@ -81,7 +81,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             Intent ved = new Intent( GroupHomeActivity.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
-            finish();
+            //finish();
         }
     };
 

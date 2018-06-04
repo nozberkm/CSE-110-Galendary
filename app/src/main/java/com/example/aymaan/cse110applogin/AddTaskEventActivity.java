@@ -50,8 +50,7 @@ public class AddTaskEventActivity extends AppCompatActivity {
             }
         });
     }
-    public void onBackPressed(){
-    }
+    //public void onBackPressed(){ }
 
     private void setupViewPager(ViewPager viewPager){
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
