@@ -94,9 +94,10 @@
             android:label="@string/title_activity_add_task_event"
             android:theme="@style/AppTheme"/>
 
-        <activity android:name=".GroupHomeActivity">
-
-        </activity>
+        <activity android:name=".GroupHomeActivity"/>
+        <activity android:name=".JoinRequests"
+            android:label="Join Requests"
+        />
     </application>
 
 </manifest>
