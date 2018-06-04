@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,6 +18,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.example.jeff.database_access.GroupObject;
 
 
 public class JoinGroup extends AppCompatActivity {
@@ -54,6 +57,16 @@ public class JoinGroup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String code = joinCode.getText().toString();
+                GroupObject joinedGroup = LoginActivity.userLogin.joinGroupByEnrollmentCode(code);
+                if(joinedGroup == null) {
+                    Snackbar.make(v, "Error: not a valid enrollment code", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else {
+                    MyGroups.currGroup = joinedGroup;
+                    Intent toGroup = new Intent(JoinGroup.this, GroupHomeActivity.class);
+                    startActivity(toGroup);
+                }
             }
         });
         search.setOnClickListener(new View.OnClickListener() {
