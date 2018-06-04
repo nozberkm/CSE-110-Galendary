@@ -303,6 +303,12 @@ public class UserObject {
     }
 
 
+    // Search for groups by name
+    public ArrayList<GroupObject> getGroupsMatchingString(String groupName){
+        return DatabaseRequest.search_group_name(groupName);
+    }
+
+
 //    private boolean updateDatabase(){
 //
 //

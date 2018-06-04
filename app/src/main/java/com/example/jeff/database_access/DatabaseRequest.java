@@ -1,5 +1,7 @@
 package com.example.jeff.database_access;
 
+import android.support.v4.util.Pair;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -567,15 +569,16 @@ public class DatabaseRequest {
         }
         return null;
     }
-    public static String get_enrollment_code(UserObject user, GroupObject group){
-        if(user == null || group == null) return null;
+
+    public static String get_enrollment_code(UserObject user, GroupObject group) {
+        if (user == null || group == null) return null;
         return get_enrollment_code(user.getUsername(), user.getPasshash(), group.getId());
     }
-    public static String get_enrollment_code(GroupObject group){
-        if(group == null) return null;
+
+    public static String get_enrollment_code(GroupObject group) {
+        if (group == null) return null;
         return get_enrollment_code(group.getUser(), group);
     }
-
 
 
     public static String generate_enrollment_code(String username, String passhash, long group_id) {
@@ -606,8 +609,8 @@ public class DatabaseRequest {
     }
 
     public static GroupObject generate_enrollment_code(UserObject user, GroupObject group) {
-        if(user == null || group == null) return null;
-        if(!group.isAdmin()) return null;
+        if (user == null || group == null) return null;
+        if (!group.isAdmin()) return null;
 
         String enrollment_code = generate_enrollment_code(user.getUsername(), user.getPasshash(), group.getId());
         if (enrollment_code != null) {
@@ -616,10 +619,12 @@ public class DatabaseRequest {
         }
         return null;
     }
-    public static GroupObject generate_enrollment_code(GroupObject group){
-        if(group.getUser() == null) return null;
+
+    public static GroupObject generate_enrollment_code(GroupObject group) {
+        if (group.getUser() == null) return null;
         return generate_enrollment_code(group.getUser(), group);
     }
+
     public static ArrayList<GroupObject> get_related_groups(String username, String passhash, long group_id) throws IOException, JSONException {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
                 {"command", "get_related_groups"},
@@ -632,11 +637,11 @@ public class DatabaseRequest {
         JSONObject jo = GalendaryDB.server_request(pb);
 
 
-        if(!jo.has("data")) return null;
+        if (!jo.has("data")) return null;
         JSONArray data = jo.getJSONArray("data");
 
         ArrayList<GroupObject> related = new ArrayList<>();
-        for(int i=0; i<data.length(); ++i){
+        for (int i = 0; i < data.length(); ++i) {
             JSONObject gjo = data.getJSONObject(i);
             related.add(new GroupObject(gjo));
         }
@@ -654,10 +659,10 @@ public class DatabaseRequest {
 
     public static ArrayList<String> get_admin_email(long group_id) throws JSONException, IOException {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
-            {"command","get_admin_email"},
+                {"command", "get_admin_email"},
         });
         pb.push("group_id", group_id);
-        
+
         JSONObject jo = GalendaryDB.server_request(pb);
 
         if (!jo.has("data")) return null;
@@ -674,10 +679,10 @@ public class DatabaseRequest {
 
 
     public static boolean dissolve_group(long group_id, String username, String passhash) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][] {
-            {"command", "dissolve_group"},
-            {"username", username},
-            {"passhash", passhash}
+        ParameterBuilder pb = new ParameterBuilder(new String[][]{
+                {"command", "dissolve_group"},
+                {"username", username},
+                {"passhash", passhash}
         });
         JSONObject jo = GalendaryDB.server_request(pb);
 
@@ -699,24 +704,24 @@ public class DatabaseRequest {
     public static boolean add_group_to_related(String username, String passhash, long id_group_a, long id_group_b) throws IOException, JSONException {
         ParameterBuilder pb = new ParameterBuilder("add_group_to_related");
         pb.push_username(username)
-            .push_passhash(passhash)
-            .push("group_id_a", id_group_a)
-            .push("group_id_b", id_group_b);
+                .push_passhash(passhash)
+                .push("group_id_a", id_group_a)
+                .push("group_id_b", id_group_b);
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
         return (jo.has("affected_rows") && jo.getInt("affected_rows") > 0);
 
     }
+
     public static boolean add_group_to_related(UserObject user, GroupObject group_a, GroupObject group_b) throws IOException, JSONException {
         return add_group_to_related(user.getUsername(), user.getPasshash(), group_a.getId(), group_b.getId());
     }
 
-        // Admin of group_a, member of groupb
+    // Admin of group_a, member of groupb
     public static boolean add_group_to_related(GroupObject group_a, GroupObject group_b) throws IOException, JSONException {
         return add_group_to_related(group_a.getUser(), group_a, group_b);
     }
-
 
 
     public static GroupObject join_group_by_enrollment_code(String username, String passhash, String enrollment_code) throws IOException, JSONException {
@@ -726,13 +731,13 @@ public class DatabaseRequest {
         pb.push("enrollment_code", enrollment_code);
 
         JSONObject jo = GalendaryDB.server_request(pb);
-        if(!jo.has("data")) return null;
+        if (!jo.has("data")) return null;
         JSONArray ja = jo.getJSONArray("data");
-        if(ja.length() != 2) {
+        if (ja.length() != 2) {
             throw new IOException("IDK WTF");
         }
         JSONArray ja2 = ja.getJSONArray(1);
-        if(ja2.length() != 1) return null;
+        if (ja2.length() != 1) return null;
         JSONObject group_jo = ja2.getJSONObject(0);
 
         return new GroupObject(group_jo);
@@ -749,8 +754,8 @@ public class DatabaseRequest {
         // TODO: Handle security issue by requiring username and passhash
         // So that only members of the group have access to the group members
 
-        ParameterBuilder pb = new ParameterBuilder(new String[][] {
-            {"command", "load_group_members"}
+        ParameterBuilder pb = new ParameterBuilder(new String[][]{
+                {"command", "load_group_members"}
         });
 
 
@@ -784,4 +789,40 @@ public class DatabaseRequest {
 
         return user_list;
     }
+
+
+    // Pair of User's id and entryObject
+    public static ArrayList<Pair<Long, EntryObject>> get_group_member_entries(String username, String passhash, long group_id) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("get_events_of_group_members");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id", group_id);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+
+        if (!jo.has("data")) return null;
+        JSONArray data = jo.getJSONArray("data");
+        JSONArray ja = data.getJSONArray(0);
+
+
+        ArrayList<Pair<Long, EntryObject>> toret = new ArrayList<>();
+        for (int i = 0; i < ja.length(); ++i) {
+            JSONObject entry_jo = ja.getJSONObject(i);
+            EntryObject entry = new EntryObject(entry_jo);
+            long uid = entry_jo.getLong("uid");
+            toret.add(new Pair<Long, EntryObject>(uid, entry));
+        }
+
+        return toret;
+
+    }
+
+    public static ArrayList<Pair<Long, EntryObject>> get_group_member_entries(UserObject user, GroupObject group) throws IOException, JSONException {
+        return get_group_member_entries(user.getUsername(), user.getPasshash(), group.getId());
+    }
+
+    public static ArrayList<Pair<Long, EntryObject>> get_group_member_entries(GroupObject group) throws IOException, JSONException {
+        return get_group_member_entries(group.getUser(), group);
+    }
 }
+

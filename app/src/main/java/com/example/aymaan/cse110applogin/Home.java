@@ -92,6 +92,7 @@ public class Home extends AppCompatActivity {
             //toolbar.setTitle("Man");
             for(String s: EntryMap.keySet()) {
                 Date date = EntryObject.getDayDateFromString(s);
+                if(date == null) continue;
                 for(int i=0; i<EntryMap.get(s).size(); i++) {
                     Event ev1 = new Event(Color.BLACK, date.getTime());
                     compactCalendarView.addEvent(ev1);
@@ -162,7 +163,7 @@ public class Home extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s = new Intent(Home.this, AccountSettings.class);
+                Intent s = new Intent(Home.this, SettingsActivity.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
