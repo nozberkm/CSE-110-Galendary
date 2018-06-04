@@ -10,7 +10,12 @@ import android.widget.TextView;
 import android.view.View;
 import android.support.v7.widget.CardView;
 
-import com.example.jeff.database_access.UserObject;
+import com.example.jeff.database_access.GroupObject;
+import com.example.jeff.database_access.*;
+
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
     public static UserObject userLogin;
@@ -63,6 +68,36 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v){
                 String username = etLoginEmail.getText().toString();
                 String password = null;
+
+                if(username.equals("t")){
+                    try {
+                        password = Hashing.SHA1("t");
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
+                    }
+                    UserObject user = new UserObject(username, password);
+
+                    user.fetchFromDatabase();
+                    user.synchronize();
+
+                    System.err.println(user);
+
+
+                    GroupObject indi_group = user.getIndividualGroup();
+System.err.println(indi_group);
+                    EntryObject eo = new EntryObject();
+
+                    eo.setStart(new Date());
+                    eo.setEnd(new Date());
+                    eo.setTitle("TEST ADDING TO INDIVIDUAL GROUP");
+                    eo.setDescription("PLEASE PLZ");
+
+                    indi_group.pushEntry(eo);
+                }
+
+
                 try {
                     password = Hashing.SHA1(etLoginPassword.getText().toString());
                 }
@@ -87,10 +122,10 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 else {
                     //login success
-
+                    userLogin.synchronize();
                     Intent cLoginLoginIntent = new Intent(LoginActivity.this, Home.class);
                     LoginActivity.this.startActivity(cLoginLoginIntent);
-                    userLogin.synchronize();
+
                     //Hashing.global_user = user;
                 }
 

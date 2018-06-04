@@ -296,6 +296,7 @@ public class GroupObject {
     }
 
 
+    // The long is the User's id
     public ArrayList<Pair<Long, EntryObject>> getMemberEntries(){
         ArrayList<Pair<Long, EntryObject>> member_entries = null;
 
@@ -329,7 +330,7 @@ public class GroupObject {
         is_public = JsonHelper.parseBoolean(jo, "looking_for_subgroups");
     }
     private void parseIndividualFromJson(JSONObject jo){
-        is_public = JsonHelper.parseBoolean(jo, "individual");
+        individual = JsonHelper.parseBoolean(jo, "individual");
     }
     private void parseAdminFromJson(JSONObject jo){
         admin = JsonHelper.parseBoolean(jo, "admin");
