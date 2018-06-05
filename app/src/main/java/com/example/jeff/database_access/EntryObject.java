@@ -114,6 +114,8 @@ public class EntryObject {
 
     public void setRecurrence(String recurrence) { this.recurrence = recurrence; }
 
+    public void setPriority(int priority) { this.priority = priority; }
+
     public void setDescription(String description) { this.description = description; }
 
 
