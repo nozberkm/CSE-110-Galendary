@@ -314,6 +314,16 @@ public class GroupObject {
 
 
 
+
+    public boolean leaveGroup(){
+        // TODO: Working on server code for leaving group
+
+        return false;
+    }
+
+
+
+
     private void parseIdFromJson(JSONObject jo){
         id = JsonHelper.parseLong(jo, "id");
     }
