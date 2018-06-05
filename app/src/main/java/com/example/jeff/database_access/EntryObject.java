@@ -183,6 +183,7 @@ public class EntryObject {
         try {
             if(DatabaseRequest.delete_entry(this)){
                 getUser().removeEntryFromLists(this);
+                this.id = -1;
                 return true;
             }
         } catch (IOException e) {
