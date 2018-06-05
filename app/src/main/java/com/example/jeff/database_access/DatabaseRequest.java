@@ -850,6 +850,7 @@ public class DatabaseRequest {
 
     public static EntryObject update_entry(EntryObject eo) throws IOException, JSONException {
         if(eo == null) return null;
+        if(eo.getId() < 0) return null;
         UserObject user = eo.getUser();
         if(user == null) return null;
         if(eo.getGroupId() < 0) return null;
