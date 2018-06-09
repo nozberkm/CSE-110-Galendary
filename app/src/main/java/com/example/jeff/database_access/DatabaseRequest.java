@@ -961,5 +961,21 @@ public class DatabaseRequest {
         return (jo.getBoolean("success"));
         //{"success":true}
     }
+
+
+    public static boolean delete_user(String username, String passhash) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("delete_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+        ///{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}
+
+        if(!jo.has("affectedRows")) return false;
+        return (jo.getInt("affectedRow") == 0);
+    }
+
+
+
 }
 
