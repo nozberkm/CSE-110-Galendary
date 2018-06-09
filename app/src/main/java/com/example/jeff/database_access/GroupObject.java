@@ -311,6 +311,14 @@ public class GroupObject {
         return member_entries;
     }
 
+    public boolean promoteToAdmin(long new_admin_id) throws IOException {
+        return DatabaseRequest.promote_to_admin(new_admin_id, this.id);
+    }
+
+    public boolean dissolveGroup(UserObject admin) throws IOException {
+        return DatabaseRequest.dissolve_group(this.id, admin.getUsername(), admin.getPasshash());
+    }
+
 
 
 

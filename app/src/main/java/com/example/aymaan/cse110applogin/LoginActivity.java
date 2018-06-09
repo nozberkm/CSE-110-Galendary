@@ -108,7 +108,9 @@ public class LoginActivity extends AppCompatActivity {
 //                    UserObject user = new UserObject(username, password);
                     UserObject user = new UserObject("jeff", "not_sha2");
 
-                    user.fetchFromDatabase();
+                    if(user.fetchFromDatabase() == null){
+                        System.err.println("SHEEEITTTTT");
+                    }
                     user.synchronize();
 
                     System.err.println(user);
@@ -124,12 +126,29 @@ public class LoginActivity extends AppCompatActivity {
 System.err.println(indi_group);
                     EntryObject eo = new EntryObject();
 
-                    eo.setStart(new Date());
+//                    eo.setStart(new Date());
                     eo.setEnd(new Date());
-                    eo.setTitle("TEST ADDING TO TEST GROUP");
-                    eo.setDescription("PLEASE PLZ");
+                    eo.setTitle("TEST ADDING EVENT TO DELETE");
+                    eo.setDescription("PLEASE PLZ DELTE");
 
                     indi_group.pushEntry(eo);
+
+                    user.synchronize();
+                    System.err.println("eo:");
+                    System.err.println(eo);
+
+                    eo.delete();
+
+
+
+                    GroupObject joined = user.joinGroupByEnrollmentCode("l6k1v6w");
+
+                    System.err.println("Joined:");
+                    System.err.println(joined);
+
+
+
+
                 }
 
 

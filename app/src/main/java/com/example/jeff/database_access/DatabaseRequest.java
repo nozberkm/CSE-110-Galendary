@@ -678,7 +678,8 @@ public class DatabaseRequest {
     }
 
     //TODO Fix this up
-    public static boolean dissolve_group(long group_id, String username, String passhash) throws IOException {
+    public static boolean dissolve_group(long group_id, String username, String passhash)
+            throws IOException {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
                 {"command", "dissolve_group"},
                 {"username", username},
@@ -692,7 +693,6 @@ public class DatabaseRequest {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-//            System.out.println(jo2.toString());
         }
 
         return false;
@@ -731,12 +731,25 @@ public class DatabaseRequest {
         pb.push("enrollment_code", enrollment_code);
 
         JSONObject jo = GalendaryDB.server_request(pb);
+//
+//        System.err.println("jo:");
+//        System.err.println(jo);
+
         if (!jo.has("data")) return null;
         JSONArray ja = jo.getJSONArray("data");
         if (ja.length() != 2) {
             throw new IOException("IDK WTF");
         }
-        JSONArray ja2 = ja.getJSONArray(1);
+
+//        System.err.println("ja:");
+//        System.err.println(ja);
+
+        JSONArray ja2 = ja.getJSONArray(0);
+
+//        System.err.println("ja2");
+//        System.err.println(ja2);
+
+
         if (ja2.length() != 1) return null;
         JSONObject group_jo = ja2.getJSONObject(0);
 
@@ -836,6 +849,9 @@ public class DatabaseRequest {
         JSONObject jo = GalendaryDB.server_request(pb);
 
 
+        System.err.println("Attempting delete, jo:");
+        System.err.println(jo);
+
         return jo.has("affected_rows") && jo.getInt("affectedRows") == 1;
 
     }
@@ -915,10 +931,35 @@ public class DatabaseRequest {
 
     }
 
-    public static boolean promote_to_admin() {
+    public static boolean promote_to_admin(long user_id, long group_id) throws IOException {
+        ParameterBuilder pb = new ParameterBuilder("promote_to_admin");
+        pb.push("user_id", user_id);
+        pb.push("group_id", group_id);
 
-        return false;
+        JSONObject jo = GalendaryDB.server_request(pb);
+        if (!jo.has("data")) return false;
+        else return true;
     }
 
+
+
+
+
+
+
+
+
+    // Returns true if password was successfully reset
+    public static boolean reset_password(String username) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("reset_password");
+        pb.push_username(username);
+
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+        if(!jo.has("success")) return false;
+
+        return (jo.getBoolean("success"));
+        //{"success":true}
+    }
 }
 

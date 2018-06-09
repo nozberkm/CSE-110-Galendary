@@ -90,31 +90,27 @@ public class ViewEventDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 boolean ifDeleted;
-                if(previous.equals("Home")) {
+                if (previous.equals("Home")) {
                     Home.currentEvent.setUser(LoginActivity.userLogin);
                     ifDeleted = Home.currentEvent.delete();
-                    if(ifDeleted) {
+                    if (ifDeleted) {
                         Intent toExit = new Intent(ViewEventDetails.this, Home.class);
                         startActivity(toExit);
                         finish();
-                    }
-                    else {
+                    } else {
                         Snackbar.make(view, "The event could not be deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
-                }
-                else if(previous.equals("groupHome")) {
+                } else if (previous.equals("groupHome")) {
                     GroupHomeActivity.currentGroupEvent.setUser(LoginActivity.userLogin);
                     ifDeleted = GroupHomeActivity.currentGroupEvent.delete();
-                    if(ifDeleted) {
+                    if (ifDeleted) {
                         Intent toExit = new Intent(ViewEventDetails.this, GroupHomeActivity.class);
                         startActivity(toExit);
                         finish();
-                    }
-                    else{
+                    } else {
                         Snackbar.make(view, "The event could not be deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
                 }
-
             }
         });
     }

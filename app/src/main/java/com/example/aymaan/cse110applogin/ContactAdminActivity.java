@@ -2,6 +2,7 @@ package com.example.aymaan.cse110applogin;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v4.util.Pair;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,10 @@ import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.EditText;
 import android.support.v7.widget.Toolbar;
+
+import com.example.jeff.database_access.UserObject;
+
+import java.util.ArrayList;
 
 public class ContactAdminActivity extends AppCompatActivity {
 
@@ -37,6 +42,10 @@ public class ContactAdminActivity extends AppCompatActivity {
             public void onClick(View v){
                 String subject = subjectEditText.getText().toString();
                 String message = messageEditText.getText().toString();
+                ArrayList<UserObject> groupMembers = MyGroups.currGroup.loadMembers();
+                //TODO
+                for (int i = 0; i < groupMembers.size(); i++)
+                    MyGroups.currGroup.isAdmin();
                 Intent emailAdminIntent = new Intent(Intent.ACTION_SENDTO,
                         Uri.fromParts("mailto", "", null));
                 emailAdminIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
