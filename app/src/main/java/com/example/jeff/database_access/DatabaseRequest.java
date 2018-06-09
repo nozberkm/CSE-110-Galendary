@@ -859,10 +859,15 @@ public class DatabaseRequest {
             return null;
         }
 
-        if (jo.has("name")) {
+        if (!jo.has("data") || jo.isNull("data")) return null;
+        JSONArray data = jo.getJSONArray("data");
+        JSONObject nameObject = data.getJSONArray(0);
+
+
+        if (nameObject.has("name")) {
             try {
-                if (!jo.isNull("name"))
-                    return jo.getString("name");
+                if (!nameObject.isNull("name"))
+                    return nameObject.getString("name");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
