@@ -70,9 +70,14 @@ public class JoinGroup extends AppCompatActivity {
                 String code = joinCode.getText().toString();
                 GroupObject joinedGroup = LoginActivity.userLogin.joinGroupByEnrollmentCode(code);
                 LoginActivity.userLogin.synchronize();
-                if(joinedGroup != null ) {
-                    Snackbar.make(v, "Joined group" + joinedGroup.getName(), Snackbar.LENGTH_LONG)
+                if(joinedGroup.getId() == -1 ) {
+                    Snackbar.make(v, "Enrollment code not correct.", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                }
+                else {
+                    MyGroups.currGroup = joinedGroup;
+                    Intent toGroupHome = new Intent(context, GroupHomeActivity.class);
+                    startActivity(toGroupHome);
                 }
             }
         });
