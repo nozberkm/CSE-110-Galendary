@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 
 import com.example.jeff.database_access.DatabaseRequest;
 import com.example.jeff.database_access.GroupObject;
@@ -22,6 +23,8 @@ public class CreateGroup extends AppCompatActivity {
     private Button create;
     private EditText etGroupName;
     private EditText etError;
+    private Switch pub;
+    private boolean set;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class CreateGroup extends AppCompatActivity {
         create = (Button) findViewById(R.id.createGroupButton);
         etGroupName = (EditText) findViewById(R.id.editTextGroupName);
         etError = (EditText) findViewById(R.id.editTextCreateError);
+        pub = (Switch) findViewById(R.id.switch1);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +51,14 @@ public class CreateGroup extends AppCompatActivity {
                     etError.setText("Group Name cannot be empty");
                 } else {
                     etError.setText("");
+                    if(pub.isChecked()) {
+                        set = true;
+                    }
+                    else {
+                        set = false;
+                    }
                     GroupObject group = LoginActivity.userLogin.createGroup(etGroupName.getText().toString());
+                    group.setPublicFlag(set);
                     MyGroups.currGroup = group;
                     Intent toGroupHome = new Intent(CreateGroup.this, GroupHomeActivity.class);
                     startActivity(toGroupHome);

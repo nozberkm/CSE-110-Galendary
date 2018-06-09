@@ -15,16 +15,15 @@ import com.example.jeff.database_access.*;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
     public static UserObject userLogin;
 
-    @Override
+    /*@Override
     public void onBackPressed(){
-            finish();
-            System.exit(0);
-    }
+    }*/
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         userLogin = null;
@@ -37,6 +36,31 @@ public class LoginActivity extends AppCompatActivity {
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
             //your codes here
+        }
+
+        if (SaveSharedPreference.getUserName(LoginActivity.this).length() != 0){
+            Intent checkLoggedOut = getIntent();
+            if(checkLoggedOut != null && checkLoggedOut.getBooleanExtra("logout", false)) {
+
+                SaveSharedPreference.clearUserName(LoginActivity.this);
+                SaveSharedPreference.clearPassWord(LoginActivity.this);
+            }
+
+            else {
+                String uname = SaveSharedPreference.getUserName(LoginActivity.this);
+                String pword = SaveSharedPreference.getPassWord(LoginActivity.this);
+
+                Log.d("STORED USER: ", SaveSharedPreference.getUserName(LoginActivity.this));
+                Log.d("STORED PASS: ", SaveSharedPreference.getPassWord(LoginActivity.this));
+
+                UserObject user = new UserObject(uname, pword);
+                userLogin = user.fetchFromDatabase();
+                userLogin.synchronize();
+
+                Intent loggedInPrev = new Intent(LoginActivity.this, Home.class);
+                LoginActivity.this.startActivity(loggedInPrev);
+                finish();
+            }
         }
 
         setContentView(R.layout.activity_login);
@@ -81,21 +105,28 @@ public class LoginActivity extends AppCompatActivity {
                     } catch (UnsupportedEncodingException e) {
                         e.printStackTrace();
                     }
-                    UserObject user = new UserObject(username, password);
+//                    UserObject user = new UserObject(username, password);
+                    UserObject user = new UserObject("jeff", "not_sha2");
 
                     user.fetchFromDatabase();
                     user.synchronize();
 
                     System.err.println(user);
 
+                    ArrayList<GroupObject> groups = user.getGroups();
+                    GroupObject test_group = null;
+                    for(GroupObject go : groups){
+                        if(go.getId() == 45) test_group = go;
+                    }
 
-                    GroupObject indi_group = user.getIndividualGroup();
+
+                    GroupObject indi_group = test_group;// user.getIndividualGroup();
 System.err.println(indi_group);
                     EntryObject eo = new EntryObject();
 
                     eo.setStart(new Date());
                     eo.setEnd(new Date());
-                    eo.setTitle("TEST ADDING TO INDIVIDUAL GROUP");
+                    eo.setTitle("TEST ADDING TO TEST GROUP");
                     eo.setDescription("PLEASE PLZ");
 
                     indi_group.pushEntry(eo);
@@ -126,10 +157,14 @@ System.err.println(indi_group);
                 }
                 else {
                     //login success
+                    SaveSharedPreference.setUserName(LoginActivity.this, username);
+                    SaveSharedPreference.setPassWord(LoginActivity.this, password);
+                    Log.d("STORING USER: ", SaveSharedPreference.getUserName(LoginActivity.this));
+                    Log.d("STORING PASS: ", SaveSharedPreference.getPassWord(LoginActivity.this));
                     userLogin.synchronize();
                     Intent cLoginLoginIntent = new Intent(LoginActivity.this, Home.class);
                     LoginActivity.this.startActivity(cLoginLoginIntent);
-
+                    finish();
                     //Hashing.global_user = user;
                 }
 

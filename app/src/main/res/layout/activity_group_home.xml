@@ -20,7 +20,7 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/group_tool_bar_name"
-                android:layout_width="0dp"
+                android:layout_width="103dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:background="@color/colorPrimary">
@@ -29,7 +29,7 @@
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/group_tool_bar_month"
-                android:layout_width="0dp"
+                android:layout_width="93dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"

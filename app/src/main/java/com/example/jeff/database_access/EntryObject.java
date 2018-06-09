@@ -29,6 +29,8 @@ public class EntryObject {
     private UserObject user = null;
     private GroupObject group = null;
 
+//    private boolean needs_update_push;
+
     public EntryObject(){
         id = -1;
         group_id = -1;
@@ -39,6 +41,7 @@ public class EntryObject {
         priority = -1;
         recurrence = null;
         description = null;
+//        needs_update_push = false;
     }
 
     public EntryObject(UserObject user){
@@ -56,6 +59,7 @@ public class EntryObject {
         parsePriorityFromJson(jo);
         parseRecurrenceFromJson(jo);
         parseDescriptionFromJson(jo);
+//        needs_update_push = false;
     }
 
     public UserObject getUser() {
@@ -109,6 +113,8 @@ public class EntryObject {
     public void setEnd(Date end) { this.end = end; }
 
     public void setRecurrence(String recurrence) { this.recurrence = recurrence; }
+
+    public void setPriority(int priority) { this.priority = priority; }
 
     public void setDescription(String description) { this.description = description; }
 
@@ -176,6 +182,8 @@ public class EntryObject {
 
 
 
+
+
     // Deletes this entry from the database and attempts to remove all references to this
     // from the Java program
     public boolean delete(){
@@ -183,6 +191,7 @@ public class EntryObject {
         try {
             if(DatabaseRequest.delete_entry(this)){
                 getUser().removeEntryFromLists(this);
+                this.id = -1;
                 return true;
             }
         } catch (IOException e) {
@@ -199,6 +208,20 @@ public class EntryObject {
     }
 
 
+
+    public boolean pushUpdate(){
+        EntryObject eo = null;
+        try {
+            eo = DatabaseRequest.update_entry(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+//        this.needs_update_push = false;
+        return eo == this;
+    }
 
 
 

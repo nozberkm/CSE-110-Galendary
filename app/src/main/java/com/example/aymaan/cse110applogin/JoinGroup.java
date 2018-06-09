@@ -69,6 +69,7 @@ public class JoinGroup extends AppCompatActivity {
             public void onClick(View v) {
                 String code = joinCode.getText().toString();
                 GroupObject joinedGroup = LoginActivity.userLogin.joinGroupByEnrollmentCode(code);
+                LoginActivity.userLogin.synchronize();
                 if(joinedGroup != null ) {
                     Snackbar.make(v, "Joined group" + joinedGroup.getName(), Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();

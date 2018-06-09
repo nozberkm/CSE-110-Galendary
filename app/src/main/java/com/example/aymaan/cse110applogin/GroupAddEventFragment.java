@@ -1,23 +1,23 @@
 package com.example.aymaan.cse110applogin;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.TimePicker;
 
 import com.example.jeff.database_access.EntryObject;
@@ -27,9 +27,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddEventFragment extends Fragment {
+public class GroupAddEventFragment extends android.support.v4.app.Fragment {
+
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
-    private static final String TAG = "AddEventFragment";
+
+    private static final String TAG = "GroupAddEventFragment";
 
     private EditText etEventTitle;
 
@@ -54,21 +56,21 @@ public class AddEventFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_event_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_group_add_event_fragment, container, false);
 
-        etEventTitle = (EditText) view.findViewById(R.id.etEventTitle);
+        etEventTitle = (EditText) view.findViewById(R.id.group_etEventTitle);
 
-        tvEventStartDate = (TextView) view.findViewById(R.id.tvEventStartDate);
-        tvEventStartTime = (TextView) view.findViewById(R.id.tvEventStartTime);
+        tvEventStartDate = (TextView) view.findViewById(R.id.group_tvEventStartDate);
+        tvEventStartTime = (TextView) view.findViewById(R.id.group_tvEventStartTime);
 
-        tvEventEndDate = (TextView) view.findViewById(R.id.tvEventEndDate);
-        tvEventEndTime = (TextView) view.findViewById(R.id.tvEventEndTime);
+        tvEventEndDate = (TextView) view.findViewById(R.id.group_tvEventEndDate);
+        tvEventEndTime = (TextView) view.findViewById(R.id.group_tvEventEndTime);
 
-        etEventLocation = (EditText) view.findViewById(R.id.etEventLocation);
+        etEventLocation = (EditText) view.findViewById(R.id.group_etEventLocation);
 
-        etEventDescription = (EditText) view.findViewById(R.id.etEventDescription);
+        etEventDescription = (EditText) view.findViewById(R.id.group_etEventDescription);
 
-        fabAddEvent = (FloatingActionButton) view.findViewById(R.id.fabAddEvent);
+        fabAddEvent = (FloatingActionButton) view.findViewById(R.id.group_fabAddEvent);
 
         tvEventStartDate.setText(DATE_FORMAT.format(new Date(getArguments().getLong("date"))));
 
@@ -223,22 +225,24 @@ public class AddEventFragment extends Fragment {
                     Date start_date=formatter1.parse(startDateObject);
                     Date end_date=formatter1.parse(endDateObject);
 
+                    System.err.println("Doesn't work");
                     EntryObject entryObject = new EntryObject();
                     entryObject.setDescription(etEventDescription.getText().toString() +
-                                                "\n" + "Location: " + etEventLocation.getText().toString());
+                            "\n" + "Location: " + etEventLocation.getText().toString());
                     entryObject.setTitle(etEventTitle.getText().toString());
                     entryObject.setStart(start_date);
                     entryObject.setEnd(end_date);
 
-                    LoginActivity.userLogin.getIndividualGroup().pushEntry(entryObject);
-                    LoginActivity.userLogin.synchronize();
+                    EntryObject checkEntryObject = MyGroups.currGroup.pushEntry(entryObject);
+                    System.err.println(checkEntryObject.toString());
+
                 }
                 catch(Exception e) {
-
+                    System.err.println("Exception");
                 }
+                Intent toGroupHome = new Intent(getActivity(), GroupHomeActivity.class);
+                startActivity(toGroupHome);
 
-                Intent toHome = new Intent(getActivity(), Home.class);
-                startActivity(toHome);
 
             }
         });

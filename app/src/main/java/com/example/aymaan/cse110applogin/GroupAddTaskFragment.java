@@ -1,15 +1,16 @@
 package com.example.aymaan.cse110applogin;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,9 +26,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddTaskFragment extends Fragment {
+public class GroupAddTaskFragment extends android.support.v4.app.Fragment {
+
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yyyy");
-    private static final String TAG = "AddTaskFragment";
+
+    private static final String TAG = "GroupAddTaskFragment";
 
     private EditText etTaskTitle;
 
@@ -44,16 +47,16 @@ public class AddTaskFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_task_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_group_add_task_fragment, container, false);
 
-        etTaskTitle = (EditText) view.findViewById(R.id.etTaskTitle);
+        etTaskTitle = (EditText) view.findViewById(R.id.group_etTaskTitle);
 
-        tvTaskEndDate = (TextView) view.findViewById(R.id.tvTaskEndDate);
-        tvTaskEndTime = (TextView) view.findViewById(R.id.tvTaskEndTime);
+        tvTaskEndDate = (TextView) view.findViewById(R.id.group_tvTaskEndDate);
+        tvTaskEndTime = (TextView) view.findViewById(R.id.group_tvTaskEndTime);
 
-        etTaskDescription = (EditText) view.findViewById(R.id.etTaskDescription);
+        etTaskDescription = (EditText) view.findViewById(R.id.group_etTaskDescription);
 
-        fabAddTask = (FloatingActionButton) view.findViewById(R.id.fabAddTask);
+        fabAddTask = (FloatingActionButton) view.findViewById(R.id.group_fabAddTask);
 
         tvTaskEndDate.setText(DATE_FORMAT.format(new Date(getArguments().getLong("date"))));
 
@@ -139,15 +142,14 @@ public class AddTaskFragment extends Fragment {
                     entryObject.setDescription(etTaskDescription.getText().toString());
                     entryObject.setTitle(etTaskTitle.getText().toString());
                     entryObject.setEnd(end_date);
-                    LoginActivity.userLogin.getIndividualGroup().pushEntry(entryObject);
+                    MyGroups.currGroup.pushEntry(entryObject);
                     LoginActivity.userLogin.synchronize();
                 }
                 catch(Exception e) {
 
                 }
 
-                Intent toHome = new Intent(getActivity(), Home.class);
-                startActivity(toHome);
+                getActivity().finish();
 
             }
         });

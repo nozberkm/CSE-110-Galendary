@@ -100,7 +100,10 @@
         <activity
             android:name=".GroupSettings"
             android:label="@string/title_activity_group_settings"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".GroupAddTaskEventActivity" />
+        <activity android:name=".GroupAddEventFragment" />
+        <activity android:name=".GroupAddTaskFragment" />
     </application>
 
 </manifest>

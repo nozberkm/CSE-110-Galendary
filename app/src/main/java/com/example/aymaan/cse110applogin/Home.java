@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -14,21 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CalendarView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.jeff.database_access.EntryObject;
-import com.example.jeff.database_access.GroupObject;
-import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -49,29 +43,44 @@ public class Home extends AppCompatActivity {
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
 
             Bundle b = new Bundle();
-            b.putLong("id",clickedItem.getId());
-            b.putLong("group id",clickedItem.getGroupId());
-            b.putString("event name",clickedItem.getTitle());
-            b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
-            b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
-            b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
-            b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
-            b.putString("event description",clickedItem.getDescription());
+            //b.putLong("id",clickedItem.getId());
+            //b.putLong("group id",clickedItem.getGroupId());
 
+            b.putString("event name",clickedItem.getTitle());
+            if(clickedItem.getEnd() == null){
+                b.putString("event end","");
+                b.putString("event end time","");
+            }
+            else {
+                b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
+                b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
+            }
+            if(clickedItem.getStart() == null){
+                b.putString("event start","");
+                b.putString("event start time","");
+            }
+            else {
+                b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
+                b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
+            }
+
+            b.putString("event description",clickedItem.getDescription());
+            b.putString("previous", "Home");
             Intent ved = new Intent( Home.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
-            finish();
+            //finish();
         }
     };
     public static Date clickDate = null;
     //public UserObject user = Hashing.global_user;
-    public void onBackPressed(){}
+    //public void onBackPressed(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        clickDate = null;
 
         toolbar = (Toolbar)findViewById(R.id.tool_bar);
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
@@ -108,7 +117,15 @@ public class Home extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle b = new Bundle();
+                if(clickDate == null) {
+                    b.putLong("date",Calendar.getInstance().getTimeInMillis());
+                }
+                else {
+                    b.putLong("date",clickDate.getTime());
+                }
                 Intent aea = new Intent(Home.this, AddTaskEventActivity.class);
+                aea.putExtras(b);
                 startActivity(aea);
             }
         });
@@ -174,7 +191,9 @@ public class Home extends AppCompatActivity {
                 break;
             case R.id.nav_logout:
                 Intent l= new Intent(Home.this,LoginActivity.class);
+                l.putExtra("logout", true);
                 startActivity(l);
+                finish();
                 break;
         }
 

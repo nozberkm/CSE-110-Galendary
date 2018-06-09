@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/group_etEventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:background="#00000000"
+        android:fontFamily="sans-serif"
+        android:gravity="center_vertical"
+        android:hint="Enter title, times, people, places..."
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#747474"
+        android:textSize="15dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/group_tvEventStartDate"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:hint="Enter group start date..."
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#747474"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/group_tvEventStartTime"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:hint="Enter start time..."
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#747474"
+            android:textSize="15dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/group_tvEventEndDate"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:hint="Enter end date..."
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#747474"
+            android:textSize="15dp" />
+
+        <TextView
+            android:id="@+id/group_tvEventEndTime"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:hint="Enter end time..."
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="#000000"
+            android:textColorHint="#747474"
+            android:textSize="15dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/group_etEventDescription"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif"
+        android:gravity="top|left"
+        android:hint="Enter task/event description..."
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#747474"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/group_etEventLocation"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="Location"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text=""
+        android:textColor="#000000"
+        android:textColorHint="#747474"
+        android:textSize="15dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/group_fabAddEvent"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_action_add_event" />
+
+</RelativeLayout>

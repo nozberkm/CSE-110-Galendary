@@ -27,6 +27,7 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -56,19 +57,32 @@ public class GroupHomeActivity extends AppCompatActivity {
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
 
             Bundle b = new Bundle();
-            b.putLong("id",clickedItem.getId());
-            b.putLong("group id",clickedItem.getGroupId());
+            //b.putLong("id",clickedItem.getId());
+            //b.putLong("group id",clickedItem.getGroupId());
             b.putString("event name",clickedItem.getTitle());
-            b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
-            b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
-            b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
-            b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
-            b.putString("event description",clickedItem.getDescription());
+            if(clickedItem.getEnd() == null){
+                b.putString("event end","");
+                b.putString("event end time","");
+            }
+            else {
+                b.putString("event end",EntryObject.getDayString(clickedItem.getEnd()));
+                b.putString("event end time",EntryObject.getTimeString(clickedItem.getEnd()));
+            }
+            if(clickedItem.getStart() == null){
+                b.putString("event start","");
+                b.putString("event start time","");
+            }
+            else {
+                b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
+                b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
+            }
 
+            b.putString("event description",clickedItem.getDescription());
+            b.putString("previous", "groupHome");
             Intent ved = new Intent( GroupHomeActivity.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
-            finish();
+            //finish();
         }
     };
 
@@ -77,6 +91,9 @@ public class GroupHomeActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_home);
+
+        clickDate = null;
+
         group_compactCalendarView = (CompactCalendarView) findViewById(R.id.group_compactcalendar_view);
 
         group_toolbar_month = (Toolbar)findViewById(R.id.group_tool_bar_month);
@@ -127,7 +144,15 @@ public class GroupHomeActivity extends AppCompatActivity {
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent aea = new Intent(GroupHomeActivity.this, AddTaskEventActivity.class);
+                    Bundle b = new Bundle();
+                    if(clickDate == null) {
+                        b.putLong("date", Calendar.getInstance().getTimeInMillis());
+                    }
+                    else {
+                        b.putLong("date",clickDate.getTime());
+                    }
+                    Intent aea = new Intent(GroupHomeActivity.this, GroupAddTaskEventActivity.class);
+                    aea.putExtras(b);
                     startActivity(aea);
                 }
             });
@@ -139,12 +164,20 @@ public class GroupHomeActivity extends AppCompatActivity {
             @Override
             public void onDayClick(Date dateClicked) {
                 clickDate = dateClicked;
-                Map<String, ArrayList<EntryObject>> EntryMap = LoginActivity.userLogin.getEntryMap();
+                Map<String, ArrayList<EntryObject>> EntryMap = MyGroups.currGroup.getEntryMap();
                 String date = EntryObject.getDayString(dateClicked);
                 ArrayList<EntryObject> list = EntryMap.get(date);
-                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                ArrayList<EntryObject> showList = new ArrayList<>();
                 if(list!=null) {
-                    group_eventAdapter = new EventAdapter(GroupHomeActivity.this, list);
+                    for(EntryObject e: list) {
+                        if(!e.isNotice()) {
+                            showList.add(e);
+                        }
+                    }
+                }
+                ArrayList<EntryObject> empty_list = new ArrayList<>();
+                if(showList!=null) {
+                    group_eventAdapter = new EventAdapter(GroupHomeActivity.this, showList);
                     listView.setAdapter(group_eventAdapter);
                     listView.setOnItemClickListener(eventClickedHandler);
                 }
@@ -186,7 +219,9 @@ public class GroupHomeActivity extends AppCompatActivity {
                 break;
             case R.id.nav_logout:
                 Intent l= new Intent(GroupHomeActivity.this,LoginActivity.class);
+                l.putExtra("logout", true);
                 startActivity(l);
+                finish();
                 break;
         }
 

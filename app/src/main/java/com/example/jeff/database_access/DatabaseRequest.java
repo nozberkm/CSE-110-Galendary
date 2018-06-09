@@ -847,7 +847,7 @@ public class DatabaseRequest {
     }
 
     public static String get_group_name(long group_id) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder( "get_group_name");
+        ParameterBuilder pb = new ParameterBuilder("get_group_name");
         pb.push("group_id", group_id);
 
         JSONObject jo = GalendaryDB.server_request(pb);
@@ -862,6 +862,40 @@ public class DatabaseRequest {
         }
 
         return null;
+    }
+
+
+    public static EntryObject update_entry(EntryObject eo) throws IOException, JSONException {
+        if(eo == null) return null;
+        if(eo.getId() < 0) return null;
+        UserObject user = eo.getUser();
+        if(user == null) return null;
+        if(eo.getGroupId() < 0) return null;
+
+
+        ParameterBuilder pb = new ParameterBuilder("update_entry");
+
+        pb.push_username(user.getUsername());
+        pb.push_passhash(user.getPasshash());
+        pb.push("entry_id", eo.getId());
+        pb.push("title", eo.getTitle());
+        pb.push("start_time", eo.getStart());
+        pb.push("end_time", eo.getEnd());
+        pb.push("recurrence", eo.getRecurrence());
+        pb.push("priority", eo.getPriority());
+        pb.push("description", eo.getDescription());
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+        if(!jo.has("data")) return null;
+        JSONArray ja = jo.getJSONArray("data");
+        JSONArray ja2 = ja.getJSONArray(0);
+        JSONObject jo2 = ja2.getJSONObject(0);
+        if(!jo2.has("success")) return null;
+
+        return jo2.getInt("success") == 1 ? eo : null;
+//                [[{"success":1}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
+//                [[{"success":0}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
+
     }
 }
 
