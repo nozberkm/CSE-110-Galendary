@@ -678,7 +678,8 @@ public class DatabaseRequest {
     }
 
     //TODO Fix this up
-    public static boolean dissolve_group(long group_id, String username, String passhash) throws IOException {
+    public static boolean dissolve_group(long group_id, String username, String passhash)
+            throws IOException {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
                 {"command", "dissolve_group"},
                 {"username", username},
@@ -692,7 +693,6 @@ public class DatabaseRequest {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-//            System.out.println(jo2.toString());
         }
 
         return false;
