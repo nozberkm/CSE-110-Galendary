@@ -147,6 +147,7 @@ public class MyGroups extends AppCompatActivity {
                 break;
             case R.id.nav_logout:
                 Intent l= new Intent(MyGroups.this,LoginActivity.class);
+                l.putExtra("logout", true);
                 startActivity(l);
                 break;
         }
