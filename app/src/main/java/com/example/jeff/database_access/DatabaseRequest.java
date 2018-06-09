@@ -849,6 +849,9 @@ public class DatabaseRequest {
         JSONObject jo = GalendaryDB.server_request(pb);
 
 
+        System.err.println("Attempting delete, jo:");
+        System.err.println(jo);
+
         return jo.has("affected_rows") && jo.getInt("affectedRows") == 1;
 
     }
@@ -950,5 +953,31 @@ public class DatabaseRequest {
         else return false;
     }
 
+
+    // Returns true if password was successfully reset
+    public static boolean reset_password(String username) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("reset_password");
+        pb.push_username(username);
+
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+        if(!jo.has("success")) return false;
+
+        return (jo.getBoolean("success"));
+        //{"success":true}
+    }
+
+
+    public static boolean delete_user(String username, String passhash) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("delete_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+        ///{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}
+
+        if(!jo.has("affectedRows")) return false;
+        return (jo.getInt("affectedRow") == 0);
+    }
 }
 

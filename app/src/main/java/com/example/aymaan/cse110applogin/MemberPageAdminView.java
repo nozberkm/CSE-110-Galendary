@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 public class MemberPageAdminView extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
     private Button promote;
@@ -46,7 +48,12 @@ public class MemberPageAdminView extends AppCompatActivity {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        try {
+                            MyGroups.currGroup.promoteToAdmin(MemberList.viewedUser.getId());
+                        }
+                        catch(IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
