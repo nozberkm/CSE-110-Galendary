@@ -849,6 +849,9 @@ public class DatabaseRequest {
         JSONObject jo = GalendaryDB.server_request(pb);
 
 
+        System.err.println("Attempting delete, jo:");
+        System.err.println(jo);
+
         return jo.has("affected_rows") && jo.getInt("affectedRows") == 1;
 
     }
