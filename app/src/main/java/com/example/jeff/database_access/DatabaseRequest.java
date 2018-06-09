@@ -840,7 +840,7 @@ public class DatabaseRequest {
 
     }
 
-
+    //TODO this is causing errors
     public static boolean delete_entry(EntryObject entry) throws IOException, JSONException {
         UserObject user = entry.getUser();
         return delete_entry(user.getUsername(), user.getPasshash(), entry.getId());
@@ -850,17 +850,28 @@ public class DatabaseRequest {
         ParameterBuilder pb = new ParameterBuilder("get_group_name");
         pb.push("group_id", group_id);
 
-        JSONObject jo = GalendaryDB.server_request(pb);
+        JSONObject jo = null;
 
-        if (jo.has("name")) {
+        try {
+            jo = GalendaryDB.server_request(pb);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        if (!jo.has("data") || jo.isNull("data")) return null;
+        JSONArray data = jo.getJSONArray("data");
+        JSONObject nameObject = data.getJSONArray(0);
+
+
+        if (nameObject.has("name")) {
             try {
-                if (!jo.isNull("name"))
-                    return jo.getString("name");
+                if (!nameObject.isNull("name"))
+                    return nameObject.getString("name");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
         return null;
     }
 
@@ -897,5 +908,11 @@ public class DatabaseRequest {
 //                [[{"success":0}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
 
     }
+
+    public static boolean promote_to_admin() {
+
+        return false;
+    }
+
 }
 
