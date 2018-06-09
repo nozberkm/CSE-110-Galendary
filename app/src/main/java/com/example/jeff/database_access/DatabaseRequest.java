@@ -938,5 +938,25 @@ public class DatabaseRequest {
         else return true;
     }
 
+
+
+
+
+
+
+
+
+    // Returns true if password was successfully reset
+    public static boolean reset_password(String username) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("reset_password");
+        pb.push_username(username);
+
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+        if(!jo.has("success")) return true;
+
+        return (jo.getBoolean("success"));
+        //{"success":true}
+    }
 }
 

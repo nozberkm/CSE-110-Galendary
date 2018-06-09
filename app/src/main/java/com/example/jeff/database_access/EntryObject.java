@@ -150,7 +150,7 @@ public class EntryObject {
         setUser(group.getUser());
         setGroup(group);
     }
-    
+
 
     public static Date getDayDateFromString(String day_string){
         if(day_string == null) return null;

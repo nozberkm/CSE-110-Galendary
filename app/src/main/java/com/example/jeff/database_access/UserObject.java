@@ -338,6 +338,38 @@ public class UserObject {
     }
     //TODO fix the groupRequestObject
 
+
+
+
+
+
+
+
+
+    public static boolean ResetPassword(String password){
+        boolean status = false;
+
+        try {
+            status = DatabaseRequest.reset_password(password);
+        } catch (IOException e) {
+            e.printStackTrace();
+            status = false;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            status = false;
+        }
+        return status;
+    }
+
+
+
+
+
+
+
+
+
+
 //    private boolean updateDatabase(){
 //
 //
