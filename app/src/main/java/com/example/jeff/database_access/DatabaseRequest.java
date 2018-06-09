@@ -915,9 +915,14 @@ public class DatabaseRequest {
 
     }
 
-    public static boolean promote_to_admin() {
+    public static boolean promote_to_admin(long user_id, long group_id) throws IOException {
+        ParameterBuilder pb = new ParameterBuilder("promote_to_admin");
+        pb.push("user_id", user_id);
+        pb.push("group_id", group_id);
 
-        return false;
+        JSONObject jo = GalendaryDB.server_request(pb);
+        if (!jo.has("data")) return false;
+        else return true;
     }
 
 }
