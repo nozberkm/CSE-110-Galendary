@@ -358,7 +358,7 @@ public class UserObject {
         String current_passhash = null;
 
 
-        String new_passhash = null
+        String new_passhash = null;
 
         try {
             current_passhash = Hashing.SHA1(current_pass_plaintext);
