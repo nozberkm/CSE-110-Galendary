@@ -858,10 +858,16 @@ public class DatabaseRequest {
             e.printStackTrace();
             return null;
         }
+        JSONObject nameObject = null;
+        JSONArray data = null;
 
-        if (!jo.has("data") || jo.isNull("data")) return null;
-        JSONArray data = jo.getJSONArray("data");
-        JSONObject nameObject = data.getJSONArray(0);
+        try {
+            if (!jo.has("data") || jo.isNull("data")) return null;
+            data = jo.getJSONArray("data");
+            nameObject = data.getJSONObject(0);
+        } catch (JSONException e) {
+            return null;
+        }
 
 
         if (nameObject.has("name")) {
