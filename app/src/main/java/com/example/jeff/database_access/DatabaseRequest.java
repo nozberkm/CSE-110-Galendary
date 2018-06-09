@@ -871,11 +871,22 @@ public class DatabaseRequest {
             e.printStackTrace();
             return null;
         }
+        JSONObject nameObject = null;
+        JSONArray data = null;
 
-        if (jo.has("name")) {
+        try {
+            if (!jo.has("data") || jo.isNull("data")) return null;
+            data = jo.getJSONArray("data");
+            nameObject = data.getJSONObject(0);
+        } catch (JSONException e) {
+            return null;
+        }
+
+
+        if (nameObject.has("name")) {
             try {
-                if (!jo.isNull("name"))
-                    return jo.getString("name");
+                if (!nameObject.isNull("name"))
+                    return nameObject.getString("name");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

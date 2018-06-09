@@ -10,13 +10,20 @@ import android.widget.Button;
 
 public class GroupSettings extends AppCompatActivity {
     private Button code;
+    private android.support.v7.widget.Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_groupsettings);
+
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         code = (Button) findViewById(R.id.enrollmentCode);
 
@@ -30,6 +37,12 @@ public class GroupSettings extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }
