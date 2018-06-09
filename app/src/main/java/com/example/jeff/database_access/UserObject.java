@@ -346,6 +346,29 @@ public class UserObject {
 
 
 
+    public boolean changePassword(String current_passhash, String new_passhash){
+        if(getId() < 0 || getUsername() == null) return false;
+        if(current_passhash == null || new_passhash == null) return false;
+
+        boolean status = false;
+
+        try {
+            status = DatabaseRequest.change_password(getUsername(), current_passhash, new_passhash);
+        } catch (IOException e) {
+            e.printStackTrace();
+            status = false;
+        }
+
+        return status;
+    }
+
+
+
+
+
+
+
+
     public static boolean ResetPassword(String password){
         boolean status = false;
 
