@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.support.v7.widget.CardView;
 
+import com.example.jeff.database_access.UserObject;
+
 public class RecoveryActivity extends AppCompatActivity {
 
     @Override
@@ -21,8 +23,12 @@ public class RecoveryActivity extends AppCompatActivity {
         cRecoveryRecovery.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent bRecoveryRecoveryIntent = new Intent(RecoveryActivity.this, LoginActivity.class);
-                RecoveryActivity.this.startActivity(bRecoveryRecoveryIntent);
+                boolean success = UserObject.ResetPassword(etRecoveryEmail.getText().toString());
+                System.out.println(success);
+                if (success) {
+                    Intent bRecoveryRecoveryIntent = new Intent(RecoveryActivity.this, LoginActivity.class);
+                    RecoveryActivity.this.startActivity(bRecoveryRecoveryIntent);
+                }
             }
         });
     }

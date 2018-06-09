@@ -35,12 +35,17 @@ public class Home extends AppCompatActivity {
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
     private EventAdapter eventAdapter;
+    @Override
+    public void onBackPressed(){
+        finish();
+    }
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             ListView l = (ListView)parent;
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
+
 
             Bundle b = new Bundle();
             //b.putLong("id",clickedItem.getId());
