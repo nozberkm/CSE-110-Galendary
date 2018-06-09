@@ -1,5 +1,6 @@
 package com.example.aymaan.cse110applogin;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
@@ -205,6 +206,9 @@ public class Heatmap extends AppCompatActivity {
     }
 
     public void myMethod(View view) {
+
+        Intent addEventGroup = new Intent(Heatmap.this, GroupAddTaskEventActivity.class);
+        startActivity(addEventGroup);
 
     }
 
