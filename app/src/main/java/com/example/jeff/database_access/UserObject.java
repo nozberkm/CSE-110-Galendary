@@ -336,6 +336,7 @@ public class UserObject {
     public ArrayList<GroupRequestObject> get_requests() {
         return DatabaseRequest.get_requests(this);
     }
+    //TODO fix the groupRequestObject
 
 //    private boolean updateDatabase(){
 //

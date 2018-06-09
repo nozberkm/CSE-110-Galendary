@@ -194,6 +194,10 @@ public class EntryObject {
         return false;
     }
 
+    public String getGroupName() throws IOException {
+        return DatabaseRequest.get_group_name(this.group_id);
+    }
+
 
 
 
