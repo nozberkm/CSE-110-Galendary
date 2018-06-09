@@ -410,6 +410,35 @@ public class UserObject {
 
 
 
+    public boolean delete(){
+        boolean success = false;
+
+        try {
+            success = DatabaseRequest.delete_user(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        if(success){
+            // Make the garbage collector a happiboi
+            id = -1;
+            username = null;
+            passhash = null;
+            email_confirmed = false;
+            notifications = false;
+            name = null;
+            up_to_date = false;
+            groups = null;
+            new_groups = null;
+            entries = null;
+            new_entries = null;
+            return true;
+        }
+        return false;
+    }
+
 
 
 
