@@ -953,7 +953,7 @@ public class DatabaseRequest {
 
 
         JSONObject jo = GalendaryDB.server_request(pb);
-        if(!jo.has("success")) return true;
+        if(!jo.has("success")) return false;
 
         return (jo.getBoolean("success"));
         //{"success":true}
