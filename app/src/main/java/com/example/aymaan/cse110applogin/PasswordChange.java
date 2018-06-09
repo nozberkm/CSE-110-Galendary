@@ -1,29 +1,24 @@
 package com.example.aymaan.cse110applogin;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class PasswordChange extends AppCompatActivity {
 
-    private android.support.v7.widget.Toolbar mToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_change_password);
-
-        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
-        setSupportActionBar(mToolbar);
-
-        if (getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-
+        setContentView(R.layout.activity_password_change);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Password Change");
 
         final Button changePass = (Button) findViewById(R.id.changePass);
         final TextView currentPassField = (TextView) findViewById(R.id.currentPassImp);
@@ -36,9 +31,11 @@ public class PasswordChange extends AppCompatActivity {
                 String currentPass = currentPassField.getText().toString();
                 String newPass = newPassField.getText().toString();
                 String reenterNewPass = reenterNewPassField.getText().toString();
-
-                changePass.setBackgroundColor(100);
-                finish();
+                if(newPass.equals(reenterNewPass)&&currentPass.equals(reenterNewPass)) {
+                    //  LoginActivity.userLogin.
+                    changePass.setBackgroundColor(100);
+                    finish();
+                }
             }
         });
 
@@ -60,11 +57,8 @@ public class PasswordChange extends AppCompatActivity {
         //            .setAction("Action", null).show();
 */
     }
+    // });
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
-    }
+    //}
 
 }
