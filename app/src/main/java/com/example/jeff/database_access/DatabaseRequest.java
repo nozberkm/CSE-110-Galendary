@@ -731,12 +731,25 @@ public class DatabaseRequest {
         pb.push("enrollment_code", enrollment_code);
 
         JSONObject jo = GalendaryDB.server_request(pb);
+//
+//        System.err.println("jo:");
+//        System.err.println(jo);
+
         if (!jo.has("data")) return null;
         JSONArray ja = jo.getJSONArray("data");
         if (ja.length() != 2) {
             throw new IOException("IDK WTF");
         }
-        JSONArray ja2 = ja.getJSONArray(1);
+
+//        System.err.println("ja:");
+//        System.err.println(ja);
+
+        JSONArray ja2 = ja.getJSONArray(0);
+
+//        System.err.println("ja2");
+//        System.err.println(ja2);
+
+
         if (ja2.length() != 1) return null;
         JSONObject group_jo = ja2.getJSONObject(0);
 
