@@ -47,7 +47,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     private EventAdapter group_eventAdapter;
 
     public static Date clickDate = null;
-
+    public static EntryObject currentGroupEvent;
 
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
@@ -55,7 +55,7 @@ public class GroupHomeActivity extends AppCompatActivity {
 
             ListView l = (ListView)parent;
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
-
+            currentGroupEvent = clickedItem;
             Bundle b = new Bundle();
             //b.putLong("id",clickedItem.getId());
             //b.putLong("group id",clickedItem.getGroupId());
@@ -77,12 +77,22 @@ public class GroupHomeActivity extends AppCompatActivity {
                 b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
             }
 
+            try {
+                if(clickedItem.getGroupName().equals("(individual group)")){
+                    b.putString("group name", "Personal");
+                }
+                else{
+                    b.putString("group name", clickedItem.getGroupName());
+                }
+            }
+            catch (Exception e){
+                b.putString("group name", "WTF");
+            }
             b.putString("event description",clickedItem.getDescription());
             b.putString("previous", "groupHome");
             Intent ved = new Intent( GroupHomeActivity.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
-            //finish();
         }
     };
 
@@ -129,6 +139,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             for(String s: GroupEntryMap.keySet()) {
                 Date date = EntryObject.getDayDateFromString(s);
                 for(int i=0; i<GroupEntryMap.get(s).size(); i++) {
+
                     Event ev1 = new Event(Color.BLACK, date.getTime());
                     group_compactCalendarView.addEvent(ev1);
                 }
