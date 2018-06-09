@@ -6,9 +6,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import com.example.aymaan.cse110applogin.Hashing;
+
 
 public class UserObject {
     private static final String LOG_TAG = "UserO";
@@ -346,9 +350,29 @@ public class UserObject {
 
 
 
-    public boolean changePassword(String current_passhash, String new_passhash){
+    public boolean changePassword(String current_pass_plaintext, String new_pass_plaintext){
         if(getId() < 0 || getUsername() == null) return false;
+        if(current_pass_plaintext == null || new_pass_plaintext == null) return false;
+
+
+        String current_passhash = null;
+
+
+        String new_passhash = null
+
+        try {
+            current_passhash = Hashing.SHA1(current_pass_plaintext);
+            new_passhash = Hashing.SHA1(new_pass_plaintext);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return false;
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return false;
+        }
+
         if(current_passhash == null || new_passhash == null) return false;
+
 
         boolean status = false;
 
