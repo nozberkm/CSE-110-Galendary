@@ -333,6 +333,10 @@ public class UserObject {
         return DatabaseRequest.make_request_decision(request_id,this,group_id,decision);
     }
 
+    public boolean leave_group(long user_id, long group_id) throws IOException {
+        return DatabaseRequest.leave_group(user_id,group_id);
+    }
+
     public ArrayList<GroupRequestObject> get_requests() {
         return DatabaseRequest.get_requests(this);
     }

@@ -938,5 +938,17 @@ public class DatabaseRequest {
         else return true;
     }
 
+    public static boolean leave_group(long user_id, long group_id) throws IOException {
+        ParameterBuilder pb = new ParameterBuilder("leave_group");
+        pb.push("user_id",user_id);
+        pb.push("group_id",group_id);
+
+        JSONObject jo = null;
+
+        jo = GalendaryDB.server_request(pb);
+        if (!jo.has("err")) return true;
+        else return false;
+    }
+
 }
 
