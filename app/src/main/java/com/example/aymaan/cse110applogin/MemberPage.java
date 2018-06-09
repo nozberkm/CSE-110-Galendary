@@ -32,7 +32,7 @@ public class MemberPage extends AppCompatActivity {
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-
+        getSupportActionBar().setTitle("Member: "+MemberList.viewedUser.getUsername());
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
