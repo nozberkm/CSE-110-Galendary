@@ -11,11 +11,9 @@ import java.util.ArrayList;
 
 public class DatabaseRequest {
     public static boolean verify_login(String username, String passhash) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "verify_login"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("verify_login");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
@@ -28,11 +26,10 @@ public class DatabaseRequest {
     }
 
     public static UserObject get_user(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_user"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
 
         JSONObject jo = null;
         try {
@@ -66,11 +63,10 @@ public class DatabaseRequest {
 
 
     public static UserObject create_user(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "create_user"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("create_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
 
         JSONObject jo = null;
         try {
@@ -101,13 +97,11 @@ public class DatabaseRequest {
      */
 
     public static boolean alter_group_set_public_flag(String username, String passhash, long group_id, boolean is_public) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"is_public", String.valueOf(is_public)}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id", group_id);
+        pb.push("is_public", is_public);
 
         JSONObject jo = null;
         try {
