@@ -196,6 +196,7 @@ public class GroupObject {
         return false;
     }
 
+    // This should not be used by outside of DatabaseRequest
     public void setEnrollmentCode(String enrollment_code){
         this.enrollment_code = enrollment_code;
     }
@@ -209,10 +210,7 @@ public class GroupObject {
 
 
     public static ArrayList<GroupObject> searchGroupsByName(String group_name){
-
         ArrayList<GroupObject> group_list = DatabaseRequest.search_group_name(group_name);
-
-
         return group_list;
     }
 
@@ -221,8 +219,7 @@ public class GroupObject {
         return entry_list;
     }
 
-    //TODO get map instead of list
-
+    //Returns a map of Lists w/ key being a string representation of the date of that entry
     public Map<String, ArrayList<EntryObject>> getEntryMap() {
         Map<String, ArrayList<EntryObject>> entry_map = new HashMap<>();
         if (this.getEntries() == null) return null;
@@ -249,7 +246,6 @@ public class GroupObject {
             toret = DatabaseRequest.get_related_groups(this);
         } catch (IOException e) {
             e.printStackTrace();
-//            Log.e("GROUP", "Failed to get related groups, server issue possible");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -276,6 +272,7 @@ public class GroupObject {
 
 
 
+    // Gets data of a Group's members from the database
     public ArrayList<UserObject> loadMembers(){
         ArrayList<UserObject> users = null;
         try {
@@ -318,16 +315,7 @@ public class GroupObject {
 
 
 
-
-    public boolean leaveGroup(){
-        // TODO: Working on server code for leaving group
-
-        return false;
-    }
-
-
-
-
+    // Parsing functions for the JSONObject constructor
     private void parseIdFromJson(JSONObject jo){
         id = JsonHelper.parseLong(jo, "id");
     }
