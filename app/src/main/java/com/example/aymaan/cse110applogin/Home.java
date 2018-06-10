@@ -201,7 +201,7 @@ public class Home extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s = new Intent(Home.this, SettingsActivity.class);
+                Intent s = new Intent(Home.this, AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:

@@ -152,7 +152,7 @@ public class NoticeBoard extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s= new Intent(NoticeBoard.this,SettingsActivity.class);
+                Intent s= new Intent(NoticeBoard.this,AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
@@ -187,7 +187,7 @@ public class NoticeBoard extends AppCompatActivity {
                 }
                 break;
             case R.id.group_nav_contactAdmin:
-                Intent ca= new Intent(NoticeBoard.this,NoticeBoard.class);
+                Intent ca= new Intent(NoticeBoard.this,ContactAdminActivity.class);
                 startActivity(ca);
                 break;
             case R.id.group_nav_groupSettings:

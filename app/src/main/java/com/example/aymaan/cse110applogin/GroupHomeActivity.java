@@ -234,7 +234,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s = new Intent(GroupHomeActivity.this, SettingsActivity.class);
+                Intent s = new Intent(GroupHomeActivity.this, AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
