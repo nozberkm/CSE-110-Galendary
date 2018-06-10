@@ -45,7 +45,7 @@ public class ContactAdminActivity extends AppCompatActivity {
                 ArrayList<UserObject> groupMembers = MyGroups.currGroup.loadMembers();
                 //TODO
                 for (int i = 0; i < groupMembers.size(); i++)
-                    MyGroups.currGroup.isAdmin();
+                    MyGroups.currGroup.getId();
                 Intent emailAdminIntent = new Intent(Intent.ACTION_SENDTO,
                         Uri.fromParts("mailto", "", null));
                 emailAdminIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
