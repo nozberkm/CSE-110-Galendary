@@ -55,11 +55,16 @@ public class LoginActivity extends AppCompatActivity {
 
                 UserObject user = new UserObject(uname, pword);
                 userLogin = user.fetchFromDatabase();
-                userLogin.synchronize();
+                if(userLogin == null){
+                    SaveSharedPreference.clearUserName(LoginActivity.this);
+                    SaveSharedPreference.clearPassWord(LoginActivity.this);
+                } else {
+                    userLogin.synchronize();
 
-                Intent loggedInPrev = new Intent(LoginActivity.this, Home.class);
-                LoginActivity.this.startActivity(loggedInPrev);
-                finish();
+                    Intent loggedInPrev = new Intent(LoginActivity.this, Home.class);
+                    LoginActivity.this.startActivity(loggedInPrev);
+                    finish();
+                }
             }
         }
 
