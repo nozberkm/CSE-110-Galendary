@@ -1,5 +1,7 @@
 package com.example.aymaan.cse110applogin;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -62,6 +64,9 @@ public class GroupSettings extends AppCompatActivity {
                 String enrollCode = MyGroups.currGroup.generateEnrollmentCode();
                 Snackbar.make(v, enrollCode, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("enrollmentCode", enrollCode);
+                clipboard.setPrimaryClip(clip);
             }
         });
 
