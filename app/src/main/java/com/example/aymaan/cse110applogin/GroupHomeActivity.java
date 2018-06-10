@@ -25,6 +25,7 @@ import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -268,6 +269,14 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(gs);
                 break;
             case R.id.group_nav_leaveGroup:
+                try{
+                    LoginActivity.userLogin.leave_group(LoginActivity.userLogin.getId(), MyGroups.currGroup.getId());
+                }
+                catch(IOException e) {
+                    e.printStackTrace();
+                }
+                Intent gohome = new Intent(GroupHomeActivity.this, Home.class);
+                startActivity(gohome);
                 break;
         }
 
