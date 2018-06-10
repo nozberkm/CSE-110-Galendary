@@ -1,5 +1,7 @@
 package com.example.aymaan.cse110applogin;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -31,6 +33,8 @@ public class GroupSettings extends AppCompatActivity {
     private Button dissolve;
     Context context;
 
+    private Button save;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -52,12 +56,17 @@ public class GroupSettings extends AppCompatActivity {
         grpName=(EditText) findViewById(R.id.groupName);
         grpName.setText(MyGroups.currGroup.getName());
 
+        save = (Button) findViewById(R.id.saveButtonGroupSettings);
+
         code.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String enrollCode = MyGroups.currGroup.generateEnrollmentCode();
                 Snackbar.make(v, enrollCode, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("enrollmentCode", enrollCode);
+                clipboard.setPrimaryClip(clip);
             }
         });
 
@@ -112,6 +121,18 @@ public class GroupSettings extends AppCompatActivity {
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toSaveText = grpName.getText().toString();
+                if (toSaveText.equals("")){
+                    grpName.setText(MyGroups.currGroup.getName());
+                } else {
+                    boolean hello = MyGroups.currGroup.changeName(toSaveText);
+                    grpName.setText(MyGroups.currGroup.getName());
+                }
+            }
+        });
 
     }
 

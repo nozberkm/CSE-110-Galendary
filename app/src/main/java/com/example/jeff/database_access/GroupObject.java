@@ -81,7 +81,6 @@ public class GroupObject {
     public String toString(){
 //        return "Group(" + getId() + ", " + getName() + ", " + (entry_list ==null ? 0 : entry_list.size()) + ')';
         return "Group(" + getId() + ", " + getName() + ", " + (entry_list ==null ? 0 : entry_list.size())+ ',' + getEntriesString() + ')';
-
     }
 
     public boolean isAdmin(){ return admin; }

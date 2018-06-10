@@ -173,7 +173,7 @@ public class DatabaseRequest {
         pb.push_username(username);
         pb.push_passhash(passhash);
         pb.push("group_id", group_id);
-        pb.push("name", new_name);
+        pb.push("group_name", new_name);
 
         JSONObject jo = null;
         try {
@@ -926,19 +926,22 @@ public class DatabaseRequest {
 
 
     public static boolean delete_user(String username, String passhash) throws IOException, JSONException {
+//        System.err.println("Attempting to call delete_user: for " + username + "|" + passhash);
         ParameterBuilder pb = new ParameterBuilder("delete_user");
         pb.push_username(username);
         pb.push_passhash(passhash);
 
         JSONObject jo = GalendaryDB.server_request(pb);
         ///{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}
+//        System.err.println("jo:");
+//        System.err.println(jo);
 
         if (!jo.has("affectedRows")) return false;
         return (jo.getInt("affectedRows") == 0);
     }
 
     public static boolean delete_user(UserObject user) throws IOException, JSONException {
-        return delete_user(user.getUsername(), user.getUsername());
+        return delete_user(user.getUsername(), user.getPasshash());
     }
 
 

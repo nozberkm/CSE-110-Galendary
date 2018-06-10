@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -36,6 +37,7 @@ public class AccountSettings extends AppCompatActivity {
     private Button changePw;
     private EditText editName;
     private Button deleteAccount;
+    private Button save;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,8 @@ public class AccountSettings extends AppCompatActivity {
         deleteAccount = (Button) findViewById(R.id.deleteAccountButton);
         editName=(EditText) findViewById(R.id.usName);
         editName.setText(LoginActivity.userLogin.getName());
+
+        save = (Button) findViewById(R.id.saveButtonSettings);
 
         changePw.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +92,19 @@ public class AccountSettings extends AppCompatActivity {
                     }
                 });
                 builder.create().show();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               String toSaveText = editName.getText().toString();
+               if (toSaveText.equals("")){
+                   editName.setText(LoginActivity.userLogin.getName());
+               } else {
+                   LoginActivity.userLogin.changeName(toSaveText);
+                   editName.setText(LoginActivity.userLogin.getName());
+               }
             }
         });
 

@@ -105,47 +105,55 @@ public class LoginActivity extends AppCompatActivity {
                 String password = null;
 
                 if(username.equals("t")){
-                    try {
-                        password = Hashing.SHA1("t");
-                    } catch (NoSuchAlgorithmException e) {
-                        e.printStackTrace();
-                    } catch (UnsupportedEncodingException e) {
-                        e.printStackTrace();
-                    }
-//                    UserObject user = new UserObject(username, password);
-                    UserObject user = new UserObject("jeff", "not_sha2");
+//                    try {
+//                        password = Hashing.SHA1("t");
+//                    } catch (NoSuchAlgorithmException e) {
+//                        e.printStackTrace();
+//                    } catch (UnsupportedEncodingException e) {
+//                        e.printStackTrace();
+//                    }
 
-                    if(user.fetchFromDatabase() == null){
-                        System.err.println("SHEEEITTTTT");
-                    }
-                    user.synchronize();
+//                    System.err.println("TESTING DELETE USER");
+
+//                    String hash = Hashing.SHA1("poop");
+//                    UserObject user = new UserObject("jeffreytcash@gmail.com", )
 
 
-                    GroupObject individual_group = user.getIndividualGroup();
-                    for(EntryObject eo : individual_group.getEntries()){
-                        if(eo.getId() == 127){
-                            System.err.println("FOUND IT");
-                            Date test = null;
-                            try {
-                                test =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-06-11 05:01:49");
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            if(test != null) {
-                                System.err.println("attempting to move it to the 11th");
-                                eo.setStart(test);
-                                eo.setEnd(test);
-                                eo.setTitle("ENTRY HAS BEEN UPDATED");
-                                eo.setDescription("YES, CUNT!");
-                                System.err.println(eo);
-                                boolean status = eo.pushUpdate();
 
-                                System.err.println("status: " + status);
-                            }
-
-
-                        }
-                    }
+////                    UserObject user = new UserObject(username, password);
+//                    UserObject user = new UserObject("jeff", "not_sha2");
+//
+//                    if(user.fetchFromDatabase() == null){
+//                        System.err.println("SHEEEITTTTT");
+//                    }
+//                    user.synchronize();
+//
+//
+//                    GroupObject individual_group = user.getIndividualGroup();
+//                    for(EntryObject eo : individual_group.getEntries()){
+//                        if(eo.getId() == 127){
+//                            System.err.println("FOUND IT");
+//                            Date test = null;
+//                            try {
+//                                test =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-06-11 05:01:49");
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//                            if(test != null) {
+//                                System.err.println("attempting to move it to the 11th");
+//                                eo.setStart(test);
+//                                eo.setEnd(test);
+//                                eo.setTitle("ENTRY HAS BEEN UPDATED");
+//                                eo.setDescription("YES, CUNT!");
+//                                System.err.println(eo);
+//                                boolean status = eo.pushUpdate();
+//
+//                                System.err.println("status: " + status);
+//                            }
+//
+//
+//                        }
+//                    }
 //                    EntryObject personal_entry = new EntryObject();
 //                    personal_entry.setTitle("MOVE THIS TO 6/10");
 //                    personal_entry.setStart(new Date());
