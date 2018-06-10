@@ -798,12 +798,7 @@ public class DatabaseRequest {
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
-
-        System.err.println("Attempting delete, jo:");
-        System.err.println(jo);
-
         return jo.has("affectedRows") && jo.getInt("affectedRows") == 1;
-
     }
 
     public static boolean delete_entry(EntryObject entry) throws IOException, JSONException {
