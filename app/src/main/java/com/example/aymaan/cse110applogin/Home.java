@@ -35,10 +35,11 @@ public class Home extends AppCompatActivity {
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView compactCalendarView;
     private EventAdapter eventAdapter;
+
+    public static EntryObject currentEvent;
+
     @Override
-    public void onBackPressed(){
-        finish();
-    }
+    public void onBackPressed(){}
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -46,11 +47,7 @@ public class Home extends AppCompatActivity {
             ListView l = (ListView)parent;
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
 
-
             Bundle b = new Bundle();
-            //b.putLong("id",clickedItem.getId());
-            //b.putLong("group id",clickedItem.getGroupId());
-
             b.putString("event name",clickedItem.getTitle());
             if(clickedItem.getEnd() == null){
                 b.putString("event end","");
@@ -68,9 +65,20 @@ public class Home extends AppCompatActivity {
                 b.putString("event start",EntryObject.getDayString(clickedItem.getStart()));
                 b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
             }
-
             b.putString("event description",clickedItem.getDescription());
             b.putString("previous", "Home");
+            try {
+                if(clickedItem.getGroupName().equals("(individual group)")){
+                    b.putString("group name", "Personal");
+                }
+                else{
+                    b.putString("group name", clickedItem.getGroupName());
+                }
+            }
+            catch (Exception e){
+                b.putString("group name", "WTF");
+            }
+            Home.currentEvent = clickedItem;
             Intent ved = new Intent( Home.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
@@ -110,8 +118,10 @@ public class Home extends AppCompatActivity {
                 Date date = EntryObject.getDayDateFromString(s);
                 if(date == null) continue;
                 for(int i=0; i<EntryMap.get(s).size(); i++) {
-                    Event ev1 = new Event(Color.BLACK, date.getTime());
-                    compactCalendarView.addEvent(ev1);
+                    if (!EntryMap.get(s).get(i).isNotice()) {
+                        Event ev1 = new Event(Color.BLACK, date.getTime());
+                        compactCalendarView.addEvent(ev1);
+                    }
                 }
             }
         }
@@ -220,4 +230,6 @@ public class Home extends AppCompatActivity {
             item.setIcon(checked);
         }
     }
+
+
 }

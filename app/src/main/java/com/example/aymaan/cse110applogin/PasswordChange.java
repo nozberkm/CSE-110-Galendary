@@ -31,10 +31,14 @@ public class PasswordChange extends AppCompatActivity {
                 String currentPass = currentPassField.getText().toString();
                 String newPass = newPassField.getText().toString();
                 String reenterNewPass = reenterNewPassField.getText().toString();
-                if(newPass.equals(reenterNewPass)&&currentPass.equals(reenterNewPass)) {
-                    //  LoginActivity.userLogin.
-                    changePass.setBackgroundColor(100);
-                    finish();
+                if(newPass.equals(reenterNewPass)) {
+                    if(LoginActivity.userLogin.changePassword(currentPass,newPass)) {
+                        finish();
+                    }
+                    else {
+                        Snackbar.make(view, "Incorrect current password", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
                 }
             }
         });

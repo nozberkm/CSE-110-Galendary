@@ -1,5 +1,6 @@
 package com.example.aymaan.cse110applogin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -9,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +27,7 @@ import com.example.jeff.database_access.UserObject;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,7 +50,7 @@ public class GroupHomeActivity extends AppCompatActivity {
     private EventAdapter group_eventAdapter;
 
     public static Date clickDate = null;
-
+    public static EntryObject currentGroupEvent;
 
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
@@ -55,10 +58,16 @@ public class GroupHomeActivity extends AppCompatActivity {
 
             ListView l = (ListView)parent;
             EntryObject clickedItem = (EntryObject) l.getItemAtPosition(position);
-
+            currentGroupEvent = clickedItem;
             Bundle b = new Bundle();
             //b.putLong("id",clickedItem.getId());
             //b.putLong("group id",clickedItem.getGroupId());
+            if (MyGroups.currGroup.isAdmin()) {
+                b.putBoolean("Admin", true);
+            }
+            else{
+                b.putBoolean("Admin", false);
+            }
             b.putString("event name",clickedItem.getTitle());
             if(clickedItem.getEnd() == null){
                 b.putString("event end","");
@@ -77,12 +86,22 @@ public class GroupHomeActivity extends AppCompatActivity {
                 b.putString("event start time",EntryObject.getTimeString(clickedItem.getStart()));
             }
 
+            try {
+                if(clickedItem.getGroupName().equals("(individual group)")){
+                    b.putString("group name", "Personal");
+                }
+                else{
+                    b.putString("group name", clickedItem.getGroupName());
+                }
+            }
+            catch (Exception e){
+                b.putString("group name", "WTF");
+            }
             b.putString("event description",clickedItem.getDescription());
             b.putString("previous", "groupHome");
             Intent ved = new Intent( GroupHomeActivity.this, ViewEventDetails.class);
             ved.putExtras(b);
             startActivity(ved);
-            //finish();
         }
     };
 
@@ -129,6 +148,7 @@ public class GroupHomeActivity extends AppCompatActivity {
             for(String s: GroupEntryMap.keySet()) {
                 Date date = EntryObject.getDayDateFromString(s);
                 for(int i=0; i<GroupEntryMap.get(s).size(); i++) {
+
                     Event ev1 = new Event(Color.BLACK, date.getTime());
                     group_compactCalendarView.addEvent(ev1);
                 }
@@ -241,8 +261,10 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(GroupHomeActivity.this, Heatmap.class);
-                startActivity(h);
+                if(MyGroups.currGroup.isAdmin()) {
+                    Intent h = new Intent(GroupHomeActivity.this, Heatmap.class);
+                    startActivity(h);
+                }
                 break;
             case R.id.group_nav_contactAdmin:
                 Intent ca= new Intent(GroupHomeActivity.this,ContactAdminActivity.class);
@@ -253,10 +275,36 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(rg);
                 break;
             case R.id.group_nav_groupSettings:
-                Intent gs = new Intent(GroupHomeActivity.this, GroupSettings.class);
-                startActivity(gs);
+                if(MyGroups.currGroup.isAdmin()) {
+                    Intent gs = new Intent(GroupHomeActivity.this, GroupSettings.class);
+                    startActivity(gs);
+                }
                 break;
             case R.id.group_nav_leaveGroup:
+                AlertDialog.Builder builder = new AlertDialog.Builder(GroupHomeActivity.this);
+                builder.setMessage("Do you want to leave this group?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try{
+                            LoginActivity.userLogin.leave_group(LoginActivity.userLogin.getId(), MyGroups.currGroup.getId());
+                        }
+                        catch(IOException e) {
+                            e.printStackTrace();
+                        }
+                        LoginActivity.userLogin.synchronize();
+                        Intent gohome = new Intent(GroupHomeActivity.this, Home.class);
+                        startActivity(gohome);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do nothing
+                    }
+                });
+                builder.create().show();
                 break;
         }
 

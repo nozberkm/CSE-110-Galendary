@@ -12,3 +12,6 @@ GalendARY_DB
 .idea/caches/build_file_checksums.ser
 .idea/misc.xml
 .idea/vcs.xml
+.idea/vcs.xml
+.idea/gradle.xml
+.idea/runConfigurations.xml

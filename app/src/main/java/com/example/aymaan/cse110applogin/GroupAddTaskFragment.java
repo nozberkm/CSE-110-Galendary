@@ -148,7 +148,6 @@ public class GroupAddTaskFragment extends android.support.v4.app.Fragment {
                 catch(Exception e) {
 
                 }
-
                 getActivity().finish();
 
             }

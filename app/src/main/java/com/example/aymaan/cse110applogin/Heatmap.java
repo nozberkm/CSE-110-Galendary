@@ -207,9 +207,6 @@ public class Heatmap extends AppCompatActivity {
 
     public void myMethod(View view) {
 
-        Intent addEventGroup = new Intent(Heatmap.this, GroupAddTaskEventActivity.class);
-        startActivity(addEventGroup);
-
     }
 
     private void colorGrid() {

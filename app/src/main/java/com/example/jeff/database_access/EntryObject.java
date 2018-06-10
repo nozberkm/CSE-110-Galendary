@@ -13,7 +13,6 @@ import java.util.Date;
 public class EntryObject {
 
     public static final DateFormat DAY_DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
-//    public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     public static final DateFormat TIME_FORMAT = new SimpleDateFormat("hh:mm a");
 
     private long id;
@@ -29,7 +28,6 @@ public class EntryObject {
     private UserObject user = null;
     private GroupObject group = null;
 
-//    private boolean needs_update_push;
 
     public EntryObject(){
         id = -1;
@@ -41,7 +39,6 @@ public class EntryObject {
         priority = -1;
         recurrence = null;
         description = null;
-//        needs_update_push = false;
     }
 
     public EntryObject(UserObject user){
@@ -59,7 +56,6 @@ public class EntryObject {
         parsePriorityFromJson(jo);
         parseRecurrenceFromJson(jo);
         parseDescriptionFromJson(jo);
-//        needs_update_push = false;
     }
 
     public UserObject getUser() {
@@ -69,10 +65,6 @@ public class EntryObject {
     public void setUser(UserObject user) {
         this.user = user;
     }
-
-
-
-
 
 
 
@@ -181,10 +173,6 @@ public class EntryObject {
 
 
 
-
-
-
-
     // Deletes this entry from the database and attempts to remove all references to this
     // from the Java program
     public boolean delete(){
@@ -220,7 +208,6 @@ public class EntryObject {
             e.printStackTrace();
         }
 
-//        this.needs_update_push = false;
         return eo == this;
     }
 
@@ -266,3 +253,43 @@ public class EntryObject {
         this.group = group;
     }
 }
+/*..........`                          ` -..........................::::::::::::
+............`                         `..:-::::-...................`:///////////
+............`                  ``.-:://+++++sosss+:................`:///////////
+...........``              `.-+yyyyhhhhyyhdhhhddhhyo:.-:::--.......`-///////////
+...........``           `.:oshdhhhddmmNmmmmmdmmdmmddsoo+++++/:..``.`:///////////
+............`         ./oyyydddmddmmmmmmmmmmmmmmmmmmmmddddhhyso:..``:///++++++++
+............`     ``-+shmmmmddhhyyyyysssossyhddmmddmNNNmmmmmdhs+:..`-/+sssssssss
+...........``    `-/oymNNNmho+///////:::::/:/++oo+oshdNNNNNNNmho:--.-/+sssssssss
+............`   `/oyhmNNNy/:-------------.------:-::/+sdmNMNNNdy+:---:+ossssssso
+...........``  `:oydmNNd+:-----..-..........--------::/oymNMMNNds/--.--/++++oooo
+...........`` `-/ydmNNh:---......................-----:/+shNNNNdho/.
+```........``` :ohdNNy:--........................-----://+odNNNmdy+:``.---------
+`````......`` `+ohmNy:-...........................----:::/ohNNmmhys/.://+ooooooo
+``````````````.shdNy:-.............................----:::+ymNNddyhy/:/++oosssoo
+`````````...``-yhmm+-.....................`........-----::+ymmNdyddho/+oosssssss
+``````````````:shmh:.........``.........````.......-----::/ydmmddhdhyo/+oossssss
+``````````    /yhhs-....---...........`...........------:/+yhmmmmmdddh+///++++++
+             `-yys+-./osssssss+/-......:osso+++oo+:----::/+yhdmNNmmdhy::////////
+             `.oo+/.:osoo++oo+++/.....-/o+ossssssyys+::://+yyhmmNNmmds//////////
+              `+//-.-::::/++o+::/:...-:::///:--::://+/:::+oyyyhdmmmdh+//////////
+               -/...--/os+so+:+//:---:+//o++hyyss+:---:::/+syhhhhyhy:/++++//////
+               `:-.---:--::---::::-::/+/:::---::+o/:---::/+ohys++///-ooooooooooo
+                .-.--..-----.--::--:///::--------------:::+o+:--:-/--ooooooooooo
+                `..-----------::--:///:::----------.--:::://--..-.:.`//+++++++++
+                 .-.-------.-::---:////:-..------------:::/..`.`-``
+                 ..-----..-.:/:---:/++//--...---::-----:::/.----`
+                 .-----.---:oshsoo+/o+++:---------::--::::/-.--.
+                 -------+syhmdhhysyyhhhyo/////:-.--::-::/::..-:`
+                 -----/hmdhddddhyyyhyhhddhhhhhy/----::://:::+s-
+                 ----./o+oyhs+++++/+soshsssss+o/-.--/////:yhds`
+                 .---..:::/os+:-....-:+oso/::-:-.--:///+//+os.
+                  ---..-:-::///////://///:-----.---:/+////```
+                  `---------::::::::::/:----------:/++/+/:
+                   .::----------:-:----------:--::/+++++::
+                    `::-----::::----::----:::/:-:/+++++/::.
+                     `:::---:::-----------:///:/++++++//://`````
+                      .:///::::::::-:-:--/+oo++++//++//////:``````
+                      `-:://+++o++ooooooooo+/////:///::://:+:`` ``
+                      `--:::////++/+++oo+/////:::://::::://:``   ``
+                      `----::///////++//::::::-:-:::::::::`   `````           */

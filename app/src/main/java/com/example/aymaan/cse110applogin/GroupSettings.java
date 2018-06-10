@@ -1,11 +1,15 @@
 package com.example.aymaan.cse110applogin;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -16,25 +20,28 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 public class GroupSettings extends AppCompatActivity {
     private Button code;
     private Switch privSwitch;
     private TextView grpName;
     private Button dissolve;
     private TextInputEditText groupName;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        context = this;
         setContentView(R.layout.activity_group_settings);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-       // groupName=(TextInputEditText)findViewById(R.id.grpName);
         code = (Button) findViewById(R.id.enrollmentCode);
-       // grpName=(TextView)findViewById(R.id.groupNameHeader);
+        dissolve = (Button) findViewById(R.id.dissolveGroup3);
+        grpName=(TextView)findViewById(R.id.groupName);
         grpName.setText(MyGroups.currGroup.getName());
-        groupName.setText(MyGroups.currGroup.getName());
 
         code.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +49,35 @@ public class GroupSettings extends AppCompatActivity {
                 String enrollCode = MyGroups.currGroup.generateEnrollmentCode();
                 Snackbar.make(v, enrollCode, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+
+        dissolve.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setMessage("Do you want to dissolve this group?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            MyGroups.currGroup.dissolveGroup();
+                        }
+                        catch(IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent toHome = new Intent(context, Home.class);
+                        startActivity(toHome);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do nothing
+                    }
+                });
+                builder.create().show();
             }
         });
 

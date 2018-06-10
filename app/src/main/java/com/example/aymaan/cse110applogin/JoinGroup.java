@@ -1,5 +1,6 @@
 package com.example.aymaan.cse110applogin;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -37,6 +38,7 @@ public class JoinGroup extends AppCompatActivity {
     private EditText searchIn;
     String[] strings;
     ArrayList<GroupObject> searchResults;
+    String enrollCode;
 
     private static String[] push(String[] array, String push) {
         String[] longer = new String[array.length + 1];
@@ -92,7 +94,6 @@ public class JoinGroup extends AppCompatActivity {
                         strings = push(strings, group.getName());
                     }
                 }
-                strings = push(strings, "Definitely A Real Group");
                 adapter = new ArrayAdapter(context, android.R.layout.simple_list_item_1, strings);
                 lstview.setAdapter(adapter);
             }
@@ -100,25 +101,12 @@ public class JoinGroup extends AppCompatActivity {
 
         lstview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 String text = lstview.getItemAtPosition(position).toString();
-                //selectedGroup = searchResults.get(position);
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to join " + text + "?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //send join request
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //do nothing
-                    }
-                });
-                builder.create().show();
+                selectedGroup = searchResults.get(position);
+                enrollCode = selectedGroup.getEnrollmentCode();
+                Snackbar.make(view, "Group code is: " + enrollCode, Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
             }
         });
     }

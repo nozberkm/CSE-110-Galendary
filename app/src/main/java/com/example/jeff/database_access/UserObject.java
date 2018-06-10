@@ -23,12 +23,10 @@ public class UserObject {
     private long id;
     private String username; //Username is email in most cases
     private String passhash;
-//    private String email;
     private boolean email_confirmed;
     private boolean notifications;
     private String name;
 
-//    private boolean exists;
     private boolean up_to_date;
 
 
@@ -134,14 +132,12 @@ public class UserObject {
 
     public String getPasshash() { return passhash; }
 
-//    public String getEmail() {
-//        return email;
-//    }
-
     public boolean isEmailConfirmed() { return email_confirmed; }
 
     public boolean isNotifications() { return notifications; }
 
+
+    // Returns the user's display name and falls back to their email if not defined
     public String getName() {
         return name == null ? ('('+getUsername()+')') :name;
     }
@@ -211,8 +207,6 @@ public class UserObject {
 
         LOG_DEBUG("Synchronized user");
         LOG_DEBUG(this.toString());
-
-
     }
     public GroupObject createGroup(String group_name){
         GroupObject created_group = DatabaseRequest.create_group(this, group_name);
@@ -252,7 +246,7 @@ public class UserObject {
 
 
     public UserObject fetchFromDatabase(){
-        UserObject fetched =DatabaseRequest.get_user(getUsername(), getPasshash());
+        UserObject fetched = DatabaseRequest.get_user(getUsername(), getPasshash());
 
         if(fetched == null) return null;
 
@@ -323,10 +317,6 @@ public class UserObject {
     }
 
 
-    // Search for groups by name
-    public ArrayList<GroupObject> getGroupsMatchingString(String groupName){
-        return DatabaseRequest.search_group_name(groupName);
-    }
 
     public boolean create_request(long group_id) throws IOException {
         return DatabaseRequest.create_request(this,group_id);
@@ -344,24 +334,15 @@ public class UserObject {
     public ArrayList<GroupRequestObject> get_requests() {
         return DatabaseRequest.get_requests(this);
     }
-    //TODO fix the groupRequestObject
 
 
 
-
-
-
-
-
-
+    // Change a User's password
     public boolean changePassword(String current_pass_plaintext, String new_pass_plaintext){
         if(getId() < 0 || getUsername() == null) return false;
         if(current_pass_plaintext == null || new_pass_plaintext == null) return false;
 
-
         String current_passhash = null;
-
-
         String new_passhash = null;
 
         try {
@@ -377,7 +358,6 @@ public class UserObject {
 
         if(current_passhash == null || new_passhash == null) return false;
 
-
         boolean status = false;
 
         try {
@@ -387,33 +367,14 @@ public class UserObject {
             status = false;
         }
 
+        if(status) this.passhash = new_passhash;
+
         return status;
     }
 
 
-
-
-
-
-
-
-    public static boolean ResetPassword(String password){
-        boolean status = false;
-
-        try {
-            status = DatabaseRequest.reset_password(password);
-        } catch (IOException e) {
-            e.printStackTrace();
-            status = false;
-        } catch (JSONException e) {
-            e.printStackTrace();
-            status = false;
-        }
-        return status;
-    }
-
-
-
+    // Permanently delete this UserObject, locally and in the database
+    // Be careful
     public boolean delete(){
         boolean success = false;
 
@@ -425,6 +386,7 @@ public class UserObject {
             e.printStackTrace();
         }
 
+        // This has been deleted from the database. Reflect changes locally
         if(success){
             // Make the garbage collector a happiboi
             id = -1;
@@ -444,44 +406,27 @@ public class UserObject {
     }
 
 
+    // Static method to allow password reset email functionality to occur
+    public static boolean ResetPassword(String password){
+        boolean status = false;
+
+        try {
+            status = DatabaseRequest.reset_password(password);
+        } catch (IOException e) {
+            e.printStackTrace();
+            status = false;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            status = false;
+        }
+        return status;
+    }
 
 
+    // Search for groups by name
+    public static ArrayList<GroupObject> getGroupsMatchingString(String groupName){
+        return DatabaseRequest.search_group_name(groupName);
+    }
 
 
-
-
-//    private boolean updateDatabase(){
-//
-//
-//        return true;
-//    }
-
-//    private boolean assign(UserObject other){
-//        if(other == null) return false;
-////        if(username != other.getUsername()) return false;
-//        id = other.getId();
-//        username = other.getUsername();
-//        passhash = other.getPasshash();
-//        email_confirmed = other.isEmailConfirmed();
-//        notifications = other.isNotifications();
-//        name = other.getName();
-//        exists = other.exists;
-//        return true;
-//    }
-//
-//    public boolean synchronizeWithDatabase(){
-//        UserObject dbUserObject = DatabaseRequest.get_user(getUsername(), getPasshash());
-//        if(dbUserObject == null) return false;
-//
-//        if(this.compareTo(dbUserObject) != 0){
-//            return this.assign(dbUserObject);
-//        }
-//
-//        return false;
-//    }
-//
-//    public int compareTo(UserObject other){
-//        if(other == null) return Integer.MIN_VALUE;
-//        return toString().compareTo(other.toString());
-//    }
 }

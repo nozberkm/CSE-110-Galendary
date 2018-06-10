@@ -2,6 +2,7 @@ package com.example.aymaan.cse110applogin;
 
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.content.Context;
@@ -40,25 +41,34 @@ public class ViewEventDetails extends AppCompatActivity {
         TextView end_date = (TextView)findViewById(R.id.ed_event_end_date);
         TextView start_time = (TextView)findViewById(R.id.ed_event_start_time);
         TextView end_time = (TextView)findViewById(R.id.ed_event_end_time);
-        TextView reminder_text = (TextView)findViewById(R.id.ed_reminder_text);
         TextView description = (TextView)findViewById(R.id.ed_description_field);
-
+        exit_button = (ImageButton) findViewById(R.id.ed_exit_button);
+        edit_button = (ImageButton) findViewById(R.id.ed_edit_button);
+        delete_button = (ImageButton) findViewById(R.id.ed_delete_button);
         Bundle b = getIntent().getExtras();
+
         if(b != null) {
+            if(!(b.getString("group name")).equals("Personal") && (b.getString("previous")).equals("Home")){
+                edit_button.setVisibility(View.INVISIBLE);
+            }
+            if((b.getString("previous")).equals("groupHome")) {
+                if(!b.getBoolean("Admin")) {
+                    edit_button.setVisibility(View.INVISIBLE);
+                    delete_button.setVisibility(View.INVISIBLE);
+                }
+            }
             event_name.setText(b.getString("event name"));
-            //group_name.setText();
+            group_name.setText(b.getString("group name"));
             start_date.setText(b.getString("event start"));
             end_date.setText(b.getString("event end"));
             start_time.setText(b.getString("event start time"));
             end_time.setText(b.getString("event end time"));
-            //reminder_text.setText();
             description.setText(b.getString("event description"));
             previous = b.getString("previous");
         }
 
-        exit_button = (ImageButton) findViewById(R.id.ed_exit_button);
-        edit_button = (ImageButton) findViewById(R.id.ed_edit_button);
-        delete_button = (ImageButton) findViewById(R.id.ed_delete_button);
+
+
 
         //TODO: Here we set the on click listeners for the top buttons
         exit_button.setOnClickListener(new View.OnClickListener() {
@@ -79,10 +89,38 @@ public class ViewEventDetails extends AppCompatActivity {
             }
         });
 
+        edit_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View view) {
+                boolean ifDeleted;
+                if (previous.equals("Home")) {
+                    Home.currentEvent.setUser(LoginActivity.userLogin);
+                    ifDeleted = Home.currentEvent.delete();
+                    if (ifDeleted) {
+                        Intent toExit = new Intent(ViewEventDetails.this, Home.class);
+                        startActivity(toExit);
+                        finish();
+                    } else {
+                        Snackbar.make(view, "You need to be admin to delete", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
+                } else if (previous.equals("groupHome")) {
+                    GroupHomeActivity.currentGroupEvent.setUser(LoginActivity.userLogin);
+                    ifDeleted = GroupHomeActivity.currentGroupEvent.delete();
+                    if (ifDeleted) {
+                        Intent toExit = new Intent(ViewEventDetails.this, GroupHomeActivity.class);
+                        startActivity(toExit);
+                        finish();
+                    } else {
+                        Snackbar.make(view, "You need to be admin to delete", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                    }
+                }
             }
         });
     }

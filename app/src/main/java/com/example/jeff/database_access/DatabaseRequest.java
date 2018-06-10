@@ -11,11 +11,9 @@ import java.util.ArrayList;
 
 public class DatabaseRequest {
     public static boolean verify_login(String username, String passhash) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "verify_login"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("verify_login");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
@@ -28,11 +26,10 @@ public class DatabaseRequest {
     }
 
     public static UserObject get_user(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_user"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
 
         JSONObject jo = null;
         try {
@@ -66,11 +63,10 @@ public class DatabaseRequest {
 
 
     public static UserObject create_user(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "create_user"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("create_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
 
         JSONObject jo = null;
         try {
@@ -101,13 +97,11 @@ public class DatabaseRequest {
      */
 
     public static boolean alter_group_set_public_flag(String username, String passhash, long group_id, boolean is_public) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"is_public", String.valueOf(is_public)}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id", group_id);
+        pb.push("is_public", is_public);
 
         JSONObject jo = null;
         try {
@@ -118,9 +112,9 @@ public class DatabaseRequest {
         }
 
         if (jo.has("err")) return false;
-        if (jo.has("affected_rows")) {
+        if (jo.has("affectedRows")) {
             try {
-                return jo.getInt("affected_rows") == 1;
+                return jo.getInt("affectedRows") == 1;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -138,13 +132,12 @@ public class DatabaseRequest {
 
 
     public static boolean alter_group_set_looking_flag(String username, String passhash, long group_id, boolean looking_for_subgroups) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"looking_for_subgroups", String.valueOf(looking_for_subgroups)}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id", group_id);
+        pb.push("looking_for_subgroups", looking_for_subgroups);
+
 
         JSONObject jo = null;
         try {
@@ -155,9 +148,9 @@ public class DatabaseRequest {
         }
 
         if (jo.has("err")) return false;
-        if (jo.has("affected_rows")) {
+        if (jo.has("affectedRows")) {
             try {
-                return jo.getInt("affected_rows") == 1;
+                return jo.getInt("affectedRows") == 1;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -174,13 +167,11 @@ public class DatabaseRequest {
     }
 
     public static boolean alter_group_change_name(String username, String passhash, long group_id, String new_name) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"name", new_name}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id",group_id);
+        pb.push("name", new_name);
 
         JSONObject jo = null;
         try {
@@ -191,9 +182,9 @@ public class DatabaseRequest {
         }
 
         if (jo.has("err")) return false;
-        if (jo.has("affected_rows")) {
+        if (jo.has("affectedRows")) {
             try {
-                return jo.getInt("affected_rows") == 1;
+                return jo.getInt("affectedRows") == 1;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -211,11 +202,10 @@ public class DatabaseRequest {
 
 
     public static ArrayList<GroupObject> get_all_groups(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_all_groups"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_all_groups");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
         JSONObject jo = null;
         try {
             jo = GalendaryDB.server_request(pb);
@@ -250,11 +240,10 @@ public class DatabaseRequest {
     }
 
     public static ArrayList<EntryObject> get_all_entries(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_all_entries"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_all_entries");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
         JSONObject jo = null;
         try {
             jo = GalendaryDB.server_request(pb);
@@ -289,10 +278,8 @@ public class DatabaseRequest {
     }
 
     public static ArrayList<GroupObject> search_group_name(String group_name) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "search_group_name"},
-                {"group_name", group_name}
-        });
+        ParameterBuilder pb = new ParameterBuilder("search_group_name");
+        pb.push("group_name", group_name);
 
         JSONObject jo = null;
 
@@ -326,12 +313,10 @@ public class DatabaseRequest {
 
 
     public static GroupObject create_group(String username, String passhash, String group_name) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "create_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_name", group_name}
-        });
+        ParameterBuilder pb = new ParameterBuilder("create_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_name", group_name);
 
         JSONObject jo;
         try {
@@ -365,11 +350,9 @@ public class DatabaseRequest {
     }
 
     public static boolean create_request(String username, String passhash, long group_id) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "create_request"},
-                {"username", username},
-                {"passhash", passhash},
-        });
+        ParameterBuilder pb = new ParameterBuilder("create_request");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
         pb.push("group_id", group_id);
 
         //How do we return
@@ -410,11 +393,10 @@ public class DatabaseRequest {
 
     public static ArrayList<GroupRequestObject> get_requests(String username,
                                                              String passhash) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_requests"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_requests");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
 
         JSONObject jo = null;
 
@@ -456,16 +438,12 @@ public class DatabaseRequest {
     }
 
     public static boolean change_password(String username, String passhash, String passhash_new) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "change_password"},
-                {"username", username},
-                {"passhash", passhash},
-                {"passhash_new", passhash_new}
-        });
+        ParameterBuilder pb = new ParameterBuilder("change_password");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("passhash_new", passhash_new);
 
         JSONObject jo = GalendaryDB.server_request(pb);
-
-        System.out.println(jo.toString());
 
         if (jo.has("data")) {
             try {
@@ -473,11 +451,9 @@ public class DatabaseRequest {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-//            System.out.println(jo2.toString());
         }
 
         return false;
-//        !jo.has("err");
     }
 
 
@@ -513,7 +489,7 @@ public class DatabaseRequest {
                 eid = ja.getJSONArray(0).getJSONObject(0).getLong("entry_id");
             } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println("I don't know why this happened. Sorry m8");
+                System.err.println("This means more than one thing is horribly wrong. Sorry m8");
                 return null;
             }
             entry.applyGroupAsOwner(group, eid);
@@ -525,11 +501,9 @@ public class DatabaseRequest {
     }
 
     public static String get_enrollment_code(String username, String passhash, long group_id) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_enrollment_code"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_enrollment_code");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
         pb.push("group_id", group_id);
 
         JSONObject jo = null;
@@ -580,11 +554,9 @@ public class DatabaseRequest {
 
 
     public static String generate_enrollment_code(String username, String passhash, long group_id) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "generate_enrollment_code"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("generate_enrollment_code");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
         pb.push("group_id", group_id);
 
         JSONObject jo = null;
@@ -624,11 +596,9 @@ public class DatabaseRequest {
     }
 
     public static ArrayList<GroupObject> get_related_groups(String username, String passhash, long group_id) throws IOException, JSONException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_related_groups"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_related_groups");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
         pb.push("group_id", group_id);
 
 
@@ -656,9 +626,7 @@ public class DatabaseRequest {
     }
 
     public static ArrayList<String> get_admin_email(long group_id) throws JSONException, IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_admin_email"},
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_admin_email");
         pb.push("group_id", group_id);
 
         JSONObject jo = GalendaryDB.server_request(pb);
@@ -703,7 +671,7 @@ public class DatabaseRequest {
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
-        return (jo.has("affected_rows") && jo.getInt("affected_rows") > 0);
+        return (jo.has("affectedRows") && jo.getInt("affectedRows") > 0);
 
     }
 
@@ -724,32 +692,20 @@ public class DatabaseRequest {
         pb.push("enrollment_code", enrollment_code);
 
         JSONObject jo = GalendaryDB.server_request(pb);
-//
-//        System.err.println("jo:");
-//        System.err.println(jo);
+//[[{"id":15,"name":"test_Group","enrollment_code":"pd9fnlp","is_public":0,"looking_for_subgroups":0,"individual":0}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":34,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
 
         if (!jo.has("data")) return null;
         JSONArray ja = jo.getJSONArray("data");
         if (ja.length() != 2) {
-            throw new IOException("IDK WTF");
+            throw new IOException("IDK SOMEONE MESSED SOMETHING UP");
         }
 
-//        System.err.println("ja:");
-//        System.err.println(ja);
-
         JSONArray ja2 = ja.getJSONArray(0);
-
-//        System.err.println("ja2");
-//        System.err.println(ja2);
-
 
         if (ja2.length() != 1) return null;
         JSONObject group_jo = ja2.getJSONObject(0);
 
         return new GroupObject(group_jo);
-//[[{"id":15,"name":"test_Group","enrollment_code":"pd9fnlp","is_public":0,"looking_for_subgroups":0,"individual":0}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":34,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
-
-
     }
 
     public static GroupObject join_group_by_enrollment_code(UserObject user, String enrollment_code) throws IOException, JSONException {
@@ -759,12 +715,7 @@ public class DatabaseRequest {
     public static ArrayList<UserObject> load_group_members(GroupObject group) throws IOException, JSONException {
         // TODO: Handle security issue by requiring username and passhash
         // So that only members of the group have access to the group members
-
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "load_group_members"}
-        });
-
-
+        ParameterBuilder pb = new ParameterBuilder("load_group_members");
         pb.push("group_id", group.getId());
 
         JSONObject jo = null;
@@ -841,15 +792,9 @@ public class DatabaseRequest {
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
-
-        System.err.println("Attempting delete, jo:");
-        System.err.println(jo);
-
-        return jo.has("affected_rows") && jo.getInt("affectedRows") == 1;
-
+        return jo.has("affectedRows") && jo.getInt("affectedRows") == 1;
     }
 
-    //TODO this is causing errors
     public static boolean delete_entry(EntryObject entry) throws IOException, JSONException {
         UserObject user = entry.getUser();
         return delete_entry(user.getUsername(), user.getPasshash(), entry.getId());
@@ -970,7 +915,7 @@ public class DatabaseRequest {
         ///{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}
 
         if(!jo.has("affectedRows")) return false;
-        return (jo.getInt("affectedRow") == 0);
+        return (jo.getInt("affectedRows") == 0);
     }
 
     public static boolean delete_user(UserObject user) throws IOException, JSONException {
