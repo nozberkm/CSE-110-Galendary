@@ -42,9 +42,21 @@ public class ViewEventDetails extends AppCompatActivity {
         TextView start_time = (TextView)findViewById(R.id.ed_event_start_time);
         TextView end_time = (TextView)findViewById(R.id.ed_event_end_time);
         TextView description = (TextView)findViewById(R.id.ed_description_field);
-
+        exit_button = (ImageButton) findViewById(R.id.ed_exit_button);
+        edit_button = (ImageButton) findViewById(R.id.ed_edit_button);
+        delete_button = (ImageButton) findViewById(R.id.ed_delete_button);
         Bundle b = getIntent().getExtras();
+
         if(b != null) {
+            if(!(b.getString("group name")).equals("Personal") && (b.getString("previous")).equals("Home")){
+                edit_button.setVisibility(View.INVISIBLE);
+            }
+            if((b.getString("previous")).equals("groupHome")) {
+                if(!b.getBoolean("Admin")) {
+                    edit_button.setVisibility(View.INVISIBLE);
+                    delete_button.setVisibility(View.INVISIBLE);
+                }
+            }
             event_name.setText(b.getString("event name"));
             group_name.setText(b.getString("group name"));
             start_date.setText(b.getString("event start"));
@@ -55,9 +67,7 @@ public class ViewEventDetails extends AppCompatActivity {
             previous = b.getString("previous");
         }
 
-        exit_button = (ImageButton) findViewById(R.id.ed_exit_button);
-        edit_button = (ImageButton) findViewById(R.id.ed_edit_button);
-        delete_button = (ImageButton) findViewById(R.id.ed_delete_button);
+
 
 
         //TODO: Here we set the on click listeners for the top buttons
@@ -98,7 +108,7 @@ public class ViewEventDetails extends AppCompatActivity {
                         startActivity(toExit);
                         finish();
                     } else {
-                        Snackbar.make(view, "The event could not be deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Snackbar.make(view, "You need to be admin to delete", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
                 } else if (previous.equals("groupHome")) {
                     GroupHomeActivity.currentGroupEvent.setUser(LoginActivity.userLogin);
@@ -108,7 +118,7 @@ public class ViewEventDetails extends AppCompatActivity {
                         startActivity(toExit);
                         finish();
                     } else {
-                        Snackbar.make(view, "The event could not be deleted", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+                        Snackbar.make(view, "You need to be admin to delete", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                     }
                 }
             }
