@@ -852,7 +852,7 @@ public class DatabaseRequest {
         System.err.println("Attempting delete, jo:");
         System.err.println(jo);
 
-        return jo.has("affected_rows") && jo.getInt("affectedRows") == 1;
+        return jo.has("affectedRows") && jo.getInt("affectedRows") == 1;
 
     }
 
