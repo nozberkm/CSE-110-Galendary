@@ -132,13 +132,12 @@ public class DatabaseRequest {
 
 
     public static boolean alter_group_set_looking_flag(String username, String passhash, long group_id, boolean looking_for_subgroups) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"looking_for_subgroups", String.valueOf(looking_for_subgroups)}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id", group_id);
+        pb.push("looking_for_subgroups", looking_for_subgroups);
+
 
         JSONObject jo = null;
         try {
@@ -168,13 +167,11 @@ public class DatabaseRequest {
     }
 
     public static boolean alter_group_change_name(String username, String passhash, long group_id, String new_name) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"name", new_name}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id",group_id);
+        pb.push("name", new_name);
 
         JSONObject jo = null;
         try {
