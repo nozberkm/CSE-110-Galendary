@@ -62,7 +62,7 @@ public class CreateGroup extends AppCompatActivity {
                     group.generateEnrollmentCode();
                     MyGroups.currGroup = group;
                     LoginActivity.userLogin.synchronize();
-                    Intent toGroupHome = new Intent(CreateGroup.this, GroupHomeActivity.class);
+                    Intent toGroupHome = new Intent(CreateGroup.this, MyGroups.class);
                     startActivity(toGroupHome);
                 }
             }

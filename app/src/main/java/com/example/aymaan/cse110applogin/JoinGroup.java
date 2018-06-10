@@ -79,7 +79,7 @@ public class JoinGroup extends AppCompatActivity {
                 else {
                     MyGroups.currGroup = joinedGroup;
                     LoginActivity.userLogin.synchronize();
-                    Intent toGroupHome = new Intent(context, GroupHomeActivity.class);
+                    Intent toGroupHome = new Intent(context, MyGroups.class);
                     startActivity(toGroupHome);
                 }
             }
