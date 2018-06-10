@@ -118,9 +118,9 @@ public class DatabaseRequest {
         }
 
         if (jo.has("err")) return false;
-        if (jo.has("affected_rows")) {
+        if (jo.has("affectedRows")) {
             try {
-                return jo.getInt("affected_rows") == 1;
+                return jo.getInt("affectedRows") == 1;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -155,9 +155,9 @@ public class DatabaseRequest {
         }
 
         if (jo.has("err")) return false;
-        if (jo.has("affected_rows")) {
+        if (jo.has("affectedRows")) {
             try {
-                return jo.getInt("affected_rows") == 1;
+                return jo.getInt("affectedRows") == 1;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -191,9 +191,9 @@ public class DatabaseRequest {
         }
 
         if (jo.has("err")) return false;
-        if (jo.has("affected_rows")) {
+        if (jo.has("affectedRows")) {
             try {
-                return jo.getInt("affected_rows") == 1;
+                return jo.getInt("affectedRows") == 1;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -710,7 +710,7 @@ public class DatabaseRequest {
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
-        return (jo.has("affected_rows") && jo.getInt("affected_rows") > 0);
+        return (jo.has("affectedRows") && jo.getInt("affectedRows") > 0);
 
     }
 
