@@ -4,13 +4,16 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.lang.reflect.Member;
 
 public class MemberPageAdminView extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
@@ -71,22 +74,35 @@ public class MemberPageAdminView extends AppCompatActivity {
         remove.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you want to remove " + name + "?");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //promote to admin
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //do nothing
-                    }
-                });
-                builder.create().show();
+                if(MemberList.viewedUser.getId() != LoginActivity.userLogin.getId()) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setMessage("Do you want to remove " + name + "?");
+                    builder.setCancelable(false);
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            try {
+                                MemberList.viewedUser.leave_group(MemberList.viewedUser.getId(), MyGroups.currGroup.getId());
+                            }
+                            catch(IOException e) {
+                                e.printStackTrace();
+                            }
+                            Intent toGroupHome = new Intent(context, GroupHomeActivity.class);
+                            startActivity(toGroupHome);
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //do nothing
+                        }
+                    });
+                    builder.create().show();
+                }
+                else {
+                    Snackbar.make(v, "You can't remove yourself", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
             }
         });
 
