@@ -4,10 +4,15 @@
     android:layout_height="match_parent">
     
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:id="@+id/textView_event_details"
-        android:textSize="9pt"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textColor="#000000"
         />
 
 </RelativeLayout>
