@@ -91,6 +91,9 @@
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
         <activity
+            android:name=".AccountSettings"
+            android:label="Account Settings" />
+        <activity
             android:name=".PasswordChange"
             android:label="@string/title_activity_password_change"
             android:theme="@style/AppTheme" />
