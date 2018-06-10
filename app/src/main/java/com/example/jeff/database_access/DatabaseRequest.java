@@ -173,7 +173,7 @@ public class DatabaseRequest {
         pb.push_username(username);
         pb.push_passhash(passhash);
         pb.push("group_id", group_id);
-        pb.push("name", new_name);
+        pb.push("group_name", new_name);
 
         JSONObject jo = null;
         try {
