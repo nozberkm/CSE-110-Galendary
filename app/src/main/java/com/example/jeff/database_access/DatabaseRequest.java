@@ -977,7 +977,7 @@ public class DatabaseRequest {
         ///{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}
 
         if(!jo.has("affectedRows")) return false;
-        return (jo.getInt("affectedRow") == 0);
+        return (jo.getInt("affectedRows") == 0);
     }
     
     public static boolean delete_user(UserObject user) throws IOException, JSONException {
