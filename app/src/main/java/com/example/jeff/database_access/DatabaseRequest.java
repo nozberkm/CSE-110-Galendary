@@ -387,7 +387,6 @@ public class DatabaseRequest {
                                                 long group_id,
                                                 boolean accepted)throws IOException{
   //      return false;
-        //TODO: Figure out how to make this call without causing a compiler error
         return make_request_decision(request_id,admin.getUsername(),admin.getPasshash(),
                                      group_id,accepted);
     }
@@ -433,10 +432,9 @@ public class DatabaseRequest {
         try {
             return get_requests(user.getUsername(), user.getPasshash());
         } catch (IOException e) {
-            // TODO: How to handle if this throws an exception?
             e.printStackTrace();
         }
-        return new ArrayList<>(); // TODO: Correct this incorrect handling
+        return new ArrayList<>();
     }
 
     public static boolean change_password(String username, String passhash, String passhash_new) throws IOException {
@@ -491,7 +489,7 @@ public class DatabaseRequest {
                 eid = ja.getJSONArray(0).getJSONObject(0).getLong("entry_id");
             } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println("I don't know why this happened. Sorry m8");
+                System.err.println("This means more than one thing is horribly wrong. Sorry m8");
                 return null;
             }
             entry.applyGroupAsOwner(group, eid);
@@ -646,20 +644,16 @@ public class DatabaseRequest {
     }
 
     //TODO Fix this up
-    public static boolean dissolve_group(long group_id, String username, String passhash)
+    public static boolean dissolve_group(long group_id)
             throws IOException {
-        ParameterBuilder pb = new ParameterBuilder("dissolve_group");
-        pb.push_username(username);
-        pb.push_passhash(passhash);
-
+        ParameterBuilder pb = new ParameterBuilder(new String[][]{
+                {"command", "dissolve_group"}
+        });
+        pb.push("group_id",group_id);
         JSONObject jo = GalendaryDB.server_request(pb);
 
-        if (jo.has("data")) {
-            try {
-                return (Integer) jo.getJSONArray("data").getJSONArray(0).getJSONObject(0).get("success") != 0;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        if (!jo.has("err")) {
+            return true;
         }
 
         return false;
@@ -885,7 +879,7 @@ public class DatabaseRequest {
         else return true;
     }
 
-    public static boolean leave_group(long user_id, long group_id) throws IOException {
+    public static boolean leave_group(long user_id, long group_id) throws IOException{
         ParameterBuilder pb = new ParameterBuilder("leave_group");
         pb.push("user_id",user_id);
         pb.push("group_id",group_id);
@@ -923,9 +917,24 @@ public class DatabaseRequest {
         if(!jo.has("affectedRows")) return false;
         return (jo.getInt("affectedRows") == 0);
     }
-    
+
     public static boolean delete_user(UserObject user) throws IOException, JSONException {
         return delete_user(user.getUsername(), user.getUsername());
+    }
+
+
+
+    public static boolean change_user_display_name(String username, String passhash, String display_name) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("change_user_display_name");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("display_name", display_name);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+//        {"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"(Rows matched: 1  Changed: 1  Warnings: 0","protocol41":true,"changedRows":1}
+        if(!jo.has("affectedRows")) return false;
+
+        return jo.getInt("affectedRows") == 1;
     }
 }
 
