@@ -15,6 +15,8 @@ import com.example.jeff.database_access.*;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -118,38 +120,73 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     user.synchronize();
 
-                    System.err.println(user);
 
-                    ArrayList<GroupObject> groups = user.getGroups();
-                    GroupObject test_group = null;
-                    for(GroupObject go : groups){
-                        if(go.getId() == 45) test_group = go;
+                    GroupObject individual_group = user.getIndividualGroup();
+                    for(EntryObject eo : individual_group.getEntries()){
+                        if(eo.getId() == 127){
+                            System.err.println("FOUND IT");
+                            Date test = null;
+                            try {
+                                test =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2018-06-11 05:01:49");
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            if(test != null) {
+                                System.err.println("attempting to move it to the 11th");
+                                eo.setStart(test);
+                                eo.setEnd(test);
+                                eo.setTitle("ENTRY HAS BEEN UPDATED");
+                                eo.setDescription("YES, CUNT!");
+                                System.err.println(eo);
+                                boolean status = eo.pushUpdate();
+
+                                System.err.println("status: " + status);
+                            }
+
+
+                        }
                     }
+//                    EntryObject personal_entry = new EntryObject();
+//                    personal_entry.setTitle("MOVE THIS TO 6/10");
+//                    personal_entry.setStart(new Date());
+//                    personal_entry.setEnd(new Date());
+//                    personal_entry.setDescription("Please, cunt");
+//
+//                    individual_group.pushEntry(personal_entry);
 
 
-                    GroupObject indi_group = test_group;// user.getIndividualGroup();
-System.err.println(indi_group);
-                    EntryObject eo = new EntryObject();
-
-//                    eo.setStart(new Date());
-                    eo.setEnd(new Date());
-                    eo.setTitle("TEST ADDING EVENT TO DELETE");
-                    eo.setDescription("PLEASE PLZ DELTE");
-
-                    indi_group.pushEntry(eo);
-
-                    user.synchronize();
-                    System.err.println("eo:");
-                    System.err.println(eo);
-
-                    eo.delete();
-
-
-
-                    GroupObject joined = user.joinGroupByEnrollmentCode("l6k1v6w");
-
-                    System.err.println("Joined:");
-                    System.err.println(joined);
+//                    System.err.println(user);
+//
+//                    ArrayList<GroupObject> groups = user.getGroups();
+//                    GroupObject test_group = null;
+//                    for(GroupObject go : groups){
+//                        if(go.getId() == 45) test_group = go;
+//                    }
+//
+//
+//                    GroupObject indi_group = test_group;// user.getIndividualGroup();
+//System.err.println(indi_group);
+//                    EntryObject eo = new EntryObject();
+//
+////                    eo.setStart(new Date());
+//                    eo.setEnd(new Date());
+//                    eo.setTitle("TEST ADDING EVENT TO DELETE");
+//                    eo.setDescription("PLEASE PLZ DELTE");
+//
+//                    indi_group.pushEntry(eo);
+//
+//                    user.synchronize();
+//                    System.err.println("eo:");
+//                    System.err.println(eo);
+//
+//                    eo.delete();
+//
+//
+//
+//                    GroupObject joined = user.joinGroupByEnrollmentCode("l6k1v6w");
+//
+//                    System.err.println("Joined:");
+//                    System.err.println(joined);
 
 
 
