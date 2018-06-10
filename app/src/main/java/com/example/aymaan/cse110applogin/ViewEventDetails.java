@@ -21,6 +21,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.jeff.database_access.EntryObject;
+
+import java.util.Date;
+
 public class ViewEventDetails extends AppCompatActivity {
 
     //TODO: Need to implement oncreate; set 3 listeners for edit, delete, and exit
@@ -92,7 +96,38 @@ public class ViewEventDetails extends AppCompatActivity {
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (previous.equals("Home")){
+                    Bundle b = new Bundle();
+                    b.putString("event name", Home.currentEvent.getTitle());
+                    b.putString("previous", "Home");
+                    if(Home.currentEvent.getStart()!=null) {
+                        b.putLong("start date", Home.currentEvent.getStart().getTime());
+                    }
+                    else{
+                        Date date = new Date();
+                        b.putLong("start date", date.getTime());
+                    }
+                    b.putLong("end date", Home.currentEvent.getEnd().getTime());
+                    b.putString("event description", Home.currentEvent.getDescription());
 
+                    Intent ved = new Intent( ViewEventDetails.this, EditTaskEvent.class);
+                    ved.putExtras(b);
+                    startActivity(ved);
+                }
+                else if (previous.equals("groupHome")) {
+                    Bundle b = new Bundle();
+                    b.putString("event name", GroupHomeActivity.currentGroupEvent.getTitle());
+                    b.putString("previous", "groupHome");
+                    if(Home.currentEvent.getStart()!=null) {
+                        b.putLong("start date", GroupHomeActivity.currentGroupEvent.getStart().getTime());
+                    }
+                    b.putLong("end date", GroupHomeActivity.currentGroupEvent.getEnd().getTime());
+                    b.putString("event description", GroupHomeActivity.currentGroupEvent.getDescription());
+
+                    Intent ved = new Intent( ViewEventDetails.this, EditTaskEvent.class);
+                    ved.putExtras(b);
+                    startActivity(ved);
+                }
             }
         });
 

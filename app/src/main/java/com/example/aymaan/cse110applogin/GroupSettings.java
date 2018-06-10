@@ -62,7 +62,7 @@ public class GroupSettings extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
-                            MyGroups.currGroup.dissolveGroup(LoginActivity.userLogin);
+                            MyGroups.currGroup.dissolveGroup();
                         }
                         catch(IOException e) {
                             e.printStackTrace();
