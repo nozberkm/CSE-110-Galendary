@@ -42,7 +42,7 @@ public class AddNotice extends AppCompatActivity {
         add = (FloatingActionButton) findViewById(R.id.addButton);
         etAddNotice = (EditText) findViewById(R.id.editTextAddNotice);
         //etError = (EditText) findViewById(R.id.editTextAddNoticeError);
-
+        close = (ImageButton) findViewById(R.id.ibNoticeClose);
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
 
@@ -52,6 +52,12 @@ public class AddNotice extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

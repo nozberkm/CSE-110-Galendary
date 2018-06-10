@@ -941,12 +941,17 @@ public class DatabaseRequest {
         else return true;
     }
 
+    public static boolean leave_group(long user_id, long group_id) throws IOException {
+        ParameterBuilder pb = new ParameterBuilder("leave_group");
+        pb.push("user_id",user_id);
+        pb.push("group_id",group_id);
 
+        JSONObject jo = null;
 
-
-
-
-
+        jo = GalendaryDB.server_request(pb);
+        if (!jo.has("err")) return true;
+        else return false;
+    }
 
 
     // Returns true if password was successfully reset
@@ -974,11 +979,9 @@ public class DatabaseRequest {
         if(!jo.has("affectedRows")) return false;
         return (jo.getInt("affectedRow") == 0);
     }
+    
     public static boolean delete_user(UserObject user) throws IOException, JSONException {
         return delete_user(user.getUsername(), user.getUsername());
     }
-
-
-
 }
 

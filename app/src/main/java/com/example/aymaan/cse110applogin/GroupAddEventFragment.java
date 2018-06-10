@@ -232,7 +232,6 @@ public class GroupAddEventFragment extends android.support.v4.app.Fragment {
                     entryObject.setTitle(etEventTitle.getText().toString());
                     entryObject.setStart(start_date);
                     entryObject.setEnd(end_date);
-
                     EntryObject checkEntryObject = MyGroups.currGroup.pushEntry(entryObject);
                     System.err.println(checkEntryObject.toString());
 

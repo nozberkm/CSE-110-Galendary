@@ -229,7 +229,6 @@ public class AddEventFragment extends Fragment {
                     entryObject.setTitle(etEventTitle.getText().toString());
                     entryObject.setStart(start_date);
                     entryObject.setEnd(end_date);
-
                     LoginActivity.userLogin.getIndividualGroup().pushEntry(entryObject);
                     LoginActivity.userLogin.synchronize();
                 }
