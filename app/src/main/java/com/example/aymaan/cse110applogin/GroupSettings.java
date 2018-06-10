@@ -30,9 +30,9 @@ public class GroupSettings extends AppCompatActivity {
         setContentView(R.layout.activity_group_settings);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-       // groupName=(TextInputEditText)findViewById(R.id.grpName);
+        //groupName=(TextInputEditText)findViewById(R.id.grpName);
         code = (Button) findViewById(R.id.enrollmentCode);
-       // grpName=(TextView)findViewById(R.id.groupNameHeader);
+        //grpName=(TextView)findViewById(R.id.groupNameHeader);
         grpName.setText(MyGroups.currGroup.getName());
         groupName.setText(MyGroups.currGroup.getName());
 
