@@ -108,10 +108,7 @@ public class GroupObject {
             if (entry_list == null) entry_list = new ArrayList<>();
             if (eo.getGroupId() < 0 && eo.getId() < 0) {
                 // Pass the entry object on to the creator to make it in the database and modify eo
-
-                System.err.println("TODO: Make this not improper use of addEntry");
-                eo = null;//pushEntry(eo);
-                // TODO: Make the group object take a UserObject field to simplify this. This must be skipped for now
+                eo = null;
             } else if(eo.getGroupId() < 0 || eo.getId() < 0){
                 System.err.println("An entry object was initialized in a way that breaks the specification. " +
                         "Discarding it instead of adding it to entries.");
@@ -123,14 +120,13 @@ public class GroupObject {
 
     public int addEntryCheckGID(EntryObject eo){
         if(entry_list == null) entry_list = new ArrayList<>();
-        if(eo.getGroupId() == getId()){
-            if(addEntry(eo) != null)
-                return 1;
-        }
+        if(eo.getGroupId() == getId() && addEntry(eo) != null)
+            return 1;
         return 0;
     }
 
     public int addEntriesCheckGID(ArrayList<EntryObject> entry_list){
+        if(entry_list == null) return 0;
         int add_count = 0;
         for(EntryObject eo : entry_list)
             add_count += addEntryCheckGID(eo);
@@ -139,10 +135,10 @@ public class GroupObject {
 
     public ArrayList<EntryObject> getNotices(){
         ArrayList<EntryObject> notices = new ArrayList<>();
-        if(entry_list != null)
-            for(EntryObject eo : entry_list)
-                if(eo.isNotice()) notices.add(eo);
-
+        if(entry_list != null) {
+            for (EntryObject eo : entry_list)
+                if (eo.isNotice()) notices.add(eo);
+        }
         return notices;
     }
 
