@@ -10,15 +10,21 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class PasswordChange extends AppCompatActivity {
+    private android.support.v7.widget.Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_password_change);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Password Change");
+
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         final Button changePass = (Button) findViewById(R.id.changePass);
         final TextView currentPassField = (TextView) findViewById(R.id.currentPassImp);
@@ -64,5 +70,11 @@ public class PasswordChange extends AppCompatActivity {
     // });
 
     //}
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
 }
