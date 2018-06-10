@@ -124,7 +124,7 @@ public class GroupSettings extends AppCompatActivity {
                     grpName.setText(MyGroups.currGroup.getName());
                 } else {
                     boolean hello = MyGroups.currGroup.changeName(toSaveText);
-                    grpName.setText(String.valueOf(hello));
+                    grpName.setText(MyGroups.currGroup.getName());
                 }
             }
         });
