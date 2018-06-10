@@ -143,15 +143,15 @@ public class EditTaskFragment extends Fragment {
                     Date end_date=formatter1.parse(endDateObject);
 
                     if(previous.equals("Home")){
-                        System.err.println("getting into home");
+                        //System.err.println("getting into home");
                         Home.currentEvent.setDescription(editetTaskDescription.getText().toString());
                         Home.currentEvent.setTitle(editTaskTitle.getText().toString());
                         //Home.currentEvent.setStart(null);
                         Home.currentEvent.setEnd(end_date);
-                        System.err.println(Home.currentEvent);
+                        //System.err.println(Home.currentEvent);
                         Home.currentEvent.pushUpdate();
-                        boolean status = Home.currentEvent.pushUpdate();
-                        System.err.println("status = " + status);
+                        //boolean status = Home.currentEvent.pushUpdate();
+                        //System.err.println("status = " + status);
                         Intent toHome = new Intent(getActivity(), Home.class);
                         startActivity(toHome);
                     }
@@ -160,8 +160,8 @@ public class EditTaskFragment extends Fragment {
                         GroupHomeActivity.currentGroupEvent.setTitle(editTaskTitle.getText().toString());
                         //GroupHomeActivity.currentGroupEvent.setStart(null);
                         GroupHomeActivity.currentGroupEvent.setEnd(end_date);
-                        boolean status = GroupHomeActivity.currentGroupEvent.pushUpdate();
-                        System.err.println("status = " + status);
+                        //boolean status = GroupHomeActivity.currentGroupEvent.pushUpdate();
+                        //System.err.println("status = " + status);
                         Intent toHome = new Intent(getActivity(), GroupHomeActivity.class);
                         startActivity(toHome);
                     }
