@@ -137,6 +137,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="20dp"
         android:clickable="true"
+        app:backgroundTint="#ffe95451"
         app:srcCompat="@drawable/ic_action_add_event" />
 
 </RelativeLayout>
