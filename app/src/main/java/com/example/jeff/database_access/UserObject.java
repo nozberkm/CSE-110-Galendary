@@ -65,7 +65,7 @@ public class UserObject {
         username = JsonHelper.parseString(jo, "username");
     }
     private void parseNameFromJson(JSONObject jo){
-        name = JsonHelper.parseString(jo, "username");
+        name = JsonHelper.parseString(jo, "name");
     }
     private void parsePasshashFromJson(JSONObject jo){
         passhash = JsonHelper.parseString(jo, "passhash");
@@ -117,7 +117,11 @@ public class UserObject {
 
             parseNotificationsFromJson(jo);
 
+            System.err.println("PRINTING NAME:");
+            System.err.println(getName());
             parseNameFromJson(jo);
+            System.err.println(getName());
+
 
             up_to_date = (id >= 0);
 
@@ -139,7 +143,7 @@ public class UserObject {
 
     // Returns the user's display name and falls back to their email if not defined
     public String getName() {
-        return name == null ? ('('+getUsername()+')') :name;
+        return name == null ? ('('+getUsername()+')') : name;
     }
 
     public boolean changeName(String new_display_name){
