@@ -62,6 +62,12 @@ public class GroupHomeActivity extends AppCompatActivity {
             Bundle b = new Bundle();
             //b.putLong("id",clickedItem.getId());
             //b.putLong("group id",clickedItem.getGroupId());
+            if (MyGroups.currGroup.isAdmin()) {
+                b.putBoolean("Admin", true);
+            }
+            else{
+                b.putBoolean("Admin", false);
+            }
             b.putString("event name",clickedItem.getTitle());
             if(clickedItem.getEnd() == null){
                 b.putString("event end","");
