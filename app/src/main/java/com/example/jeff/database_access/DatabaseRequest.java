@@ -11,11 +11,9 @@ import java.util.ArrayList;
 
 public class DatabaseRequest {
     public static boolean verify_login(String username, String passhash) throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "verify_login"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("verify_login");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
@@ -28,11 +26,10 @@ public class DatabaseRequest {
     }
 
     public static UserObject get_user(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_user"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
 
         JSONObject jo = null;
         try {
@@ -66,11 +63,10 @@ public class DatabaseRequest {
 
 
     public static UserObject create_user(String username, String passhash) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "create_user"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("create_user");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
 
         JSONObject jo = null;
         try {
@@ -101,13 +97,11 @@ public class DatabaseRequest {
      */
 
     public static boolean alter_group_set_public_flag(String username, String passhash, long group_id, boolean is_public) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"is_public", String.valueOf(is_public)}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id", group_id);
+        pb.push("is_public", is_public);
 
         JSONObject jo = null;
         try {
@@ -138,13 +132,12 @@ public class DatabaseRequest {
 
 
     public static boolean alter_group_set_looking_flag(String username, String passhash, long group_id, boolean looking_for_subgroups) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"looking_for_subgroups", String.valueOf(looking_for_subgroups)}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id", group_id);
+        pb.push("looking_for_subgroups", looking_for_subgroups);
+
 
         JSONObject jo = null;
         try {
@@ -174,13 +167,11 @@ public class DatabaseRequest {
     }
 
     public static boolean alter_group_change_name(String username, String passhash, long group_id, String new_name) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "alter_group"},
-                {"username", username},
-                {"passhash", passhash},
-                {"group_id", String.valueOf(group_id)},
-                {"name", new_name}
-        });
+        ParameterBuilder pb = new ParameterBuilder("alter_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("group_id",group_id);
+        pb.push("name", new_name);
 
         JSONObject jo = null;
         try {
@@ -658,9 +649,7 @@ public class DatabaseRequest {
     }
 
     public static ArrayList<String> get_admin_email(long group_id) throws JSONException, IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_admin_email"},
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_admin_email");
         pb.push("group_id", group_id);
 
         JSONObject jo = GalendaryDB.server_request(pb);
@@ -680,11 +669,10 @@ public class DatabaseRequest {
     //TODO Fix this up
     public static boolean dissolve_group(long group_id, String username, String passhash)
             throws IOException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "dissolve_group"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("dissolve_group");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+
         JSONObject jo = GalendaryDB.server_request(pb);
 
         if (jo.has("data")) {
@@ -731,32 +719,20 @@ public class DatabaseRequest {
         pb.push("enrollment_code", enrollment_code);
 
         JSONObject jo = GalendaryDB.server_request(pb);
-//
-//        System.err.println("jo:");
-//        System.err.println(jo);
+//[[{"id":15,"name":"test_Group","enrollment_code":"pd9fnlp","is_public":0,"looking_for_subgroups":0,"individual":0}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":34,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
 
         if (!jo.has("data")) return null;
         JSONArray ja = jo.getJSONArray("data");
         if (ja.length() != 2) {
-            throw new IOException("IDK WTF");
+            throw new IOException("IDK SOMEONE MESSED SOMETHING UP");
         }
 
-//        System.err.println("ja:");
-//        System.err.println(ja);
-
         JSONArray ja2 = ja.getJSONArray(0);
-
-//        System.err.println("ja2");
-//        System.err.println(ja2);
-
 
         if (ja2.length() != 1) return null;
         JSONObject group_jo = ja2.getJSONObject(0);
 
         return new GroupObject(group_jo);
-//[[{"id":15,"name":"test_Group","enrollment_code":"pd9fnlp","is_public":0,"looking_for_subgroups":0,"individual":0}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":34,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
-
-
     }
 
     public static GroupObject join_group_by_enrollment_code(UserObject user, String enrollment_code) throws IOException, JSONException {
@@ -856,7 +832,6 @@ public class DatabaseRequest {
 
     }
 
-    //TODO this is causing errors
     public static boolean delete_entry(EntryObject entry) throws IOException, JSONException {
         UserObject user = entry.getUser();
         return delete_entry(user.getUsername(), user.getPasshash(), entry.getId());
