@@ -2,6 +2,8 @@ package com.example.jeff.database_access;
 
 import android.support.v4.util.Pair;
 
+import com.example.aymaan.cse110applogin.LoginActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -836,11 +838,27 @@ public class DatabaseRequest {
 
 
     public static EntryObject update_entry(EntryObject eo) throws IOException, JSONException {
+        System.err.println("Entered update_entry:");
         if (eo == null) return null;
+        System.err.println(1);
         if (eo.getId() < 0) return null;
+        System.err.println(2);
+
+
+        // For some reason, the entry object's user field is not being set if it's in an indiviudal group
         UserObject user = eo.getUser();
-        if (user == null) return null;
+        System.err.println(3);
+        if (user == null){
+            // Apply a ridiculously shitty patch. Pls no hate me java gods
+            user = LoginActivity.userLogin;
+            if(user == null){
+                System.err.println("THE BED HAS BEEN SHIT IN");
+                return null;
+            }
+        }
+        System.err.println(4);
         if (eo.getGroupId() < 0) return null;
+        System.err.println(5);
 
 
         ParameterBuilder pb = new ParameterBuilder("update_entry");
@@ -861,6 +879,8 @@ public class DatabaseRequest {
         JSONArray ja2 = ja.getJSONArray(0);
         JSONObject jo2 = ja2.getJSONObject(0);
         if (!jo2.has("success")) return null;
+
+        System.err.println(6);
 
         return jo2.getInt("success") == 1 ? eo : null;
 //                [[{"success":1}],{"fieldCount":0,"affectedRows":0,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}]
