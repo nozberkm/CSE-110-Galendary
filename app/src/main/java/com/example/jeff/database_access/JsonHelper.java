@@ -8,19 +8,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/* A utility class for helping with JSON text processing */
 public class JsonHelper {
+
+    // A formatter to convert date strings and objects for MySQL database format
     public static final DateFormat DB_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-//    public static String parseString(JSONObject jo, String key, boolean disallow_null){
-//        if(!disallow_null) return parseString(jo, key);
-//        String str = null;
-//        try {
-//            str = jo.isNull(key) ? null : jo.getString(key);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        return str;
-//    }
+    /* Helpers to aide in parsing types from JSONObjects.
+    Used by UserObject, EntryObject and GroupObject */
     public static String parseString(JSONObject jo, String key){
         String str = null;
         try {
