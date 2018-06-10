@@ -333,6 +333,10 @@ public class Heatmap extends AppCompatActivity {
         else
             specifiedDateEnd = EntryObject.getDayDateFromString(switchYear + "/" + switchMonthNum+ "/" + endDayNum);
 
+        if(this.groupEvents.size() == 0) {
+            insertGrid();
+            return;
+        }
         Long currentPerson = this.groupEvents.get(0).first;
         EntryObject current;
         for (Pair<Long, EntryObject> entry : this.groupEvents) {
