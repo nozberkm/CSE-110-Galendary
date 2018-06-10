@@ -95,7 +95,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                 }
             }
             catch (Exception e){
-                b.putString("group name", "WTF");
+                b.putString("group name", "");
             }
             b.putString("event description",clickedItem.getDescription());
             b.putString("previous", "groupHome");
