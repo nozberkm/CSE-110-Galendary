@@ -645,23 +645,7 @@ public class DatabaseRequest {
         return emails;
     }
 
-    //TODO Fix this up
-//    public static boolean dissolve_group(long group_id)
-//            throws IOException {
-//        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-//                {"command", "dissolve_group"}
-//        });
-//        pb.push("group_id", group_id);
-//        JSONObject jo = GalendaryDB.server_request(pb);
-//
-//        if (!jo.has("err")) {
-//            return true;
-//        }
-//
-//        return false;
-////        !jo.has("err");
-//
-//    }
+
     public static boolean dissolve_group(String username, String passhash, long group_id)
             throws IOException, JSONException {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
