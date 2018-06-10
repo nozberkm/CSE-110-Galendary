@@ -1,3 +1,5 @@
+The license for included library of calendar is as below. 
+
 The MIT License (MIT)
 
 Copyright (c) [2017] [Sundeepk]
