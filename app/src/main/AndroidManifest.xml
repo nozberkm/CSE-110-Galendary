@@ -104,6 +104,9 @@
         <activity android:name=".GroupAddTaskEventActivity" />
         <activity android:name=".GroupAddEventFragment" />
         <activity android:name=".GroupAddTaskFragment" />
+        <activity android:name=".EditTaskEvent" />
+        <activity android:name=".EditTaskFragment" />
+        <activity android:name=".EditEventFragment"></activity>
     </application>
 
 </manifest>
