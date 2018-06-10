@@ -58,8 +58,8 @@ public class AddTaskEventActivity extends AppCompatActivity {
         AddTaskFragment newTask = new AddTaskFragment();
         newEvent.setArguments(getIntent().getExtras());
         newTask.setArguments(getIntent().getExtras());
-        adapter.addFragment(newEvent,"Add Event");
-        adapter.addFragment(newTask,"Add Task");
+        adapter.addFragment(newEvent,"Event");
+        adapter.addFragment(newTask,"Task");
         viewPager.setAdapter(adapter);
     }
 }

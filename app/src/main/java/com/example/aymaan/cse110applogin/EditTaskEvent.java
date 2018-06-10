@@ -45,8 +45,8 @@ public class EditTaskEvent extends AppCompatActivity {
         EditTaskFragment newTask = new EditTaskFragment();
         newEvent.setArguments(getIntent().getExtras());
         newTask.setArguments(getIntent().getExtras());
-        adapter.addFragment(newEvent,"Add Event");
-        adapter.addFragment(newTask,"Add Task");
+        adapter.addFragment(newEvent,"Event");
+        adapter.addFragment(newTask,"Task");
         viewPager.setAdapter(adapter);
     }
 }
