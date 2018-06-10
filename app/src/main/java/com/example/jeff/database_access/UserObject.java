@@ -142,6 +142,20 @@ public class UserObject {
         return name == null ? ('('+getUsername()+')') :name;
     }
 
+    public boolean changeName(String new_display_name){
+        boolean status = false;
+
+        try {
+            status = DatabaseRequest.change_user_display_name(this, new_display_name);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        if(status) this.name = new_display_name;
+        return status;
+    }
+
     public String getGroupsString(){
         if(groups == null || groups.isEmpty()) return "[]";
         StringBuilder sb = new StringBuilder().append("Groups[");
