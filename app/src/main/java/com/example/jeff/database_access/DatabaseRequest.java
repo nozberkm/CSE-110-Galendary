@@ -404,7 +404,6 @@ public class DatabaseRequest {
                                                 long group_id,
                                                 boolean accepted)throws IOException{
   //      return false;
-        //TODO: Figure out how to make this call without causing a compiler error
         return make_request_decision(request_id,admin.getUsername(),admin.getPasshash(),
                                      group_id,accepted);
     }
@@ -451,10 +450,9 @@ public class DatabaseRequest {
         try {
             return get_requests(user.getUsername(), user.getPasshash());
         } catch (IOException e) {
-            // TODO: How to handle if this throws an exception?
             e.printStackTrace();
         }
-        return new ArrayList<>(); // TODO: Correct this incorrect handling
+        return new ArrayList<>();
     }
 
     public static boolean change_password(String username, String passhash, String passhash_new) throws IOException {
@@ -678,21 +676,16 @@ public class DatabaseRequest {
     }
 
     //TODO Fix this up
-    public static boolean dissolve_group(long group_id, String username, String passhash)
+    public static boolean dissolve_group(long group_id)
             throws IOException {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "dissolve_group"},
-                {"username", username},
-                {"passhash", passhash}
+                {"command", "dissolve_group"}
         });
+        pb.push("group_id",group_id);
         JSONObject jo = GalendaryDB.server_request(pb);
 
-        if (jo.has("data")) {
-            try {
-                return (Integer) jo.getJSONArray("data").getJSONArray(0).getJSONObject(0).get("success") != 0;
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        if (!jo.has("err")) {
+            return true;
         }
 
         return false;
@@ -941,7 +934,7 @@ public class DatabaseRequest {
         else return true;
     }
 
-    public static boolean leave_group(long user_id, long group_id) throws IOException {
+    public static boolean leave_group(long user_id, long group_id) throws IOException{
         ParameterBuilder pb = new ParameterBuilder("leave_group");
         pb.push("user_id",user_id);
         pb.push("group_id",group_id);
@@ -979,7 +972,7 @@ public class DatabaseRequest {
         if(!jo.has("affectedRows")) return false;
         return (jo.getInt("affectedRow") == 0);
     }
-    
+
     public static boolean delete_user(UserObject user) throws IOException, JSONException {
         return delete_user(user.getUsername(), user.getUsername());
     }
