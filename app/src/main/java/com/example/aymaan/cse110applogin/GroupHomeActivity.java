@@ -261,8 +261,10 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(GroupHomeActivity.this, Heatmap.class);
-                startActivity(h);
+                if(MyGroups.currGroup.isAdmin()) {
+                    Intent h = new Intent(GroupHomeActivity.this, Heatmap.class);
+                    startActivity(h);
+                }
                 break;
             case R.id.group_nav_contactAdmin:
                 Intent ca= new Intent(GroupHomeActivity.this,ContactAdminActivity.class);
@@ -273,8 +275,10 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(rg);
                 break;
             case R.id.group_nav_groupSettings:
-                Intent gs = new Intent(GroupHomeActivity.this, GroupSettings.class);
-                startActivity(gs);
+                if(MyGroups.currGroup.isAdmin()) {
+                    Intent gs = new Intent(GroupHomeActivity.this, GroupSettings.class);
+                    startActivity(gs);
+                }
                 break;
             case R.id.group_nav_leaveGroup:
                 AlertDialog.Builder builder = new AlertDialog.Builder(GroupHomeActivity.this);
