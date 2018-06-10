@@ -134,14 +134,12 @@ public class UserObject {
 
     public String getPasshash() { return passhash; }
 
-//    public String getEmail() {
-//        return email;
-//    }
-
     public boolean isEmailConfirmed() { return email_confirmed; }
 
     public boolean isNotifications() { return notifications; }
 
+
+    // Returns the user's display name and falls back to their email if not defined
     public String getName() {
         return name == null ? ('('+getUsername()+')') :name;
     }
