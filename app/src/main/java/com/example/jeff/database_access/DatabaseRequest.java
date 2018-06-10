@@ -491,7 +491,7 @@ public class DatabaseRequest {
                 eid = ja.getJSONArray(0).getJSONObject(0).getLong("entry_id");
             } catch (Exception e) {
                 e.printStackTrace();
-                System.err.println("I don't know why this happened. Sorry m8");
+                System.err.println("This means more than one thing is horribly wrong. Sorry m8");
                 return null;
             }
             entry.applyGroupAsOwner(group, eid);
