@@ -148,9 +148,10 @@ public class GroupHomeActivity extends AppCompatActivity {
             for(String s: GroupEntryMap.keySet()) {
                 Date date = EntryObject.getDayDateFromString(s);
                 for(int i=0; i<GroupEntryMap.get(s).size(); i++) {
-
-                    Event ev1 = new Event(Color.BLACK, date.getTime());
-                    group_compactCalendarView.addEvent(ev1);
+                    if (!GroupEntryMap.get(s).get(i).isNotice()) {
+                        Event ev1 = new Event(Color.BLACK, date.getTime());
+                        group_compactCalendarView.addEvent(ev1);
+                    }
                 }
             }
         }
