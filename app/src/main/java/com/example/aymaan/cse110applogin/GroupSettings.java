@@ -31,6 +31,8 @@ public class GroupSettings extends AppCompatActivity {
     private Button dissolve;
     Context context;
 
+    private Button save;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -51,6 +53,8 @@ public class GroupSettings extends AppCompatActivity {
         dissolve = (Button) findViewById(R.id.dissolveGroup3);
         grpName=(EditText) findViewById(R.id.groupName);
         grpName.setText(MyGroups.currGroup.getName());
+
+        save = (Button) findViewById(R.id.saveButtonGroupSettings);
 
         code.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +116,18 @@ public class GroupSettings extends AppCompatActivity {
             }
         });
 
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String toSaveText = grpName.getText().toString();
+                if (toSaveText.equals("")){
+                    grpName.setText(MyGroups.currGroup.getName());
+                } else {
+                    boolean hello = MyGroups.currGroup.changeName(toSaveText);
+                    grpName.setText(String.valueOf(hello));
+                }
+            }
+        });
 
     }
 
