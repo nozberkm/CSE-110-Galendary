@@ -927,5 +927,20 @@ public class DatabaseRequest {
     public static boolean delete_user(UserObject user) throws IOException, JSONException {
         return delete_user(user.getUsername(), user.getUsername());
     }
+
+
+
+    public static boolean change_user_display_name(String username, String passhash, String display_name) throws IOException, JSONException {
+        ParameterBuilder pb = new ParameterBuilder("change_user_display_name");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
+        pb.push("display_name", display_name);
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+//        {"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"(Rows matched: 1  Changed: 1  Warnings: 0","protocol41":true,"changedRows":1}
+        if(!jo.has("affectedRows")) return false;
+
+        return jo.getInt("affectedRows") == 1;
+    }
 }
 
