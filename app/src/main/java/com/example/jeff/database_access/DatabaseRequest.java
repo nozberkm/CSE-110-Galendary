@@ -979,5 +979,9 @@ public class DatabaseRequest {
         if(!jo.has("affectedRows")) return false;
         return (jo.getInt("affectedRow") == 0);
     }
+    
+    public static boolean delete_user(UserObject user) throws IOException, JSONException {
+        return delete_user(user.getUsername(), user.getUsername());
+    }
 }
 
