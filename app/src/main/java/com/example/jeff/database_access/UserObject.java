@@ -23,12 +23,10 @@ public class UserObject {
     private long id;
     private String username; //Username is email in most cases
     private String passhash;
-//    private String email;
     private boolean email_confirmed;
     private boolean notifications;
     private String name;
 
-//    private boolean exists;
     private boolean up_to_date;
 
 
@@ -209,8 +207,6 @@ public class UserObject {
 
         LOG_DEBUG("Synchronized user");
         LOG_DEBUG(this.toString());
-
-
     }
     public GroupObject createGroup(String group_name){
         GroupObject created_group = DatabaseRequest.create_group(this, group_name);
@@ -250,7 +246,7 @@ public class UserObject {
 
 
     public UserObject fetchFromDatabase(){
-        UserObject fetched =DatabaseRequest.get_user(getUsername(), getPasshash());
+        UserObject fetched = DatabaseRequest.get_user(getUsername(), getPasshash());
 
         if(fetched == null) return null;
 
