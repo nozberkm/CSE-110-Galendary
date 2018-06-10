@@ -855,8 +855,7 @@ public class DatabaseRequest {
         return jo.has("affectedRows") && jo.getInt("affectedRows") == 1;
 
     }
-
-    //TODO this is causing errors
+    
     public static boolean delete_entry(EntryObject entry) throws IOException, JSONException {
         UserObject user = entry.getUser();
         return delete_entry(user.getUsername(), user.getPasshash(), entry.getId());
