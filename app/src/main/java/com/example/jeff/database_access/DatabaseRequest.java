@@ -461,8 +461,6 @@ public class DatabaseRequest {
 
     // modifies the passed EntryObject
     public static EntryObject create_entry(UserObject user, GroupObject group, EntryObject entry) {
-        ParameterBuilder pb = new ParameterBuilder("create_entry");
-
         ParameterBuilder pb = new ParameterBuilder(user);
         pb.push("command", "create_entry");
         pb.push("group_id", group.getId());
@@ -505,11 +503,9 @@ public class DatabaseRequest {
     }
 
     public static String get_enrollment_code(String username, String passhash, long group_id) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_enrollment_code"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_enrollment_code");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
         pb.push("group_id", group_id);
 
         JSONObject jo = null;
