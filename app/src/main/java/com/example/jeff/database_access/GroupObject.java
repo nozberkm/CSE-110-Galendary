@@ -312,6 +312,15 @@ public class GroupObject {
 
         try {
             status = DatabaseRequest.dissolve_group(getUser(), getId());
+            if(status){
+                // Feed the garbage collection gods
+                this.id = -1;
+                this.name = null;
+                this.enrollment_code = null;
+                user = null;
+                entry_list = null;
+                new_entries = null;
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
