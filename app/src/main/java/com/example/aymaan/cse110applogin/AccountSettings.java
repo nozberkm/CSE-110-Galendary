@@ -69,7 +69,25 @@ public class AccountSettings extends AppCompatActivity {
         deleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                AlertDialog.Builder builder = new AlertDialog.Builder(AccountSettings.this);
+                builder.setMessage("Are you sure you want to delete your account?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoginActivity.userLogin.delete();
+                        Intent toLogin = new Intent(AccountSettings.this, LoginActivity.class);
+                        toLogin.putExtra("logout", true);
+                        startActivity(toLogin);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do nothing
+                    }
+                });
+                builder.create().show();
             }
         });
 
