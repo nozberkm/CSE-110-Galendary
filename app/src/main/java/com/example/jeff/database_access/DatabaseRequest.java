@@ -646,22 +646,49 @@ public class DatabaseRequest {
     }
 
     //TODO Fix this up
-    public static boolean dissolve_group(long group_id)
-            throws IOException {
+//    public static boolean dissolve_group(long group_id)
+//            throws IOException {
+//        ParameterBuilder pb = new ParameterBuilder(new String[][]{
+//                {"command", "dissolve_group"}
+//        });
+//        pb.push("group_id", group_id);
+//        JSONObject jo = GalendaryDB.server_request(pb);
+//
+//        if (!jo.has("err")) {
+//            return true;
+//        }
+//
+//        return false;
+////        !jo.has("err");
+//
+//    }
+    public static boolean dissolve_group(String username, String passhash, long group_id)
+            throws IOException, JSONException {
         ParameterBuilder pb = new ParameterBuilder(new String[][]{
                 {"command", "dissolve_group"}
         });
         pb.push("group_id", group_id);
-        JSONObject jo = GalendaryDB.server_request(pb);
+        pb.push_username(username);
+        pb.push_passhash(passhash);
 
-        if (!jo.has("err")) {
-            return true;
-        }
+
+        JSONObject jo = GalendaryDB.server_request(pb);
+//{"fieldCount":0,"affectedRows":1,"insertId":0,"serverStatus":2,"warningCount":0,"message":"","protocol41":true,"changedRows":0}
+        if (!jo.has("affectedRows")) return false;
+
+        if(jo.getInt("affectedRows") == 1) return true;
 
         return false;
-//        !jo.has("err");
-
     }
+
+    public static boolean dissolve_group(UserObject user, long group_id) throws IOException, JSONException {
+        return dissolve_group(user.getUsername(), user.getPasshash(), group_id);
+    }
+
+
+
+
+
 
 
     public static boolean add_group_to_related(String username, String passhash, long id_group_a, long id_group_b) throws IOException, JSONException {

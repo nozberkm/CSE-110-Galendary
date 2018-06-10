@@ -308,7 +308,14 @@ public class GroupObject {
     }
 
     public boolean dissolveGroup() throws IOException {
-        return DatabaseRequest.dissolve_group(this.id);
+        boolean status = false;
+
+        try {
+            status = DatabaseRequest.dissolve_group(getUser(), getId());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return status;
     }
 
 
