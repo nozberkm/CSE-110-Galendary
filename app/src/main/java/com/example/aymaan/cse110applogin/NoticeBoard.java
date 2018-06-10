@@ -180,10 +180,6 @@ public class NoticeBoard extends AppCompatActivity {
                 Intent ca= new Intent(NoticeBoard.this,NoticeBoard.class);
                 startActivity(ca);
                 break;
-            case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(NoticeBoard.this, RelatedGroups.class);
-                startActivity(rg);
-                break;
             case R.id.group_nav_groupSettings:
                 Intent gs = new Intent(NoticeBoard.this, GroupSettings.class);
                 startActivity(gs);

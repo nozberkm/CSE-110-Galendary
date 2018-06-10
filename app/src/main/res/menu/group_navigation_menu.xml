@@ -28,12 +28,6 @@
         android:title="Contact Admin"
         />
 
-    <item android:id = "@+id/group_nav_relatedGroups"
-        android:icon="@mipmap/baseline_language_black_24"
-        android:onClick="onGroupNavigationMenuItemClick"
-        android:title="Related Groups"
-        />
-
     <item android:id = "@+id/group_nav_groupSettings"
         android:icon="@mipmap/baseline_settings_black_24"
         android:onClick="onGroupNavigationMenuItemClick"

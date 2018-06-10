@@ -271,10 +271,6 @@ public class GroupHomeActivity extends AppCompatActivity {
                 Intent ca= new Intent(GroupHomeActivity.this,ContactAdminActivity.class);
                 startActivity(ca);
                 break;
-            case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(GroupHomeActivity.this, RelatedGroups.class);
-                startActivity(rg);
-                break;
             case R.id.group_nav_groupSettings:
                 if(MyGroups.currGroup.isAdmin()) {
                     Intent gs = new Intent(GroupHomeActivity.this, GroupSettings.class);
