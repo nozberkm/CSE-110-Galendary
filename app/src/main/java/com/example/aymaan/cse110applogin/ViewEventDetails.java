@@ -96,6 +96,7 @@ public class ViewEventDetails extends AppCompatActivity {
         edit_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                System.err.println(previous);
                 if (previous.equals("Home")){
                     Bundle b = new Bundle();
                     b.putString("event name", Home.currentEvent.getTitle());
@@ -118,7 +119,7 @@ public class ViewEventDetails extends AppCompatActivity {
                     Bundle b = new Bundle();
                     b.putString("event name", GroupHomeActivity.currentGroupEvent.getTitle());
                     b.putString("previous", "groupHome");
-                    if(Home.currentEvent.getStart()!=null) {
+                    if(GroupHomeActivity.currentGroupEvent.getStart()!=null) {
                         b.putLong("start date", GroupHomeActivity.currentGroupEvent.getStart().getTime());
                     }
                     b.putLong("end date", GroupHomeActivity.currentGroupEvent.getEnd().getTime());
