@@ -39,9 +39,7 @@ public class Home extends AppCompatActivity {
     public static EntryObject currentEvent;
 
     @Override
-    public void onBackPressed(){
-        finish();
-    }
+    public void onBackPressed(){}
     private AdapterView.OnItemClickListener eventClickedHandler = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
