@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -26,9 +27,8 @@ public class GroupSettings extends AppCompatActivity {
     private android.support.v7.widget.Toolbar mToolbar;
     private Button code;
     private Switch privSwitch;
-    private TextView grpName;
+    private EditText grpName;
     private Button dissolve;
-    private TextInputEditText groupName;
     Context context;
 
     @Override
@@ -49,7 +49,7 @@ public class GroupSettings extends AppCompatActivity {
 
         code = (Button) findViewById(R.id.enrollmentCode);
         dissolve = (Button) findViewById(R.id.dissolveGroup3);
-        grpName=(TextView)findViewById(R.id.groupName);
+        grpName=(EditText) findViewById(R.id.groupName);
         grpName.setText(MyGroups.currGroup.getName());
 
         code.setOnClickListener(new View.OnClickListener() {

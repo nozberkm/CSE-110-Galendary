@@ -19,41 +19,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:background="#00ffffff"
-            android:gravity="center"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/black"
-                android:gravity="center"
-                android:text="Create Group"
-                android:textColor="@android:color/white" />
-
-            <Space
-                android:layout_width="25dp"
-                android:layout_height="wrap_content" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:background="@android:color/black"
-                android:text="Join Group"
-                android:textColor="@android:color/white" />
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/listView"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"></ListView>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:text="Change Name:"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:textColor="@android:color/background_dark"/>
+
+        <EditText
+            android:id="@+id/usName"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:gravity="center_horizontal"
+            android:inputType="textMultiLine"
+            android:text="Name"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_dark" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left">
+
+                <Button
+                    android:id="@+id/changePassw"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Change Password"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <Button
+                    android:id="@+id/deleteAccountButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="Delete Account"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
