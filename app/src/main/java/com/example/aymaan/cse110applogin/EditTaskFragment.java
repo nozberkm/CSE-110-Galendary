@@ -146,6 +146,7 @@ public class EditTaskFragment extends Fragment {
                         System.err.println("getting into home");
                         Home.currentEvent.setDescription(editetTaskDescription.getText().toString());
                         Home.currentEvent.setTitle(editTaskTitle.getText().toString());
+                        Home.currentEvent.setStart(null);
                         Home.currentEvent.setEnd(end_date);
                         Home.currentEvent.pushUpdate();
                         Intent toHome = new Intent(getActivity(), Home.class);
@@ -154,6 +155,7 @@ public class EditTaskFragment extends Fragment {
                     else if(previous.equals("groupHome")){
                         GroupHomeActivity.currentGroupEvent.setDescription(editetTaskDescription.getText().toString());
                         GroupHomeActivity.currentGroupEvent.setTitle(editTaskTitle.getText().toString());
+                        GroupHomeActivity.currentGroupEvent.setStart(null);
                         GroupHomeActivity.currentGroupEvent.setEnd(end_date);
                         GroupHomeActivity.currentGroupEvent.pushUpdate();
                         Intent toHome = new Intent(getActivity(), GroupHomeActivity.class);
