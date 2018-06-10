@@ -86,6 +86,7 @@ public class GroupSettings extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         Intent toHome = new Intent(context, Home.class);
+                        toHome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(toHome);
                     }
                 });

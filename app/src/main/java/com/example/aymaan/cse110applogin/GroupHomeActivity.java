@@ -299,6 +299,7 @@ public class GroupHomeActivity extends AppCompatActivity {
                         }
                         LoginActivity.userLogin.synchronize();
                         Intent gohome = new Intent(GroupHomeActivity.this, Home.class);
+                        gohome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(gohome);
                     }
                 });
