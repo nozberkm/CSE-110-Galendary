@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class ContactAdminActivity extends AppCompatActivity {
 
-    private Toolbar contact_admin_tb;
+    private android.support.v7.widget.Toolbar mToolbar;
     private ActionBar contact_admin_ab;
 
     @Override
@@ -25,17 +25,17 @@ public class ContactAdminActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_admin);
 
-        contact_admin_tb = (Toolbar)findViewById(R.id.contact_admin_toolbar);
         final EditText subjectEditText = (EditText)findViewById(R.id.subject_edit_text);
         final EditText messageEditText = (EditText)findViewById(R.id.message_edit_text);
         final CardView sendCardView = (CardView)findViewById(R.id.send_card_view);
 
-        setSupportActionBar(contact_admin_tb);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
 
-        contact_admin_ab = (ActionBar)getSupportActionBar();
-
-        contact_admin_ab.setTitle("Contact Admin");
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         sendCardView.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -53,5 +53,11 @@ public class ContactAdminActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(emailAdminIntent, "Send Email"));
             }
         });
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

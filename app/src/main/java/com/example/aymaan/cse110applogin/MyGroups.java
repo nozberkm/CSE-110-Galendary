@@ -142,12 +142,13 @@ public class MyGroups extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s= new Intent(MyGroups.this,SettingsActivity.class);
+                Intent s= new Intent(MyGroups.this,AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
                 Intent l= new Intent(MyGroups.this,LoginActivity.class);
                 l.putExtra("logout", true);
+                l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
                 break;
         }

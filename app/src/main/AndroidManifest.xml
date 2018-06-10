@@ -52,10 +52,6 @@
             android:label="Add Notice"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".RelatedGroups"
-            android:label="Related Groups"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Heatmap"
             android:label="Heatmap"
             android:screenOrientation="portrait" />
@@ -81,6 +77,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ContactAdminActivity"
+            android:label="Contact Admin"
             android:screenOrientation="portrait" />
         <activity
             android:name=".AddTaskEventActivity"
@@ -93,6 +90,9 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" />
+        <activity
+            android:name=".AccountSettings"
+            android:label="Account Settings" />
         <activity
             android:name=".PasswordChange"
             android:label="@string/title_activity_password_change"

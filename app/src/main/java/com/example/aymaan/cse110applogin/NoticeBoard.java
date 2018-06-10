@@ -1,13 +1,16 @@
 package com.example.aymaan.cse110applogin;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.jeff.database_access.EntryObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -148,7 +152,7 @@ public class NoticeBoard extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s= new Intent(NoticeBoard.this,SettingsActivity.class);
+                Intent s= new Intent(NoticeBoard.this,AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
@@ -173,22 +177,54 @@ public class NoticeBoard extends AppCompatActivity {
                 startActivity(gm);
                 break;
             case R.id.group_nav_heatmap:
-                Intent h = new Intent(NoticeBoard.this, Heatmap.class);
-                startActivity(h);
+                if(MyGroups.currGroup.isAdmin()) {
+                    Intent h = new Intent(NoticeBoard.this, Heatmap.class);
+                    startActivity(h);
+                }
+                else {
+                    Snackbar.make(findViewById(android.R.id.content), "You need to be an admin", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
                 break;
             case R.id.group_nav_contactAdmin:
-                Intent ca= new Intent(NoticeBoard.this,NoticeBoard.class);
+                Intent ca= new Intent(NoticeBoard.this,ContactAdminActivity.class);
                 startActivity(ca);
                 break;
-            case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(NoticeBoard.this, RelatedGroups.class);
-                startActivity(rg);
-                break;
             case R.id.group_nav_groupSettings:
-                Intent gs = new Intent(NoticeBoard.this, GroupSettings.class);
-                startActivity(gs);
+                if(MyGroups.currGroup.isAdmin()) {
+                    Intent gs = new Intent(NoticeBoard.this, GroupSettings.class);
+                    startActivity(gs);
+                }
+                else {
+                    Snackbar.make(findViewById(android.R.id.content), "You need to be an admin", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
                 break;
             case R.id.group_nav_leaveGroup:
+                AlertDialog.Builder builder = new AlertDialog.Builder(NoticeBoard.this);
+                builder.setMessage("Do you want to leave this group?");
+                builder.setCancelable(false);
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try{
+                            LoginActivity.userLogin.leave_group(LoginActivity.userLogin.getId(), MyGroups.currGroup.getId());
+                        }
+                        catch(IOException e) {
+                            e.printStackTrace();
+                        }
+                        LoginActivity.userLogin.synchronize();
+                        Intent gohome = new Intent(NoticeBoard.this, Home.class);
+                        startActivity(gohome);
+                    }
+                });
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //do nothing
+                    }
+                });
+                builder.create().show();
                 break;
         }
 

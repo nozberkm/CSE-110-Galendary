@@ -109,7 +109,7 @@ public class MemberPageAdminView extends AppCompatActivity {
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Member: "+MemberList.viewedUser.getUsername());
+        getSupportActionBar().setTitle("Member: "+MemberList.viewedUser.getName());
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -48,7 +48,6 @@ public class GroupHomeActivity extends AppCompatActivity {
     private SimpleDateFormat dateFormatForMonth = new SimpleDateFormat("MMM - yyyy", Locale.getDefault());
     private CompactCalendarView group_compactCalendarView;
     private EventAdapter group_eventAdapter;
-
     public static Date clickDate = null;
     public static EntryObject currentGroupEvent;
 
@@ -235,14 +234,14 @@ public class GroupHomeActivity extends AppCompatActivity {
                 startActivity(g);
                 break;
             case R.id.nav_settings:
-                Intent s = new Intent(GroupHomeActivity.this, SettingsActivity.class);
+                Intent s = new Intent(GroupHomeActivity.this, AccountSettings.class);
                 startActivity(s);
                 break;
             case R.id.nav_logout:
                 Intent l= new Intent(GroupHomeActivity.this,LoginActivity.class);
                 l.putExtra("logout", true);
+                l.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(l);
-                finish();
                 break;
         }
 
@@ -266,19 +265,23 @@ public class GroupHomeActivity extends AppCompatActivity {
                     Intent h = new Intent(GroupHomeActivity.this, Heatmap.class);
                     startActivity(h);
                 }
+                else {
+                    Snackbar.make(findViewById(android.R.id.content), "You need to be an admin", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
                 break;
             case R.id.group_nav_contactAdmin:
                 Intent ca= new Intent(GroupHomeActivity.this,ContactAdminActivity.class);
                 startActivity(ca);
                 break;
-            case R.id.group_nav_relatedGroups:
-                Intent rg = new Intent(GroupHomeActivity.this, RelatedGroups.class);
-                startActivity(rg);
-                break;
             case R.id.group_nav_groupSettings:
                 if(MyGroups.currGroup.isAdmin()) {
                     Intent gs = new Intent(GroupHomeActivity.this, GroupSettings.class);
                     startActivity(gs);
+                }
+                else {
+                    Snackbar.make(findViewById(android.R.id.content), "You need to be an admin", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
                 }
                 break;
             case R.id.group_nav_leaveGroup:

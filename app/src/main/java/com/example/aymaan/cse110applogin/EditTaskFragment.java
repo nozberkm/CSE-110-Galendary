@@ -150,6 +150,8 @@ public class EditTaskFragment extends Fragment {
                         Home.currentEvent.setEnd(end_date);
                         System.err.println(Home.currentEvent);
                         Home.currentEvent.pushUpdate();
+                        boolean status = Home.currentEvent.pushUpdate();
+                        System.err.println("status = " + status);
                         Intent toHome = new Intent(getActivity(), Home.class);
                         startActivity(toHome);
                     }
@@ -158,7 +160,8 @@ public class EditTaskFragment extends Fragment {
                         GroupHomeActivity.currentGroupEvent.setTitle(editTaskTitle.getText().toString());
                         //GroupHomeActivity.currentGroupEvent.setStart(null);
                         GroupHomeActivity.currentGroupEvent.setEnd(end_date);
-                        GroupHomeActivity.currentGroupEvent.pushUpdate();
+                        boolean status = GroupHomeActivity.currentGroupEvent.pushUpdate();
+                        System.err.println("status = " + status);
                         Intent toHome = new Intent(getActivity(), GroupHomeActivity.class);
                         startActivity(toHome);
                     }

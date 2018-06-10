@@ -9,13 +9,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.Toolbar
-        android:layout_height="wrap_content"
+    <include
+        layout="@layout/navigation_action"
         android:layout_width="match_parent"
-        android:id="@+id/contact_admin_toolbar"
-        app:titleTextColor="#FFFFFF"
-        android:background="@color/colorPrimaryDark">
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content" />
 
     <EditText
         android:layout_height="0dp"

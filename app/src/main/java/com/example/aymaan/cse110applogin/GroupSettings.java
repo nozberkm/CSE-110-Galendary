@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.io.IOException;
 
 public class GroupSettings extends AppCompatActivity {
+    private android.support.v7.widget.Toolbar mToolbar;
     private Button code;
     private Switch privSwitch;
     private TextView grpName;
@@ -36,8 +37,16 @@ public class GroupSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         context = this;
         setContentView(R.layout.activity_group_settings);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.nav_action);
+        setSupportActionBar(mToolbar);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+
         code = (Button) findViewById(R.id.enrollmentCode);
         dissolve = (Button) findViewById(R.id.dissolveGroup3);
         grpName=(TextView)findViewById(R.id.groupName);
@@ -104,6 +113,12 @@ public class GroupSettings extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 }

@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RelatedGroups"
-    android:id="@+id/relatedGroupsLayout">
+    tools:context=".AccountSettings"
+    android:id="@+id/accountSettingsLayout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +19,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#00ffffff"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:gravity="center"
+                android:text="Create Group"
+                android:textColor="@android:color/white" />
+
+            <Space
+                android:layout_width="25dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/black"
+                android:text="Join Group"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
         <ListView
-            android:id="@+id/relatedGroupsList"
+            android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="vertical"></ListView>
+
 
     </LinearLayout>
 
@@ -33,16 +64,6 @@
         app:menu="@menu/navigation_menu"
         android:layout_gravity="start"
         app:headerLayout="@layout/navigation_header">
-    </android.support.design.widget.NavigationView>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/related_groups_navView"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        app:headerLayout="@layout/group_navigation_header"
-        app:menu="@menu/group_navigation_menu">
-
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>
