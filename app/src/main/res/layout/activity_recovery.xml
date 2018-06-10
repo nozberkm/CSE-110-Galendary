@@ -21,7 +21,8 @@
         android:gravity="center_vertical"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColorHint="#FFFFFF" />
+        android:textColorHint="#FFFFFF"
+        android:textColor="#FFFFFF"/>
 
     <ImageView
         android:id="@+id/imRecoveryLogo"
