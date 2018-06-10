@@ -447,24 +447,22 @@ public class DatabaseRequest {
 
         JSONObject jo = GalendaryDB.server_request(pb);
 
-        System.out.println(jo.toString());
-
         if (jo.has("data")) {
             try {
                 return (Integer) jo.getJSONArray("data").getJSONArray(0).getJSONObject(0).get("success") != 0;
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-//            System.out.println(jo2.toString());
         }
 
         return false;
-//        !jo.has("err");
     }
 
 
     // modifies the passed EntryObject
     public static EntryObject create_entry(UserObject user, GroupObject group, EntryObject entry) {
+        ParameterBuilder pb = new ParameterBuilder("create_entry");
+
         ParameterBuilder pb = new ParameterBuilder(user);
         pb.push("command", "create_entry");
         pb.push("group_id", group.getId());
