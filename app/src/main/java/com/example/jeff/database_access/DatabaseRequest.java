@@ -556,11 +556,9 @@ public class DatabaseRequest {
 
 
     public static String generate_enrollment_code(String username, String passhash, long group_id) {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "generate_enrollment_code"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("generate_enrollment_code");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
         pb.push("group_id", group_id);
 
         JSONObject jo = null;
@@ -600,11 +598,9 @@ public class DatabaseRequest {
     }
 
     public static ArrayList<GroupObject> get_related_groups(String username, String passhash, long group_id) throws IOException, JSONException {
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "get_related_groups"},
-                {"username", username},
-                {"passhash", passhash}
-        });
+        ParameterBuilder pb = new ParameterBuilder("get_related_groups");
+        pb.push_username(username);
+        pb.push_passhash(passhash);
         pb.push("group_id", group_id);
 
 
@@ -725,12 +721,7 @@ public class DatabaseRequest {
     public static ArrayList<UserObject> load_group_members(GroupObject group) throws IOException, JSONException {
         // TODO: Handle security issue by requiring username and passhash
         // So that only members of the group have access to the group members
-
-        ParameterBuilder pb = new ParameterBuilder(new String[][]{
-                {"command", "load_group_members"}
-        });
-
-
+        ParameterBuilder pb = new ParameterBuilder("load_group_members");
         pb.push("group_id", group.getId());
 
         JSONObject jo = null;
