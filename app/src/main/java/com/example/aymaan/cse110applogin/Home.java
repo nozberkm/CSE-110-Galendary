@@ -118,8 +118,10 @@ public class Home extends AppCompatActivity {
                 Date date = EntryObject.getDayDateFromString(s);
                 if(date == null) continue;
                 for(int i=0; i<EntryMap.get(s).size(); i++) {
-                    Event ev1 = new Event(Color.BLACK, date.getTime());
-                    compactCalendarView.addEvent(ev1);
+                    if (!EntryMap.get(s).get(i).isNotice()) {
+                        Event ev1 = new Event(Color.BLACK, date.getTime());
+                        compactCalendarView.addEvent(ev1);
+                    }
                 }
             }
         }

@@ -206,7 +206,7 @@ public class Heatmap extends AppCompatActivity {
     }
 
     public void myMethod(View view) {
-        
+
     }
 
     private void colorGrid() {
