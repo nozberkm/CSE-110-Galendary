@@ -386,7 +386,7 @@ public class UserObject {
         }
 
         if(status) this.passhash = new_passhash;
-        
+
         return status;
     }
 
