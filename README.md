@@ -98,14 +98,14 @@ Setup:
 6.5 Or you can run the app on an emulator from android studio
 
 ## Developers:
-Nabi Ozberkman
-Aymaan Ahmed
-Jeffrey Cash
-Chaitanya Patel
-Pablo Canas Castellanos
-Levi Friley
-Jesus Gutierrez
-Aron Laszik
-Christian Schroeder
-Jor-el Briones
+- Nabi Ozberkman
+- Aymaan Ahmed
+- Jeffrey Cash
+- Chaitanya Patel
+- Pablo Canas Castellanos
+- Levi Friley
+- Jesus Gutierrez
+- Aron Laszik
+- Christian Schroeder
+- Jor-el Briones
 
