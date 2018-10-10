@@ -96,3 +96,16 @@ Setup:
 5. When the dialog box pops up to indicate the completion of build, click locate
 6. You can copy the apk file to your android phone and install it by clicking on it.
 6.5 Or you can run the app on an emulator from android studio
+
+#Developers:
+Nabi Ozberkman
+Aymaan Ahmed
+Jeffrey Cash
+Chaitanya Patel
+Pablo Canas Castellanos
+Levi Friley
+Jesus Gutierrez
+Aron Laszik
+Christian Schroeder
+Jor-el Briones
+
